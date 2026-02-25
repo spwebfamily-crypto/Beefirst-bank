@@ -27,6 +27,10 @@ Esta landing page foi desenvolvida para apresentar a solução de forma clara e 
 - Sistema de grid responsivo
 - Tipografia hierárquica e legível
 - Paleta de cores adaptativa por tema
+- Animações sequenciais nos cards de processo
+- Efeitos de hover interativos e suaves
+- Números pulsantes com anéis expansivos
+- Setas com animação de fluxo contínuo
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -119,6 +123,7 @@ Implementações de acessibilidade incluem:
 - Foco visível em elementos interativos
 - Suporte a leitores de tela
 - Respeito a `prefers-reduced-motion`
+- Animações otimizadas para performance
 
 ## 🎯 Integrações
 
@@ -144,6 +149,25 @@ Payload enviado:
   "goal": "Objetivo principal"
 }
 ```
+
+## ✨ Animações e Interações
+
+### Cards de Processo
+- Entrada sequencial com efeito slide-up
+- Números com animação de pulso contínua
+- Anéis expansivos nos badges numéricos
+- Hover com elevação e brilho deslizante
+- Transições suaves com cubic-bezier
+
+### Setas de Fluxo
+- Animação de fluxo horizontal contínuo
+- Pulsação sincronizada entre elementos
+- Delays coordenados para efeito de onda
+
+### Performance
+- Animações otimizadas com GPU acceleration
+- Uso de `transform` e `opacity` para melhor performance
+- Respeito às preferências de movimento reduzido do usuário
 
 ## 🎨 Personalização
 
