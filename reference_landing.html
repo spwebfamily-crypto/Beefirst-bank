@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/logo_beefirst.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/logo_beefirst.png" />
+  <link rel="icon" type="image/svg+xml" href="/logo_hex.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo_beefirst.png" />
+  <link rel="shortcut icon" href="/logo_beefirst.png" />
+
+  <!-- SEO Meta Tags -->
+  <title>BeeFirst - Soluções Inteligentes com IA</title>
+  <meta name="description"
+    content="Transforme seu negócio com agentes de IA personalizados. Automação inteligente, atendimento 24/7 e soluções inovadoras para sua empresa." />
+  <meta name="keywords"
+    content="inteligência artificial, IA, agentes IA, automação, chatbot, BeeFirst, soluções empresariais" />
+  <meta name="author" content="BeeFirst" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://beefirst.ai/" />
+  <meta property="og:title" content="BeeFirst - Soluções Inteligentes com IA" />
+  <meta property="og:description"
+    content="Transforme seu negócio com agentes de IA personalizados. Automação inteligente, atendimento 24/7 e soluções inovadoras." />
+  <meta property="og:image" content="/logo_hex.svg" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://beefirst.ai/" />
+  <meta property="twitter:title" content="BeeFirst - Soluções Inteligentes com IA" />
+  <meta property="twitter:description" content="Transforme seu negócio com agentes de IA personalizados." />
+  <meta property="twitter:image" content="/logo_hex.svg" />
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#FACC00" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              blue: '#0505E3',
+              yellow: '#FACC00',
+              anthracite: '#212529',
+              gray: '#6C757D',
+              ice: '#EAEAEA',
+            },
+            border: "var(--border)",
+            input: "var(--input)",
+            ring: "var(--ring)",
+            background: "var(--background)",
+            foreground: "var(--foreground)",
+            primary: {
+              DEFAULT: "var(--primary)",
+              foreground: "var(--primary-foreground)",
+            },
+            secondary: {
+              DEFAULT: "var(--secondary)",
+              foreground: "var(--secondary-foreground)",
+            },
+            destructive: {
+              DEFAULT: "var(--destructive)",
+              foreground: "var(--destructive-foreground)",
+            },
+            muted: {
+              DEFAULT: "var(--muted)",
+              foreground: "var(--muted-foreground)",
+            },
+            accent: {
+              DEFAULT: "var(--accent)",
+              foreground: "var(--accent-foreground)",
+            },
+            popover: {
+              DEFAULT: "var(--popover)",
+              foreground: "var(--popover-foreground)",
+            },
+            card: {
+              DEFAULT: "var(--card)",
+              foreground: "var(--card-foreground)",
+            },
+          },
+          borderRadius: {
+            lg: "var(--radius)",
+            md: "calc(var(--radius) - 2px)",
+            sm: "calc(var(--radius) - 4px)",
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Syne', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      /* OKLCH Color Palette */
+      --background: oklch(0 0 0);
+      --foreground: oklch(1 0 0);
+      --card: oklch(0.1 0 0 / 0.1);
+      --card-foreground: oklch(1 0 0);
+      --popover: oklch(0 0 0 / 0.8);
+      --popover-foreground: oklch(1 0 0);
+      --primary: oklch(1 0 0);
+      --primary-foreground: oklch(0 0 0);
+      --secondary: oklch(0.65 0.25 25);
+      --secondary-foreground: oklch(1 0 0);
+      --muted: oklch(1 0 0 / 0.5);
+      --muted-foreground: oklch(0.7 0 0);
+      --accent: oklch(0.65 0.25 25);
+      --accent-foreground: oklch(1 0 0);
+      --destructive: oklch(0.6 0.25 15);
+      --destructive-foreground: oklch(1 0 0);
+      --border: oklch(1 0 0 / 0.2);
+      --input: oklch(1 0 0 / 0.1);
+      --ring: oklch(1 0 0 / 0.3);
+      --chart-1: oklch(0.65 0.25 25);
+      --chart-2: oklch(0.8 0.15 85);
+      --chart-3: oklch(0.7 0.2 140);
+      --chart-4: oklch(0.7 0.2 240);
+      --chart-5: oklch(0.6 0.25 300);
+      --radius: 0.5rem;
+      --sidebar: oklch(0 0 0 / 0.9);
+      --sidebar-foreground: oklch(1 0 0);
+      --sidebar-primary: oklch(0.65 0.25 25);
+      --sidebar-primary-foreground: oklch(1 0 0);
+      --sidebar-accent: oklch(0.65 0.25 25);
+      --sidebar-accent-foreground: oklch(1 0 0);
+      --sidebar-border: oklch(1 0 0 / 0.2);
+      --sidebar-ring: oklch(1 0 0 / 0.3);
+    }
+
+    .dark {
+      --background: oklch(0 0 0);
+      --foreground: oklch(1 0 0);
+      --card: oklch(0.1 0 0 / 0.1);
+      --card-foreground: oklch(1 0 0);
+      --popover: oklch(0 0 0 / 0.8);
+      --popover-foreground: oklch(1 0 0);
+      --primary: oklch(1 0 0);
+      --primary-foreground: oklch(0 0 0);
+      --secondary: oklch(0.65 0.25 25);
+      --secondary-foreground: oklch(1 0 0);
+      --muted: oklch(1 0 0 / 0.5);
+      --muted-foreground: oklch(0.7 0 0);
+      --accent: oklch(0.65 0.25 25);
+      --accent-foreground: oklch(1 0 0);
+      --destructive: oklch(0.6 0.25 15);
+      --destructive-foreground: oklch(1 0 0);
+      --border: oklch(1 0 0 / 0.2);
+      --input: oklch(1 0 0 / 0.1);
+      --ring: oklch(1 0 0 / 0.3);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-color: #212529;
+      /* Default to dark as per new theme */
+      color: white;
+    }
+
+    /* Marquee Animation */
+
+    .marquee-container {
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .marquee-content {
+      display: inline-block;
+      animation: marquee 40s linear infinite;
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* Smooth Scrolling */
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Hide Scrollbar for Carousel */
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.3.1",
+    "react/": "https://esm.sh/react@18.3.1/",
+    "react-dom": "https://esm.sh/react-dom@18.3.1",
+    "react-dom/": "https://esm.sh/react-dom@18.3.1/",
+    "lucide-react": "https://esm.sh/lucide-react@0.344.0?external=react,react-dom",
+    "recharts": "https://esm.sh/recharts@2.12.2?external=react,react-dom",
+    "clsx": "https://esm.sh/clsx@2.1.0",
+    "tailwind-merge": "https://esm.sh/tailwind-merge@2.2.1",
+    "three": "https://esm.sh/three@0.162.0",
+    "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.16.8?external=react,react-dom,three",
+    "next-themes": "https://esm.sh/next-themes@0.2.1?external=react,react-dom",
+    "framer-motion": "https://esm.sh/framer-motion@11.0.8?external=react,react-dom"
+  }
+}
+</script>
+  <script type="module" crossorigin src="/assets/index-BUfW1d0m.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DqIzAEe6.css">
+</head>
+
+<body>
+  <div id="root"></div>
+</body>
+
+</html>

@@ -1,5 +1,5 @@
 export const LOCALE_CONFIG = {
-  pt: { locale: "pt-BR", currency: "BRL" },
+  pt: { locale: "pt-PT", currency: "EUR" },
   en: { locale: "en-US", currency: "USD" },
   es: { locale: "es-ES", currency: "EUR" },
 };
@@ -39,7 +39,7 @@ export const UI_COPY = {
       titleBefore: "Transforme a conciliação em uma",
       titleAccent: "máquina de margem",
       titleAfter: "não em um gargalo operacional.",
-      sub: "A Hive automatiza o cruzamento entre contabilidade e extratos, destaca exceções com prioridade e entrega um dashboard claro para o time fechar mais rápido, com menos erro e mais previsibilidade.",
+      sub: "A Hive automatiza o cruzamento entre contabilidade e extratos, destaca exceções com prioridade e entrega um dashboard claro para a equipa fechar mais depressa, com menos erro e mais previsibilidade.",
       bullets: [
         "Reduz tempo manual e retrabalho em tarefas repetitivas",
         "Mostra pendências e divergências em uma única visão",
@@ -92,19 +92,19 @@ export const UI_COPY = {
       cardBadge: "Diagnóstico comercial",
       cardMeta: "15 min",
       noteIdle:
-        "Preencha e use este bloco como captura de lead. Você pode conectar ao Calendly, CRM ou WhatsApp.",
+        "Preencha e use este bloco como captura de lead. Pode ligá-lo ao Calendly, CRM ou WhatsApp.",
       noteSuccess:
         "Pedido recebido. Próximo passo: conecte este formulário ao seu CRM/Calendly para capturar leads reais.",
       form: {
         name: "Nome",
         namePlaceholder: "Seu nome",
         email: "Email",
-        emailPlaceholder: "voce@empresa.com",
+        emailPlaceholder: "equipa@empresa.pt",
         company: "Empresa",
         companyPlaceholder: "Nome do escritório",
         profile: "Perfil",
         profileOptions: {
-          escritorio: "Escritório contábil",
+          escritorio: "Escritório contabilístico",
           bpo: "BPO financeiro",
           financeiro: "Financeiro interno",
           outro: "Outro",

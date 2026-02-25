@@ -1,7 +1,13 @@
 ﻿import React from "react";
 import dashboardShot from "./assets/dashboard.svg";
+import brandLogoFull from "./assets/branding/logo-full.svg";
+import brandLogoMark from "./assets/branding/logo-mark.svg";
 import "./styles.css";
 import { UI_COPY } from "./uiCopy";
+import { Canvas } from "@react-three/fiber";
+import { ShaderPlane } from "./components/ui/background-paper-shaders";
+import { WordRotate } from "./components/ui/word-rotate";
+import { TypingAnimation } from "./components/ui/typing-animation";
 
 const NAV_ITEMS = [
   { id: "problema", key: "problema" },
@@ -22,6 +28,64 @@ const FOCUSABLE_SELECTOR = [
   'textarea:not([disabled]):not([tabindex="-1"])',
   '[tabindex]:not([tabindex="-1"])',
 ].join(",");
+const LOCAL_LEADS_STORAGE_KEY = "hive-landing-leads";
+const LOCAL_LEADS_STORAGE_LIMIT = 50;
+const HYBRID_HERO_ROTATE = {
+  pt: ["CONCILIAÇÃO", "FECHAMENTO", "ESCALA", "MARGEM"],
+  en: ["RECONCILIATION", "CLOSING", "SCALE", "MARGIN"],
+  es: ["CONCILIACIÓN", "CIERRE", "ESCALA", "MARGEN"],
+};
+const HYBRID_HERO_COMMAND = {
+  pt: "matching + extratos | fila de exceções | rastreabilidade | piloto guiado",
+  en: "matching + statements | exception queue | traceability | guided pilot",
+  es: "matching + extractos | cola de excepciones | trazabilidad | piloto guiado",
+};
+const HYBRID_STACK_LOGOS = [
+  { src: "/logos/openai.svg", label: "OpenAI" },
+  { src: "/logos/gemini.svg", label: "Gemini" },
+  { src: "/logos/react.svg", label: "React" },
+  { src: "/logos/postgres.svg", label: "Postgres" },
+  { src: "/logos/aws.svg", label: "AWS" },
+  { src: "/logos/meta.svg", label: "Meta" },
+];
+
+function normalizeLeadPayload(entries) {
+  return {
+    name: String(entries.name ?? "").trim(),
+    email: String(entries.email ?? "").trim(),
+    company: String(entries.company ?? "").trim(),
+    profile: String(entries.profile ?? "").trim(),
+    volume: String(entries.volume ?? "").trim(),
+    goal: String(entries.goal ?? "").trim(),
+    website: String(entries.website ?? "").trim(),
+  };
+}
+
+function saveLeadLocally(payload) {
+  if (typeof window === "undefined") return null;
+
+  const record = {
+    id: window.crypto?.randomUUID?.() ?? `lead-${Date.now()}`,
+    source: "hive-landing",
+    createdAt: new Date().toISOString(),
+    ...payload,
+  };
+
+  try {
+    const raw = window.localStorage.getItem(LOCAL_LEADS_STORAGE_KEY);
+    const current = raw ? JSON.parse(raw) : [];
+    const next = Array.isArray(current) ? current : [];
+    next.unshift(record);
+    window.localStorage.setItem(
+      LOCAL_LEADS_STORAGE_KEY,
+      JSON.stringify(next.slice(0, LOCAL_LEADS_STORAGE_LIMIT)),
+    );
+  } catch {
+    // Keep the form usable if localStorage is blocked.
+  }
+
+  return record;
+}
 
 const focusPills = [
   "Conciliação bancária com IA aplicada à contabilidade",
@@ -39,8 +103,8 @@ const painComparison = [
     after: "Tempo operacional reduzido e revisão focada no que importa",
   },
   {
-    before: "Dificuldade para escalar clientes sem contratar mais time",
-    after: "Mais capacidade com o mesmo time e processo padronizado",
+    before: "Dificuldade para escalar clientes sem contratar mais equipa",
+    after: "Mais capacidade com a mesma equipa e processo padronizado",
   },
   {
     before: "Pouca visibilidade do status por cliente/período",
@@ -143,7 +207,7 @@ const proofCards = [
   {
     label: "Ganho de tempo (meta de projeto)",
     value: "60–90%",
-    text: "Redução de esforço na conciliação manual quando o fluxo está configurado e o time adota regras de automação.",
+    text: "Redução de esforço na conciliação manual quando o fluxo está configurado e a equipa adota regras de automação.",
   },
   {
     label: "Primeiro valor percebido",
@@ -176,7 +240,7 @@ const planCards = [
     badge: "Mais escolhido",
     name: "Growth",
     price: "Proposta mensal",
-    subtitle: "Escalar com automação e padronização do time",
+    subtitle: "Escalar com automação e padronização da equipa",
     features: [
       "Tudo do Pilot",
       "Regras de automação reutilizáveis",
@@ -206,12 +270,12 @@ const planCards = [
 
 const faqItems = [
   {
-    q: "Preciso trocar meu sistema contábil?",
-    a: "Não necessariamente. A Hive pode operar via integração ou importação de dados, dependendo do seu setup atual e do nível de automação desejado.",
+    q: "Preciso de trocar o meu sistema contabilístico?",
+    a: "Não necessariamente. A Hive pode operar por integração ou importação de dados, dependendo da configuração atual e do nível de automação pretendido.",
   },
   {
     q: "Quanto tempo leva para ver resultado?",
-    a: "Em um piloto bem delimitado, o time costuma perceber ganho de visibilidade e redução de retrabalho já nas primeiras cargas. O ROI completo depende de volume e padronização de regras.",
+    a: "Num piloto bem delimitado, a equipa costuma perceber ganho de visibilidade e redução de retrabalho logo nas primeiras cargas. O ROI completo depende do volume e da padronização das regras.",
   },
   {
     q: "A solução é segura para dados financeiros?",
@@ -228,7 +292,7 @@ const decisionSignals = [
     title: "Quando a compra tende a avançar",
     points: [
       "Fechamento mensal atrasa por excesso de conferência manual",
-      "Equipe sênior gasta tempo demais em validação repetitiva",
+      "Equipa sénior gasta tempo excessivo em validação repetitiva",
       "Crescimento da carteira exige contratação constante",
     ],
     tone: "good",
@@ -237,7 +301,7 @@ const decisionSignals = [
     title: "Objeções que travam (e como responder)",
     points: [
       "\"Preciso trocar tudo\" → não: dá para começar por piloto/importação",
-      "\"Meu time não vai usar\" → fluxo prioriza exceções e mantém controlo",
+      "\"A minha equipa não vai usar\" → o fluxo prioriza exceções e mantém controlo",
       "\"Não sei se compensa\" → diagnóstico com simulação de ROI",
     ],
     tone: "neutral",
@@ -258,7 +322,7 @@ const testimonials = [
     quote:
       "O que fez sentido para nós não foi só a automação, foi finalmente conseguir priorizar exceções e tirar a equipa do trabalho repetitivo.",
     role: "Gestão operacional",
-    company: "Escritório contábil (cenário típico)",
+    company: "Escritório contabilístico (cenário típico)",
     accent: "mint",
   },
   {
@@ -272,14 +336,14 @@ const testimonials = [
     quote:
       "Ter dashboard por cliente e período ajudou a padronizar o processo e acelerar revisão sem perder controlo.",
     role: "Coordenação de equipa",
-    company: "Operação contábil (cenário típico)",
+    company: "Operação contabilística (cenário típico)",
     accent: "ink",
   },
 ];
 
 const fitBadges = [
   "Escritórios contábeis com volume mensal recorrente",
-  "BPO financeiro com time operacional sobrecarregado",
+  "BPO financeiro com equipa operacional sobrecarregada",
   "Operações que querem crescer sem aumentar headcount",
   "Gestão que precisa mostrar ROI da automação internamente",
 ];
@@ -298,12 +362,15 @@ function Landing() {
   const [showBackToTop, setShowBackToTop] = React.useState(false);
   const [submitState, setSubmitState] = React.useState("idle");
   const [submitError, setSubmitError] = React.useState("");
+  const [submitSuccessMessage, setSubmitSuccessMessage] = React.useState("");
   const drawerRef = React.useRef(null);
   const menuToggleRef = React.useRef(null);
   const previousFocusRef = React.useRef(null);
   const restoreFocusOnCloseRef = React.useRef(true);
 
   const copy = UI_COPY[lang] ?? UI_COPY.pt;
+  const heroRotateWords = HYBRID_HERO_ROTATE[lang] ?? HYBRID_HERO_ROTATE.pt;
+  const heroCommandLine = HYBRID_HERO_COMMAND[lang] ?? HYBRID_HERO_COMMAND.pt;
   const a11yCopy = React.useMemo(() => {
     if (lang === "en") {
       return {
@@ -341,6 +408,7 @@ function Landing() {
     () => ({
       crmWebhookUrl: import.meta.env.VITE_CRM_WEBHOOK_URL?.trim() ?? "",
       calendlyUrl: import.meta.env.VITE_CALENDLY_URL?.trim() ?? "",
+      contactEmail: import.meta.env.VITE_CONTACT_EMAIL?.trim() ?? "",
       whatsappNumber:
         import.meta.env.VITE_WHATSAPP_NUMBER?.replace(/\D/g, "") ?? "",
     }),
@@ -349,6 +417,7 @@ function Landing() {
   const hasAnyIntegration =
     !!integrationConfig.crmWebhookUrl ||
     !!integrationConfig.calendlyUrl ||
+    !!integrationConfig.contactEmail ||
     !!integrationConfig.whatsappNumber;
 
   React.useEffect(() => {
@@ -510,10 +579,26 @@ function Landing() {
     event.preventDefault();
     setSubmitState("submitting");
     setSubmitError("");
+    setSubmitSuccessMessage("");
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
+    const payload = normalizeLeadPayload(Object.fromEntries(formData.entries()));
+    if (payload.website) {
+      setLeadSent(true);
+      setSubmitState("success");
+      setSubmitSuccessMessage("Pedido recebido.");
+      form.reset();
+      setMobileMenuOpen(false);
+      return;
+    }
+
+    if (!payload.name || !payload.email || !payload.company) {
+      setSubmitState("error");
+      setSubmitError("Preencha nome, email e empresa para continuar.");
+      return;
+    }
+
     const summaryMessage = [
       "Novo pedido de demonstração - Hive",
       `Nome: ${payload.name ?? ""}`,
@@ -524,17 +609,29 @@ function Landing() {
       `Objetivo: ${payload.goal ?? ""}`,
       `Origem: landing-page`,
     ].join("\n");
+    const crmPayload = {
+      source: "hive-landing",
+      createdAt: new Date().toISOString(),
+      ...payload,
+    };
+    delete crmPayload.website;
 
     let externalTargetUrl = "";
     if (integrationConfig.calendlyUrl) {
-      const calendly = new URL(integrationConfig.calendlyUrl);
-      calendly.searchParams.set("name", String(payload.name ?? ""));
-      calendly.searchParams.set("email", String(payload.email ?? ""));
-      calendly.searchParams.set("a1", String(payload.company ?? ""));
-      calendly.searchParams.set("a2", String(payload.profile ?? ""));
-      calendly.searchParams.set("a3", String(payload.volume ?? ""));
-      calendly.searchParams.set("a4", String(payload.goal ?? ""));
-      externalTargetUrl = calendly.toString();
+      try {
+        const calendly = new URL(integrationConfig.calendlyUrl);
+        calendly.searchParams.set("name", payload.name);
+        calendly.searchParams.set("email", payload.email);
+        calendly.searchParams.set("a1", payload.company);
+        calendly.searchParams.set("a2", payload.profile);
+        calendly.searchParams.set("a3", payload.volume);
+        calendly.searchParams.set("a4", payload.goal);
+        externalTargetUrl = calendly.toString();
+      } catch {
+        setSubmitState("error");
+        setSubmitError("Link do Calendly inválido no `.env`.");
+        return;
+      }
     } else if (integrationConfig.whatsappNumber) {
       externalTargetUrl = `https://wa.me/${
         integrationConfig.whatsappNumber
@@ -546,20 +643,21 @@ function Landing() {
       : null;
 
     try {
+      let delivered = false;
+      let successMessage = copy.closing.noteSuccess;
+
       if (integrationConfig.crmWebhookUrl) {
         const response = await fetch(integrationConfig.crmWebhookUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            source: "hive-landing",
-            createdAt: new Date().toISOString(),
-            ...payload,
-          }),
+          body: JSON.stringify(crmPayload),
         });
 
         if (!response.ok) {
           throw new Error("Falha ao enviar lead para o CRM.");
         }
+        delivered = true;
+        successMessage = "Lead enviado ao CRM com sucesso.";
       }
 
       if (externalTargetUrl) {
@@ -568,10 +666,39 @@ function Landing() {
         } else {
           window.open(externalTargetUrl, "_blank", "noopener,noreferrer");
         }
+        delivered = true;
+        successMessage = integrationConfig.calendlyUrl
+          ? "Lead enviado. Abrimos o agendamento no Calendly."
+          : "Lead enviado. Abrimos o WhatsApp para concluir o contacto.";
+      }
+
+      if (!externalTargetUrl && integrationConfig.contactEmail) {
+        const mailtoUrl = `mailto:${encodeURIComponent(
+          integrationConfig.contactEmail,
+        )}?subject=${encodeURIComponent(
+          "Novo pedido de demonstração - Hive",
+        )}&body=${encodeURIComponent(summaryMessage)}`;
+        window.location.href = mailtoUrl;
+        delivered = true;
+        successMessage =
+          "Lead preparado por e-mail. O cliente de e-mail foi aberto.";
+      }
+
+      if (!delivered) {
+        saveLeadLocally(payload);
+        try {
+          await window.navigator.clipboard?.writeText?.(summaryMessage);
+          successMessage =
+            "Lead salvo localmente no navegador e resumo copiado para a área de transferência.";
+        } catch {
+          successMessage =
+            "Lead salvo localmente no navegador. Configure CRM/Calendly/WhatsApp/e-mail para envio externo.";
+        }
       }
 
       setLeadSent(true);
       setSubmitState("success");
+      setSubmitSuccessMessage(successMessage);
       form.reset();
     } catch (error) {
       if (popupWindow && !popupWindow.closed) {
@@ -619,7 +746,7 @@ function Landing() {
   };
 
   return (
-    <div className="page-shell">
+    <div className="page-shell layout-vendus-hybrid">
       <a className="skip-link" href="#main-content">
         {a11yCopy.skipToContent}
       </a>
@@ -644,7 +771,7 @@ function Landing() {
         <div className="container nav-inner">
           <a className="brand" href="#top" aria-label="BeeFirst Hive início">
             <span className="brand-mark" aria-hidden="true">
-              <span />
+              <img src={brandLogoMark} alt="" />
             </span>
             <span className="brand-copy">
               <strong>BeeFirst</strong>
@@ -823,19 +950,44 @@ function Landing() {
 
       <main id="main-content" tabIndex={-1} aria-labelledby="hero-title">
         <section className="hero container" aria-labelledby="hero-title">
+          <div className="hero-tech-bg" aria-hidden="true">
+            <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+              <ambientLight intensity={0.65} />
+              <ShaderPlane color1="#0b1320" color2="#1e293b" />
+            </Canvas>
+            <div className="hero-tech-overlay" />
+          </div>
           <div className="hero-grid">
             <div className="hero-copy reveal-up">
               <div className="eyebrow">
                 <span className="pulse-dot" aria-hidden="true" />
-                <span>HIVE – Conciliação Automática para Contabilistas</span>
+                <span>HIVE • AI Ops Command Layer para Contabilistas</span>
               </div>
 
-              <h1 id="hero-title">Reduza horas de conciliação bancária a segundos.</h1>
+              <h1 id="hero-title">
+                {copy.hero.titleBefore} <span>{copy.hero.titleAccent}</span>{" "}
+                {copy.hero.titleAfter}
+              </h1>
 
-              <p className="hero-sub">
-                Automatize o cruzamento entre contabilidade e extratos bancários
-                com a Hive.
-              </p>
+              <div className="hero-rotate-shell" aria-hidden="true">
+                <span className="hero-rotate-label">AI OPS</span>
+                <WordRotate
+                  words={heroRotateWords}
+                  duration={2100}
+                  className="hero-rotate-word"
+                />
+              </div>
+
+              <p className="hero-sub">{copy.hero.sub}</p>
+
+              <div className="hero-command-line" aria-hidden="true">
+                <span className="hero-command-label">$ hive.command</span>
+                <TypingAnimation
+                  text={heroCommandLine}
+                  duration={22}
+                  className="hero-command-typing !text-left !text-sm !leading-relaxed !font-normal !min-h-0"
+                />
+              </div>
 
               <div className="hero-bullets">
                 {[
@@ -858,6 +1010,15 @@ function Landing() {
               </div>
 
               <div className="micro-note">{copy.hero.micro}</div>
+
+              <div className="hero-stack-signals" aria-label="Tecnologias e ecossistema">
+                {HYBRID_STACK_LOGOS.map((item) => (
+                  <span className="hero-stack-chip" key={item.label}>
+                    <img src={item.src} alt="" aria-hidden="true" loading="lazy" />
+                    <span>{item.label}</span>
+                  </span>
+                ))}
+              </div>
 
               <div className="hero-stats">
                 {copy.hero.metrics.map((metric) => (
@@ -943,7 +1104,7 @@ function Landing() {
           aria-labelledby="trust-title"
         >
           <div className="trust-head">
-            <small>HIVE – Conciliação Automática para Contabilistas</small>
+            <small>HIVE | Conciliação Automática para Contabilistas</small>
             <h2 id="trust-title">
               Automatize a conciliação bancária com controlo e velocidade.
             </h2>
@@ -962,12 +1123,21 @@ function Landing() {
               <StatPill label="Resultado" value="Validação e Ação" />
             </div>
           </div>
+
+          <div className="trust-stack-strip" aria-label="Stack e integrações suportadas">
+            {HYBRID_STACK_LOGOS.map((item) => (
+              <span className="trust-stack-chip" key={`trust-${item.label}`}>
+                <img src={item.src} alt="" aria-hidden="true" loading="lazy" />
+                <span>{item.label}</span>
+              </span>
+            ))}
+          </div>
         </section>
 
         <section className="container section" id="problema" aria-labelledby="problema-title">
           <div className="section-surface problem-surface">
             <SectionHeader
-              eyebrow="2⃣ O PROBLEMA"
+              eyebrow="02 | O PROBLEMA"
               titleId="problema-title"
               title="A conciliação bancária ainda consome horas da sua equipa?"
               lead="Processos manuais implicam:"
@@ -1012,9 +1182,9 @@ function Landing() {
         <section className="container section" id="solucao" aria-labelledby="solucao-title">
           <div className="section-surface solution-surface">
             <SectionHeader
-              eyebrow="3⃣ A SOLUÇÃO"
+              eyebrow="03 | A SOLUÇÃO"
               titleId="solucao-title"
-              title="Apresentamos a Hive – Conciliação Automática"
+              title="Apresentamos a Hive - Conciliação Automática"
               lead="A Hive utiliza inteligência artificial para cruzar automaticamente:"
             />
 
@@ -1080,7 +1250,7 @@ function Landing() {
         <section className="container section" id="como" aria-labelledby="como-title">
           <div className="section-surface flow-surface">
             <SectionHeader
-              eyebrow="4⃣ COMO FUNCIONA"
+              eyebrow="04 | COMO FUNCIONA"
               titleId="como-title"
               title="Simples. Rápido. Seguro."
               lead="Fluxo de conciliação em 3 etapas"
@@ -1101,7 +1271,7 @@ function Landing() {
         >
           <div className="section-surface benefits-surface">
             <SectionHeader
-              eyebrow="5⃣ BENEFÍCIOS PARA O SEU GABINETE"
+              eyebrow="05 | BENEFÍCIOS PARA O SEU GABINETE"
               titleId="beneficios-title"
               title="Automatize uma das tarefas mais repetitivas da contabilidade."
               lead="Benefícios para o seu gabinete:"
@@ -1123,7 +1293,7 @@ function Landing() {
         <section className="container section" id="precos" aria-labelledby="precos-title">
           <div className="section-surface why-surface">
             <SectionHeader
-              eyebrow="6⃣ PORQUE HIVE"
+              eyebrow="06 | PORQUE HIVE"
               titleId="precos-title"
               title="A Hive é uma plataforma de agentes inteligentes desenvolvida pela Beefirst"
               lead="para automatizar operações empresariais. A conciliação é apenas o primeiro passo."
@@ -1161,7 +1331,7 @@ function Landing() {
         <section className="container closing" id="demo" aria-labelledby="demo-title">
           <div className="closing-panel">
             <div className="closing-copy">
-              <span className="mini-badge">7⃣ CTA FINAL</span>
+              <span className="mini-badge">07 | CTA FINAL</span>
               <h2 id="demo-title">Está pronto para automatizar a conciliação bancária?</h2>
               <p>
                 Agende uma demonstração gratuita e descubra quanto tempo pode
@@ -1198,6 +1368,16 @@ function Landing() {
                 <span className="panel-badge">Gratuita</span>
               </div>
 
+              <label className="sr-only" aria-hidden="true">
+                Não preencher
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </label>
+
               <div className="form-grid">
                 <FormField label={copy.closing.form.name}>
                   <input
@@ -1205,6 +1385,7 @@ function Landing() {
                     name="name"
                     placeholder={copy.closing.form.namePlaceholder}
                     autoComplete="name"
+                    minLength={2}
                     required
                   />
                 </FormField>
@@ -1214,6 +1395,7 @@ function Landing() {
                     name="email"
                     placeholder={copy.closing.form.emailPlaceholder}
                     autoComplete="email"
+                    inputMode="email"
                     required
                   />
                 </FormField>
@@ -1223,6 +1405,7 @@ function Landing() {
                     name="company"
                     placeholder={copy.closing.form.companyPlaceholder}
                     autoComplete="organization"
+                    minLength={2}
                     required
                   />
                 </FormField>
@@ -1264,6 +1447,7 @@ function Landing() {
                     name="goal"
                     rows={3}
                     placeholder={copy.closing.form.goalPlaceholder}
+                    maxLength={500}
                   />
                 </FormField>
               </div>
@@ -1327,8 +1511,18 @@ function Landing() {
                 {integrationConfig.crmWebhookUrl ? (
                   <span className="mini-link static">CRM Webhook ativo</span>
                 ) : null}
+                {integrationConfig.contactEmail ? (
+                  <a
+                    className="mini-link"
+                    href={`mailto:${integrationConfig.contactEmail}`}
+                  >
+                    Abrir e-mail
+                  </a>
+                ) : null}
                 {!hasAnyIntegration ? (
-                  <span className="mini-link static">Configurar `.env` para integração real</span>
+                  <span className="mini-link static">
+                    Sem integração externa: lead é salvo localmente no navegador
+                  </span>
                 ) : null}
               </div>
               <div
@@ -1346,7 +1540,7 @@ function Landing() {
                 {submitState === "error"
                   ? submitError || "Erro ao enviar pedido."
                   : leadSent
-                    ? copy.closing.noteSuccess
+                    ? submitSuccessMessage || copy.closing.noteSuccess
                     : copy.closing.noteIdle}
               </div>
             </form>
@@ -1386,7 +1580,9 @@ function Landing() {
       <footer className="footer">
         <div className="container footer-inner">
           <div className="footer-brand">
-            <span className="brand-mark" aria-hidden="true"><span /></span>
+            <span className="footer-brand-logo" aria-hidden="true">
+              <img src={brandLogoFull} alt="" />
+            </span>
             <div>
               <strong>BeeFirst • Hive</strong>
               <small>{copy.footer.subtitle}</small>
@@ -1694,3 +1890,4 @@ function FormField({ label, children, className = "" }) {
 function MiniField({ label, value }) {
   return <div className="mini-field"><small>{label}</small><strong>{value}</strong></div>;
 }
+
