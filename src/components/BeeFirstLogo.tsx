@@ -1,8 +1,12 @@
 import React from 'react';
 
-export const BeeFirstLogo: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({ className, ...props }) => (
+interface BeeFirstLogoProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+  variant?: 'hex' | 'full';
+}
+
+export const BeeFirstLogo: React.FC<BeeFirstLogoProps> = ({ variant = 'hex', className, ...props }) => (
   <img
-    src="/logo_hex.svg"
+    src={variant === 'full' ? '/logototal.svg' : '/logo_hex.svg'}
     alt="BeeFirst"
     className={className}
     {...props}

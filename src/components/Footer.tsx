@@ -90,7 +90,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       navLinks={navLinks}
       creatorName="BeeFirst Inc."
       creatorUrl="#"
-      brandIcon={<BeeFirstLogo className="w-8 sm:w-10 md:w-14 h-8 sm:h-10 md:h-14 drop-shadow-lg" />}
+      brandIcon={<BeeFirstLogo variant="full" className="h-10 sm:h-12 md:h-16 w-auto drop-shadow-lg" />}
       rightsText={t.footer.rights}
       craftedText={t.footer.crafted}
     />

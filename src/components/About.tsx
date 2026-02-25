@@ -152,7 +152,7 @@ const About: React.FC = () => {
             <section className="py-24 bg-brand-anthracite text-white border-t border-gray-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <BeeFirstLogo className="w-12 h-12 mx-auto mb-6" />
+                        <BeeFirstLogo variant="full" className="h-12 w-auto mx-auto mb-6" />
                         <h2 className="text-3xl font-bold text-white font-display uppercase tracking-widest">{dna.title}</h2>
                     </div>
 

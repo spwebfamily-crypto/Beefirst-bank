@@ -93,7 +93,7 @@ const DashboardMockup: React.FC = () => {
       {/* Sidebar - Compact */}
       <div className="w-10 bg-[#2a2a2a] flex flex-col items-center py-3 gap-3 border-r border-[#333] flex-shrink-0">
         <div className="mb-1 hover:scale-105 transition-transform cursor-pointer">
-          <BeeFirstLogo className="w-6 h-6 text-white" />
+          <BeeFirstLogo variant="full" className="h-6 w-auto brightness-0 invert" />
         </div>
         
         <div className="flex flex-col gap-3 w-full items-center">

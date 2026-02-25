@@ -46,10 +46,10 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
             className="flex items-center gap-2 cursor-pointer group"
             onClick={() => handleNav('home')}
           >
-            <BeeFirstLogo className={`w-10 h-10 md:w-12 md:h-12 transition-all ${isScrolled ? 'text-brand-anthracite' : 'text-white'}`} />
-            <span className={`text-2xl font-bold font-display tracking-tight ${isScrolled ? 'text-brand-anthracite' : 'text-white'}`}>
-              Bee<span className="text-brand-yellow">First</span>
-            </span>
+            <BeeFirstLogo 
+              variant="full" 
+              className={`h-10 md:h-12 w-auto transition-all ${isScrolled ? 'brightness-100' : 'brightness-0 invert'}`} 
+            />
           </div>
 
           {/* Desktop Navigation */}

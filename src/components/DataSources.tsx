@@ -191,7 +191,7 @@ const DataSources: React.FC<DataSourcesProps> = ({ onNavigate }) => {
               {/* 1. Root Node */}
               <div className="relative z-20">
                 <div className="w-20 h-20 bg-brand-anthracite rounded-2xl flex items-center justify-center shadow-2xl border-4 border-brand-ice z-10 relative">
-                  <BeeFirstLogo className="w-10 h-10" />
+                  <BeeFirstLogo variant="full" className="h-10 w-auto brightness-0 invert" />
                 </div>
               </div>
 
