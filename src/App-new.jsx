@@ -1,5 +1,5 @@
 ﻿import React from "react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Activity,
   AlertCircle,
@@ -333,54 +333,137 @@ const DASHBOARD_ADVANCED_METRICS = [
 const DASHBOARD_SIDEBAR_ICONS = [MessageSquare, ShieldBan, RefreshCcw, Info, Settings];
 const WEEKLY_ACTIVITY_VALUES = [15, 33, 30, 28, 39, 48, 41];
 const USER_GROWTH_VALUES = [18, 24, 30, 38, 44, 56, 62, 70];
+const MOBILE_BREAKPOINT = 768;
 
 export default function App() {
   const [lang, setLang] = React.useState("pt");
   const [isDarkMode, setIsDarkMode] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const [isMobileViewport, setIsMobileViewport] = React.useState(
+    typeof window !== "undefined" ? window.innerWidth <= MOBILE_BREAKPOINT : false
+  );
+  const [prefersReducedMotion, setPrefersReducedMotion] = React.useState(
+    typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false
+  );
+  const [shouldRenderShowcase, setShouldRenderShowcase] = React.useState(false);
   const [scrollY, setScrollY] = React.useState(0);
   const [contactStatus, setContactStatus] = React.useState("idle");
   const [contactMessage, setContactMessage] = React.useState("");
   const t = TRANSLATIONS[lang];
 
   const heroRef = React.useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"]
-  });
+  const showcaseRef = React.useRef(null);
 
-  const contentYBase = useTransform(scrollYProgress, [0, 1], [0, 260]);
-  const contentOpacityBase = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
-  const heroBgYBase = useTransform(scrollYProgress, [0, 1], [0, 48]);
+  const shouldUseLiteMotion = isMobileViewport || prefersReducedMotion;
+  const heroHeight = Math.max(heroRef.current?.offsetHeight ?? 1, 1);
+  const heroProgress = shouldUseLiteMotion ? 0 : Math.min(scrollY / heroHeight, 1);
 
-  const y = useSpring(contentYBase, { stiffness: 85, damping: 28, mass: 0.45 });
-  const opacity = useSpring(contentOpacityBase, { stiffness: 90, damping: 30, mass: 0.4 });
-  const heroBgY = useSpring(heroBgYBase, { stiffness: 70, damping: 30, mass: 0.6 });
+  const y = shouldUseLiteMotion ? 0 : heroProgress * 220;
+  const opacity = shouldUseLiteMotion ? 1 : Math.max(0, 1 - heroProgress / 0.55);
+  const heroBgY = shouldUseLiteMotion ? 0 : heroProgress * 48;
 
-  const orb1Y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -72]), { stiffness: 65, damping: 26, mass: 0.65 });
-  const orb2Y = useSpring(useTransform(scrollYProgress, [0, 1], [0, 56]), { stiffness: 65, damping: 26, mass: 0.65 });
-  const orb3Y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -40]), { stiffness: 65, damping: 26, mass: 0.65 });
+  const orb1Y = shouldUseLiteMotion ? 0 : heroProgress * -60;
+  const orb2Y = shouldUseLiteMotion ? 0 : heroProgress * 48;
+  const orb3Y = shouldUseLiteMotion ? 0 : heroProgress * -34;
 
-  const orb1Scale = useSpring(useTransform(scrollYProgress, [0, 1], [1, 1.06]), { stiffness: 62, damping: 24, mass: 0.7 });
-  const orb2Scale = useSpring(useTransform(scrollYProgress, [0, 1], [1, 0.96]), { stiffness: 62, damping: 24, mass: 0.7 });
-  const orb3Scale = useSpring(useTransform(scrollYProgress, [0, 1], [1, 1.04]), { stiffness: 62, damping: 24, mass: 0.7 });
+  const orb1Scale = shouldUseLiteMotion ? 1 : 1 + heroProgress * 0.05;
+  const orb2Scale = shouldUseLiteMotion ? 1 : 1 - heroProgress * 0.04;
+  const orb3Scale = shouldUseLiteMotion ? 1 : 1 + heroProgress * 0.03;
 
   React.useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    let rafId = 0;
+
+    const updateScroll = () => {
+      rafId = 0;
+      setScrollY(window.scrollY || window.pageYOffset || 0);
+    };
+
+    const handleScroll = () => {
+      if (rafId !== 0) {
+        return;
+      }
+
+      rafId = window.requestAnimationFrame(updateScroll);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId !== 0) {
+        window.cancelAnimationFrame(rafId);
+      }
+    };
   }, []);
 
   React.useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
     const handleResize = () => {
-      if (window.innerWidth > 768) {
+      const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
+      setIsMobileViewport(isMobile);
+
+      if (!isMobile) {
         setIsMobileMenuOpen(false);
       }
     };
 
+    const handleMotionChange = (event) => {
+      setPrefersReducedMotion(event.matches);
+    };
+
+    handleResize();
+    setPrefersReducedMotion(mediaQuery.matches);
+
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener("change", handleMotionChange);
+    } else {
+      mediaQuery.addListener(handleMotionChange);
+    }
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener("change", handleMotionChange);
+      } else {
+        mediaQuery.removeListener(handleMotionChange);
+      }
+    };
   }, []);
+
+  React.useEffect(() => {
+    if (shouldRenderShowcase) {
+      return;
+    }
+
+    const showcaseElement = showcaseRef.current;
+    if (!showcaseElement) {
+      return;
+    }
+
+    if (!("IntersectionObserver" in window)) {
+      setShouldRenderShowcase(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setShouldRenderShowcase(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "280px 0px" }
+    );
+
+    observer.observe(showcaseElement);
+
+    return () => observer.disconnect();
+  }, [shouldRenderShowcase]);
 
   const handleContactSubmit = async (event) => {
     event.preventDefault();
@@ -429,9 +512,9 @@ export default function App() {
     <div className={`app-new${isDarkMode ? " dark-mode" : ""}`}>
       <motion.nav
         className={`nav-new ${scrollY > 50 ? "scrolled" : ""}`}
-        initial={{ y: -100 }}
+        initial={shouldUseLiteMotion ? false : { y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: shouldUseLiteMotion ? 0.25 : 0.6 }}
       >
         <div className="container-new">
           <div className="nav-content">
@@ -568,7 +651,7 @@ export default function App() {
                 <motion.div
                   key={i}
                   className="stat-card-new"
-                  whileHover={{ y: -5, scale: 1.02 }}
+                  whileHover={shouldUseLiteMotion ? undefined : { y: -5, scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <div className="stat-value-new">{stat.value}</div>
@@ -602,7 +685,7 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
-                whileHover={{ y: -8, scale: 1.02 }}
+                whileHover={shouldUseLiteMotion ? undefined : { y: -8, scale: 1.02 }}
               >
                 <div className="card-icon-new">{card.icon}</div>
                 <h3>{card.title}</h3>
@@ -635,7 +718,7 @@ export default function App() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.2, type: "spring" }}
-                  whileHover={{ y: -10, scale: 1.05 }}
+                  whileHover={shouldUseLiteMotion ? undefined : { y: -10, scale: 1.05 }}
                 >
                   <div className="process-number-new">{step.num}</div>
                   <h3>{step.title}</h3>
@@ -658,7 +741,7 @@ export default function App() {
         </div>
       </section>
 
-      <section className="section-new showcase-section">
+      <section className="section-new showcase-section" ref={showcaseRef}>
         <div className="container-new">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -671,16 +754,17 @@ export default function App() {
             <p>{t.showcase.subtitle}</p>
           </motion.div>
 
-          <motion.div
-            className="dashboard-preview"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
+          {shouldRenderShowcase ? (
+            <motion.div
+              className="dashboard-preview"
+              initial={shouldUseLiteMotion ? false : { opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: shouldUseLiteMotion ? 0.25 : 0.8 }}
+            >
             <aside className="dashboard-sidebar-new" aria-hidden="true">
               <a href="#" className="dashboard-side-logo-new">
-                <img src="/logo_hex.svg" alt="BeeFirst" />
+                <img src="/logo_hex.svg" alt="BeeFirst" loading="lazy" decoding="async" />
               </a>
               <button type="button" className="dashboard-side-item-new active" aria-label="Overview">
                 <LayoutGrid size={13} />
@@ -774,7 +858,18 @@ export default function App() {
             </div>
 
             <div className="dashboard-glow" />
-          </motion.div>
+            </motion.div>
+          ) : (
+            <div className="dashboard-placeholder-new" aria-hidden="true">
+              <div className="dashboard-placeholder-bar-new" />
+              <div className="dashboard-placeholder-grid-new">
+                <span />
+                <span />
+                <span />
+                <span />
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -799,7 +894,7 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                whileHover={{ y: -5, scale: 1.02 }}
+                whileHover={shouldUseLiteMotion ? undefined : { y: -5, scale: 1.02 }}
               >
                 <div className="benefit-icon-new">{item.icon}</div>
                 <h3>{item.title}</h3>
@@ -883,7 +978,7 @@ export default function App() {
         <div className="container-new">
           <div className="footer-stack-new">
             <a href="#" className="footer-brand-mark-new" aria-label="BeeFirst">
-              <img src="/logo_hex.svg" alt="BeeFirst" className="footer-brand-img-new" />
+              <img src="/logo_hex.svg" alt="BeeFirst" className="footer-brand-img-new" loading="lazy" decoding="async" />
             </a>
             <nav className="footer-links-new" aria-label="Footer">
               <a href="#solution">{t.footer.links.solution}</a>
@@ -898,7 +993,7 @@ export default function App() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src={instagramIcon} alt="" />
+                <img src={instagramIcon} alt="" loading="lazy" decoding="async" />
               </a>
               <a
                 href="https://www.linkedin.com/company/beefirst-ai/posts/?feedView=all"
@@ -906,7 +1001,7 @@ export default function App() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src={linkedinIcon} alt="" />
+                <img src={linkedinIcon} alt="" loading="lazy" decoding="async" />
               </a>
             </div>
           </div>

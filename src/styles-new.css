@@ -988,6 +988,37 @@ body {
   pointer-events: none;
 }
 
+.dashboard-placeholder-new {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  border-radius: 24px;
+  border: 1px solid #d7dde7;
+  background: linear-gradient(135deg, #f6f8fb 0%, #eef2f7 100%);
+  padding: 24px;
+}
+
+.dashboard-placeholder-bar-new {
+  width: 220px;
+  max-width: 80%;
+  height: 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #dde4ee, #cdd7e5);
+  margin-bottom: 18px;
+}
+
+.dashboard-placeholder-grid-new {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.dashboard-placeholder-grid-new span {
+  height: 74px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #e8edf4, #d8e0ec);
+}
+
 @media (max-width: 1100px) {
   .dashboard-metrics-new {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1577,6 +1608,16 @@ body {
   box-shadow: 0 34px 66px -28px rgba(0, 0, 0, 0.82);
 }
 
+.app-new.dark-mode .dashboard-placeholder-new {
+  border-color: rgba(108, 117, 125, 0.62);
+  background: linear-gradient(135deg, #2d3339 0%, #262c32 100%);
+}
+
+.app-new.dark-mode .dashboard-placeholder-bar-new,
+.app-new.dark-mode .dashboard-placeholder-grid-new span {
+  background: linear-gradient(90deg, #3a434c, #2f3842);
+}
+
 .app-new.dark-mode .dashboard-preview::before {
   background:
     radial-gradient(130% 80% at 100% 0%, rgba(250, 204, 0, 0.14) 0%, transparent 55%),
@@ -1768,6 +1809,62 @@ body {
 }
 
 @media (max-width: 768px) {
+  .nav-new {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .app-new.dark-mode .nav-new {
+    background: rgba(33, 37, 41, 0.96);
+  }
+
+  .nav-links-new,
+  .cta-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .hero-bg-orbs,
+  .dashboard-glow {
+    display: none;
+  }
+
+  .hero-title-new,
+  .gradient-text-new,
+  .pulse-dot-new,
+  .dashboard-live-new span {
+    animation: none;
+  }
+
+  .logo-new,
+  .logo-img-new,
+  .logo-text-new,
+  .logo-text-new > span {
+    transition-duration: 0.24s;
+  }
+
+  .stat-card-new,
+  .feature-card-new,
+  .process-card-new,
+  .benefit-card-new {
+    transition-duration: 0.2s;
+  }
+
+  .dashboard-placeholder-new {
+    border-radius: 18px;
+    padding: 16px;
+  }
+
+  .dashboard-placeholder-bar-new {
+    height: 14px;
+    margin-bottom: 12px;
+  }
+
+  .dashboard-placeholder-grid-new span {
+    height: 62px;
+  }
+
   .nav-content {
     position: relative;
     height: 72px;
@@ -2192,6 +2289,10 @@ body {
 @media (max-width: 640px) {
   .container-new {
     padding: 0 18px;
+  }
+
+  .dashboard-placeholder-grid-new {
+    grid-template-columns: 1fr;
   }
 
   .logo-text-new {

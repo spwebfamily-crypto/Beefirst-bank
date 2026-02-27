@@ -233,3 +233,35 @@ Para dúvidas sobre a implementação ou uso da landing page, consulte a documen
 ---
 
 **Desenvolvido com ❤️ pela equipe BeeFirst**
+
+## Atualizacao de performance (mobile-first)
+
+As ultimas mudancas focam em reduzir custo de renderizacao no mobile, mantendo o desktop intacto.
+
+### Build e bundling
+- Code splitting manual no Vite (`vendor-react`, `vendor-motion`, `vendor-icons`, `vendor`, `vendor-3d`).
+- Minificacao com `esbuild`.
+- Compressao de assets com `vite-plugin-compression2` (gzip + brotli).
+
+### Carregamento inicial
+- `App-new.jsx` carregado com `React.lazy` + `Suspense` em `main.jsx`.
+- Remocao de `StrictMode` no bootstrap para evitar double-render em desenvolvimento.
+- Fonts Google com carregamento nao bloqueante (`media="print"` + `onload`).
+
+### Otimizacoes de runtime para mobile
+- Remocao de hooks pesados de scroll (`useScroll/useTransform/useSpring`) em favor de calculo mais leve.
+- Scroll listener com throttle via `requestAnimationFrame`.
+- `IntersectionObserver` para renderizacao tardia da secao de dashboard.
+- Modo `lite motion` para mobile e `prefers-reduced-motion`.
+
+### CSS focado em mobile
+- Reducao de efeitos caros (blur/backdrop/glow/orbs) apenas em breakpoints mobile.
+- Menos animacoes decorativas em `max-width: 768px`.
+- Placeholder leve para a secao de dashboard antes da intersecao.
+
+### Como validar
+```bash
+npm run build
+```
+
+O build gera arquivos comprimidos `.gz` e `.br` no `dist/`.
