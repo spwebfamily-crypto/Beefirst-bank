@@ -1,7 +1,7 @@
 import React from "react";
-import LegacyLandingApp from "./App.jsx";
-import "./layout-vendus-hybrid.css";
+import RedesignApp from "./App-redesign.jsx";
+import "./styles-redesign.css";
 
 export default function App() {
-  return <LegacyLandingApp />;
+  return <RedesignApp />;
 }

@@ -1,529 +1,562 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 
-const WORDS = {
-  pt: ["Contabilistas", "Escrit√≥rios", "Empresas", "Gestores"],
-  en: ["Accountants", "Offices", "Companies", "Managers"],
-  es: ["Contadores", "Oficinas", "Empresas", "Gestores"]
-};
-
-const TRANSLATIONS = {
+const CONTENT = {
   pt: {
-    nav: { inicio: "In√≠cio", solucoes: "Solu√ß√µes", sobre: "Sobre", contact: "Fale Connosco" },
-    hero: {
-      badge: "Concilia√ß√£o Banc√°ria com IA",
-      title: ["Transforme", "Concilia√ß√£o em", "Segundos", "para"],
-      subtitle: "Automatize o cruzamento entre contabilidade e extractos banc√°rios. Reduza 60-90% do tempo operacional com intelig√™ncia artificial.",
-      cta1: "Agendar Demonstra√ß√£o",
-      cta2: "Ver Como Funciona"
+    nav: {
+      hero: "InÌcio",
+      problem: "Problema",
+      solution: "SoluÁ„o",
+      flow: "Como funciona",
+      benefits: "BenefÌcios",
+      contact: "Fale connosco"
     },
-    stats: {
-      time: "Redu√ß√£o de Tempo",
-      result: "Primeiro Resultado",
-      ai: "Matching Inteligente"
+    hero: {
+      badge: "Hive ï ConciliaÁ„o autom·tica para contabilistas",
+      title: "Reduza horas de conciliaÁ„o banc·ria a segundos.",
+      highlight: "Dashboard inteligente para clientes e equipa",
+      subtitle:
+        "Automatize o cruzamento entre lanÁamentos cont·beis e extratos banc·rios com IA. Menos erros, mais escala e mais margem por cliente.",
+      chips: [
+        "IdentificaÁ„o autom·tica de movimentos",
+        "SinalizaÁ„o imediata de divergÍncias",
+        "IntegraÁ„o com ERP e bancos",
+        "Alertas e trilhas de auditoria"
+      ],
+      metrics: [
+        { label: "Tempo poupado", value: "-78%", desc: "mÈdia por empresa" },
+        { label: "Clientes conciliados", value: "120+", desc: "j· em produÁ„o" },
+        { label: "Primeiro resultado", value: "1 semana", desc: "para ver ROI" }
+      ],
+      primaryCta: "Agendar demonstraÁ„o",
+      secondaryCta: "Ver o dashboard",
+      note: "DemonstraÁ„o guiada de 15 minutos"
     },
     problem: {
-      tag: "O Problema",
-      title: "Concilia√ß√£o Manual Consome Horas",
-      subtitle: "Processos manuais geram custos ocultos e limitam crescimento",
-      card1: { title: "Confer√™ncia Linha a Linha", desc: "Horas gastas em planilhas comparando extractos manualmente" },
-      card2: { title: "Alto Risco de Erro", desc: "Erros humanos impactam fecho e geram retrabalho" },
-      card3: { title: "Tempo Operacional Elevado", desc: "Dificuldade em escalar sem aumentar equipa" },
-      card4: { title: "Pouca Visibilidade", desc: "Dif√≠cil acompanhar estado e pend√™ncias em tempo real" }
+      title: "ConciliaÁ„o manual ainda consome horas?",
+      subtitle:
+        "Processos linha a linha aumentam risco de erro, atrasam o fecho e impedem o crescimento da carteira.",
+      cards: [
+        { title: "ConferÍncia linha a linha", desc: "Horas gastas em planilhas e extratos paralelos." },
+        { title: "Risco de erro e retrabalho", desc: "DivergÍncias surgem tarde, impactando o cliente." },
+        { title: "Tempo operacional elevado", desc: "Equipa presa em tarefas repetitivas de baixo valor." },
+        { title: "Escalabilidade limitada", desc: "Carteira n„o cresce sem aumentar headcount." }
+      ]
     },
     solution: {
-      tag: "A Solu√ß√£o",
-      title: "Hive - Concilia√ß√£o Autom√°tica",
-      subtitle: "Intelig√™ncia artificial aplicada √† contabilidade",
-      step1: { title: "Importa√ß√£o", desc: "Integra√ß√£o autom√°tica com sistema cont√°bil e extractos banc√°rios" },
-      step2: { title: "Cruzamento IA", desc: "Matching inteligente baseado em padr√µes e regras" },
-      step3: { title: "Valida√ß√£o", desc: "Dashboard com conciliado, pendente e divergente" }
+      title: "Apresentamos a Hive ñ ConciliaÁ„o Autom·tica",
+      subtitle: "IA cruza lanÁamentos e extratos, destaca exceÁıes e aprende os padrıes do seu gabinete.",
+      bullets: [
+        "Matching inteligente de movimentos, valores parciais e datas aproximadas.",
+        "OrquestraÁ„o com bancos e ERPs para importar e devolver lanÁamentos conciliados.",
+        "Portal para clientes acompanharem pendÍncias, enviar comprovativos e aprovar aÁıes.",
+        "Alertas, trilhas de auditoria e governanÁa para cada conciliaÁ„o."
+      ],
+      stats: ["+4.3x retorno mÈdio", "< 7 dias para gerar valor", "SeguranÁa e privacidade LGPD"]
+    },
+    flow: {
+      title: "Como funciona na pr·tica",
+      steps: [
+        { title: "ImportaÁ„o", desc: "IntegraÁ„o com o sistema cont·bil e extratos banc·rios." },
+        { title: "Cruzamento inteligente", desc: "Matching autom·tico com IA, regras e aprendizagem contÌnua." },
+        { title: "ValidaÁ„o e aÁ„o", desc: "Dashboard destaca pendÍncias, divergÍncias e prÛximos passos." }
+      ]
     },
     benefits: {
-      tag: "Benef√≠cios",
-      title: "Porqu√™ Escolher a Hive?",
-      item1: "Redu√ß√£o significativa de tempo operacional",
-      item2: "Menor depend√™ncia de tarefas manuais",
-      item3: "Redu√ß√£o de erros e retrabalho",
-      item4: "Maior capacidade para novos clientes",
-      item5: "Aumento de rentabilidade",
-      item6: "Dashboard em tempo real"
+      title: "Resultados para o gabinete e clientes",
+      items: [
+        "ReduÁ„o significativa de tempo operacional",
+        "Menor dependÍncia de tarefas manuais",
+        "ReduÁ„o de erros e retrabalho",
+        "Maior capacidade para assumir novos clientes",
+        "Aumento de rentabilidade do serviÁo",
+        "Visibilidade em tempo real para a equipa e clientes"
+      ]
     },
-    demo: {
-      tag: "Pr√≥ximo Passo",
-      title: "Agende uma Demonstra√ß√£o",
-      subtitle: "Descubra quanto tempo pode poupar j√° no pr√≥ximo m√™s",
-      feature1: "Demo gratuita de 15 minutos",
-      feature2: "Visualiza√ß√£o de impacto operacional",
-      feature3: "Piloto r√°pido com baixo risco",
-      form: {
-        name: "Nome completo",
-        email: "Email profissional",
-        company: "Empresa",
-        profile: "Selecione o perfil",
-        option1: "Escrit√≥rio cont√°bil",
-        option2: "BPO financeiro",
-        option3: "Financeiro interno",
-        option4: "Outro",
-        submit: "Agendar Demonstra√ß√£o Gratuita"
-      }
+    expansion: {
+      title: "Por que Hive",
+      bullets: [
+        "Plataforma de agentes inteligentes criada pela BeeFirst",
+        "ConciliaÁ„o È o primeiro passo: expanda para gest„o documental e automaÁ„o",
+        "Time de produto focado em escritÛrios cont·beis",
+        "Suporte dedicado durante onboarding e operaÁ„o"
+      ]
     },
-    footer: {
-      brand: "Concilia√ß√£o autom√°tica para contabilidade",
-      problem: "Problema",
-      solution: "Solu√ß√£o",
-      benefits: "Benef√≠cios",
-      demo: "Demo",
-      rights: "Todos os direitos reservados"
+    cta: {
+      title: "Pronto para automatizar a conciliaÁ„o banc·ria?",
+      subtitle: "Agende uma demonstraÁ„o gratuita e descubra quanto tempo pode poupar j· no prÛximo mÍs.",
+      primary: "Agendar demonstraÁ„o",
+      secondary: "Falar com especialista",
+      note: "Resposta em menos de 1 dia ˙til"
     }
   },
   en: {
-    nav: { inicio: "Home", solucoes: "Solutions", sobre: "About", contact: "Contact Us" },
-    hero: {
-      badge: "Bank Reconciliation with AI",
-      title: ["Transform", "Reconciliation in", "Seconds", "for"],
-      subtitle: "Automate the matching between accounting and bank statements. Reduce 60-90% of operational time with artificial intelligence.",
-      cta1: "Schedule Demo",
-      cta2: "See How It Works"
-    },
-    stats: {
-      time: "Time Reduction",
-      result: "First Result",
-      ai: "Smart Matching"
-    },
-    problem: {
-      tag: "The Problem",
-      title: "Manual Reconciliation Consumes Hours",
-      subtitle: "Manual processes generate hidden costs and limit growth",
-      card1: { title: "Line by Line Review", desc: "Hours spent on spreadsheets comparing statements manually" },
-      card2: { title: "High Error Risk", desc: "Human errors impact closing and generate rework" },
-      card3: { title: "High Operational Time", desc: "Difficulty scaling without increasing team" },
-      card4: { title: "Low Visibility", desc: "Difficult to track status and pending items in real time" }
-    },
-    solution: {
-      tag: "The Solution",
-      title: "Hive - Automatic Reconciliation",
-      subtitle: "Artificial intelligence applied to accounting",
-      step1: { title: "Import", desc: "Automatic integration with accounting system and bank statements" },
-      step2: { title: "AI Matching", desc: "Smart matching based on patterns and rules" },
-      step3: { title: "Validation", desc: "Dashboard with reconciled, pending and divergent" }
-    },
-    benefits: {
-      tag: "Benefits",
-      title: "Why Choose Hive?",
-      item1: "Significant reduction in operational time",
-      item2: "Less dependence on manual tasks",
-      item3: "Reduction of errors and rework",
-      item4: "Greater capacity for new clients",
-      item5: "Increased profitability",
-      item6: "Real-time dashboard"
-    },
-    demo: {
-      tag: "Next Step",
-      title: "Schedule a Demo",
-      subtitle: "Discover how much time you can save next month",
-      feature1: "Free 15-minute demo",
-      feature2: "Operational impact visualization",
-      feature3: "Quick pilot with low risk",
-      form: {
-        name: "Full name",
-        email: "Professional email",
-        company: "Company",
-        profile: "Select profile",
-        option1: "Accounting office",
-        option2: "Financial BPO",
-        option3: "Internal finance",
-        option4: "Other",
-        submit: "Schedule Free Demo"
-      }
-    },
-    footer: {
-      brand: "Automatic reconciliation for accounting",
+    nav: {
+      hero: "Home",
       problem: "Problem",
       solution: "Solution",
+      flow: "How it works",
       benefits: "Benefits",
-      demo: "Demo",
-      rights: "All rights reserved"
+      contact: "Contact"
+    },
+    hero: {
+      badge: "Hive ï Automatic bank reconciliation for accounting teams",
+      title: "Cut bank reconciliation hours down to seconds.",
+      highlight: "Smart dashboard for accountants and clients",
+      subtitle:
+        "Automate the match between accounting entries and bank statements with AI. Fewer errors, more scale and margin per client.",
+      chips: [
+        "Automatic movement detection",
+        "Instant flagging of divergences",
+        "ERP + bank integrations",
+        "Alerts and audit trails"
+      ],
+      metrics: [
+        { label: "Time saved", value: "-78%", desc: "average per company" },
+        { label: "Clients reconciled", value: "120+", desc: "already in production" },
+        { label: "First results", value: "1 week", desc: "to see ROI" }
+      ],
+      primaryCta: "Book a demo",
+      secondaryCta: "See the dashboard",
+      note: "15-minute guided walkthrough"
+    },
+    problem: {
+      title: "Is manual reconciliation still draining hours?",
+      subtitle:
+        "Line-by-line work increases error risk, delays closing and blocks portfolio growth.",
+      cards: [
+        { title: "Line-by-line checks", desc: "Hours lost in spreadsheets and parallel statements." },
+        { title: "Error and rework risk", desc: "Divergences appear late and impact clients." },
+        { title: "High operational time", desc: "Team stuck in repetitive low-value tasks." },
+        { title: "Limited scalability", desc: "Portfolio only grows by hiring more people." }
+      ]
+    },
+    solution: {
+      title: "Meet Hive ñ Automatic Reconciliation",
+      subtitle: "AI matches entries and statements, highlights exceptions and learns your patterns.",
+      bullets: [
+        "Smart matching for partial values, dates and references.",
+        "Orchestration with banks and ERPs to import and return reconciled entries.",
+        "Client portal to track pending items, upload evidence and approve actions.",
+        "Alerts, audit trail and governance across every reconciliation."
+      ],
+      stats: ["+4.3x average ROI", "< 7 days to show value", "Security & privacy first"]
+    },
+    flow: {
+      title: "How it works",
+      steps: [
+        { title: "Import", desc: "Connect accounting system and bank statements." },
+        { title: "Smart matching", desc: "AI + rules match transactions and learn your patterns." },
+        { title: "Validate & act", desc: "Dashboard highlights pending items, divergences and next steps." }
+      ]
+    },
+    benefits: {
+      title: "Outcomes for your firm and clients",
+      items: [
+        "Significant reduction in operational time",
+        "Less dependence on manual tasks",
+        "Fewer errors and rework",
+        "More capacity to onboard new clients",
+        "Higher profitability per client",
+        "Real-time visibility for team and clients"
+      ]
+    },
+    expansion: {
+      title: "Why Hive",
+      bullets: [
+        "Intelligent agents platform built by BeeFirst",
+        "Reconciliation is the first step: expand to documents and automation",
+        "Product team focused on accounting firms",
+        "Dedicated support during onboarding and beyond"
+      ]
+    },
+    cta: {
+      title: "Ready to automate bank reconciliation?",
+      subtitle: "Book a free demo and see how much time you can save next month.",
+      primary: "Book a demo",
+      secondary: "Talk to an expert",
+      note: "Response within one business day"
     }
   },
   es: {
-    nav: { inicio: "Inicio", solucoes: "Soluciones", sobre: "Acerca", contact: "Cont√°ctenos" },
-    hero: {
-      badge: "Conciliaci√≥n Bancaria con IA",
-      title: ["Transforme", "Conciliaci√≥n en", "Segundos", "para"],
-      subtitle: "Automatice el cruce entre contabilidad y extractos bancarios. Reduzca 60-90% del tiempo operativo con inteligencia artificial.",
-      cta1: "Agendar Demostraci√≥n",
-      cta2: "Ver C√≥mo Funciona"
+    nav: {
+      hero: "Inicio",
+      problem: "Problema",
+      solution: "SoluciÛn",
+      flow: "CÛmo funciona",
+      benefits: "Beneficios",
+      contact: "Cont·ctenos"
     },
-    stats: {
-      time: "Reducci√≥n de Tiempo",
-      result: "Primer Resultado",
-      ai: "Matching Inteligente"
+    hero: {
+      badge: "Hive ï ConciliaciÛn bancaria autom·tica para despachos",
+      title: "Reduzca horas de conciliaciÛn bancaria a segundos.",
+      highlight: "Panel inteligente para contadores y clientes",
+      subtitle:
+        "Automatice el cruce entre asientos contables y extractos bancarios con IA. Menos errores y m·s escala por cliente.",
+      chips: [
+        "IdentificaciÛn autom·tica de movimientos",
+        "SeÒalizaciÛn inmediata de divergencias",
+        "Integraciones con ERP y bancos",
+        "Alertas y trazabilidad"
+      ],
+      metrics: [
+        { label: "Tiempo ahorrado", value: "-78%", desc: "promedio por empresa" },
+        { label: "Clientes conciliados", value: "120+", desc: "ya en producciÛn" },
+        { label: "Primer resultado", value: "1 semana", desc: "para ver ROI" }
+      ],
+      primaryCta: "Agendar demo",
+      secondaryCta: "Ver el panel",
+      note: "Recorrido guiado de 15 minutos"
     },
     problem: {
-      tag: "El Problema",
-      title: "Conciliaci√≥n Manual Consume Horas",
-      subtitle: "Procesos manuales generan costos ocultos y limitan crecimiento",
-      card1: { title: "Revisi√≥n L√≠nea por L√≠nea", desc: "Horas gastadas en hojas de c√°lculo comparando extractos manualmente" },
-      card2: { title: "Alto Riesgo de Error", desc: "Errores humanos impactan cierre y generan retrabajo" },
-      card3: { title: "Tiempo Operacional Elevado", desc: "Dificultad para escalar sin aumentar equipo" },
-      card4: { title: "Poca Visibilidad", desc: "Dif√≠cil seguir estado y pendientes en tiempo real" }
+      title: "øLa conciliaciÛn manual sigue consumiendo horas?",
+      subtitle:
+        "El trabajo lÌnea por lÌnea aumenta el riesgo de error, retrasa el cierre y limita el crecimiento de la cartera.",
+      cards: [
+        { title: "RevisiÛn lÌnea por lÌnea", desc: "Horas en hojas de c·lculo y extractos paralelos." },
+        { title: "Riesgo de error y retrabajo", desc: "Las divergencias aparecen tarde y afectan al cliente." },
+        { title: "Tiempo operativo alto", desc: "Equipo atrapado en tareas repetitivas de bajo valor." },
+        { title: "Escalabilidad limitada", desc: "La cartera crece solo contratando m·s gente." }
+      ]
     },
     solution: {
-      tag: "La Soluci√≥n",
-      title: "Hive - Conciliaci√≥n Autom√°tica",
-      subtitle: "Inteligencia artificial aplicada a la contabilidad",
-      step1: { title: "Importaci√≥n", desc: "Integraci√≥n autom√°tica con sistema contable y extractos bancarios" },
-      step2: { title: "Cruce IA", desc: "Matching inteligente basado en patrones y reglas" },
-      step3: { title: "Validaci√≥n", desc: "Dashboard con conciliado, pendiente y divergente" }
+      title: "Presentamos Hive ñ ConciliaciÛn Autom·tica",
+      subtitle: "IA cruza asientos y extractos, destaca excepciones y aprende tus patrones.",
+      bullets: [
+        "Matching inteligente de valores parciales, fechas y referencias.",
+        "OrquestaciÛn con bancos y ERPs para importar y devolver asientos conciliados.",
+        "Portal para clientes: pendientes, envÌo de evidencias y aprobaciones.",
+        "Alertas, trazabilidad y gobierno en cada conciliaciÛn."
+      ],
+      stats: ["+4.3x retorno medio", "< 7 dÌas para entregar valor", "Seguridad y privacidad"]
+    },
+    flow: {
+      title: "CÛmo funciona",
+      steps: [
+        { title: "ImportaciÛn", desc: "IntegraciÛn con sistema contable y extractos bancarios." },
+        { title: "Cruce inteligente", desc: "IA + reglas concilian y aprenden tus patrones." },
+        { title: "ValidaciÛn y acciÛn", desc: "Panel seÒala pendientes, divergencias y prÛximos pasos." }
+      ]
     },
     benefits: {
-      tag: "Beneficios",
-      title: "¬øPor Qu√© Elegir Hive?",
-      item1: "Reducci√≥n significativa de tiempo operacional",
-      item2: "Menor dependencia de tareas manuales",
-      item3: "Reducci√≥n de errores y retrabajo",
-      item4: "Mayor capacidad para nuevos clientes",
-      item5: "Aumento de rentabilidad",
-      item6: "Dashboard en tiempo real"
+      title: "Resultados para tu despacho y clientes",
+      items: [
+        "ReducciÛn significativa de tiempo operativo",
+        "Menor dependencia de tareas manuales",
+        "Menos errores y retrabajo",
+        "M·s capacidad para nuevos clientes",
+        "Mayor rentabilidad por cliente",
+        "Visibilidad en tiempo real para equipo y clientes"
+      ]
     },
-    demo: {
-      tag: "Pr√≥ximo Paso",
-      title: "Agende una Demostraci√≥n",
-      subtitle: "Descubra cu√°nto tiempo puede ahorrar el pr√≥ximo mes",
-      feature1: "Demo gratuita de 15 minutos",
-      feature2: "Visualizaci√≥n de impacto operacional",
-      feature3: "Piloto r√°pido con bajo riesgo",
-      form: {
-        name: "Nombre completo",
-        email: "Email profesional",
-        company: "Empresa",
-        profile: "Seleccione el perfil",
-        option1: "Oficina contable",
-        option2: "BPO financiero",
-        option3: "Financiero interno",
-        option4: "Otro",
-        submit: "Agendar Demostraci√≥n Gratuita"
-      }
+    expansion: {
+      title: "Por quÈ Hive",
+      bullets: [
+        "Plataforma de agentes inteligentes creada por BeeFirst",
+        "ConciliaciÛn es el primer paso: expande a documentos y automatizaciÛn",
+        "Equipo de producto enfocado en despachos contables",
+        "Soporte dedicado durante onboarding y operaciÛn"
+      ]
     },
-    footer: {
-      brand: "Conciliaci√≥n autom√°tica para contabilidad",
-      problem: "Problema",
-      solution: "Soluci√≥n",
-      benefits: "Beneficios",
-      demo: "Demo",
-      rights: "Todos los derechos reservados"
+    cta: {
+      title: "øListo para automatizar la conciliaciÛn bancaria?",
+      subtitle: "Agenda una demo gratuita y descubre cu·nto tiempo puedes ahorrar el prÛximo mes.",
+      primary: "Agendar demo",
+      secondary: "Hablar con un experto",
+      note: "Respuesta en menos de 1 dÌa h·bil"
     }
   }
 };
 
+const SAMPLE_ROWS = [
+  { company: "Loja Atlas", matched: "98%", pending: 2, value: "R$ 482k" },
+  { company: "Grupo Norte", matched: "94%", pending: 4, value: "R$ 1,2M" },
+  { company: "Terra Azul", matched: "91%", pending: 5, value: "R$ 317k" }
+];
+
 export default function App() {
-  const [theme, setTheme] = React.useState("light");
-  const [lang, setLang] = React.useState("pt");
-  const [menuOpen, setMenuOpen] = React.useState(false);
-  const [currentWord, setCurrentWord] = React.useState(0);
-  const [scrollY, setScrollY] = React.useState(0);
+  const [lang, setLang] = useState("pt");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const t = TRANSLATIONS[lang];
+  const t = CONTENT[lang];
 
-  React.useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    const interval = setInterval(() => {
-      setCurrentWord((prev) => (prev + 1) % WORDS[lang].length);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, [theme, lang]);
-
-  React.useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <div className="app">
-      {/* SVG Definitions */}
-      <svg width="0" height="0" style={{ position: 'absolute' }}>
-        <defs>
-          <pattern id="cartoon-grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.1"/>
-          </pattern>
-        </defs>
-      </svg>
-
-      {/* Animated Background */}
-      <div className="bg-gradient" />
-      <svg className="bg-cartoon-grid" xmlns="http://www.w3.org/2000/svg">
-        <rect width="100%" height="100%" fill="url(#cartoon-grid)" opacity="0.5"></rect>
-      </svg>
+    <div className="page">
+      <div className="bg-blur bg-1" />
+      <div className="bg-blur bg-2" />
       <div className="bg-grid" />
-      <div className="floating-shapes">
-        <div className="shape shape-1" />
-        <div className="shape shape-2" />
-        <div className="shape shape-3" />
-      </div>
 
-      {/* Navigation */}
-      <nav className={`nav ${scrollY > 50 ? "scrolled" : ""}`}>
-        <div className="container">
-          <div className="nav-inner">
-            <div className="logo">
-              <img src="/logo_hex.svg" alt="BeeFirst" className="logo-img" />
-              <span className="logo-text">Bee<span className="logo-highlight">First</span></span>
+      <header className={`nav ${scrolled ? "nav-solid" : ""}`}>
+        <div className="container nav-row">
+          <a className="brand" href="#top" onClick={() => setMenuOpen(false)}>
+            <img src="/logo_hex.svg" alt="BeeFirst" className="brand-mark" />
+            <div>
+              <div className="brand-name">Bee<span>First</span></div>
+              <div className="brand-sub">Hive</div>
             </div>
+          </a>
 
-            <div className="nav-links desktop">
-              <a href="#problema">{t.nav.inicio}</a>
-              <a href="#solucao">{t.nav.solucoes}</a>
-              <a href="#beneficios">{t.nav.sobre}</a>
-            </div>
+          <nav className={`nav-links ${menuOpen ? "open" : ""}`}>
+            <a href="#problema" onClick={() => setMenuOpen(false)}>{t.nav.problem}</a>
+            <a href="#solucao" onClick={() => setMenuOpen(false)}>{t.nav.solution}</a>
+            <a href="#fluxo" onClick={() => setMenuOpen(false)}>{t.nav.flow}</a>
+            <a href="#beneficios" onClick={() => setMenuOpen(false)}>{t.nav.benefits}</a>
+          </nav>
 
-            <div className="nav-actions">
-              <div className="lang-selector desktop">
-                <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>en</button>
-                <button className={`lang-btn ${lang === 'pt' ? 'active' : ''}`} onClick={() => setLang('pt')}>pt</button>
-                <button className={`lang-btn ${lang === 'es' ? 'active' : ''}`} onClick={() => setLang('es')}>es</button>
-              </div>
-              <a href="#demo" className="btn-primary desktop">{t.nav.contact}</a>
-              <button className="menu-btn mobile" onClick={() => setMenuOpen(!menuOpen)}>
-                ‚ò∞
-              </button>
+          <div className="nav-actions">
+            <div className="lang-switch">
+              {["pt", "en", "es"].map((code) => (
+                <button
+                  key={code}
+                  className={code === lang ? "active" : ""}
+                  onClick={() => {
+                    setLang(code);
+                    setMenuOpen(false);
+                  }}
+                >
+                  {code}
+                </button>
+              ))}
             </div>
+            <a className="btn ghost small desktop" href="#demo" onClick={() => setMenuOpen(false)}>
+              {t.nav.contact}
+            </a>
+            <button className="menu-toggle" aria-label="Abrir menu" onClick={() => setMenuOpen(!menuOpen)}>
+              <span />
+              <span />
+            </button>
           </div>
         </div>
-      </nav>
+        {menuOpen && <div className="nav-overlay" onClick={() => setMenuOpen(false)} />}
+      </header>
 
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="mobile-menu" onClick={() => setMenuOpen(false)}>
-          <div className="mobile-menu-content" onClick={(e) => e.stopPropagation()}>
-            <button className="close-btn" onClick={() => setMenuOpen(false)}>‚úï</button>
-            <a href="#problema" onClick={() => setMenuOpen(false)}>{t.nav.inicio}</a>
-            <a href="#solucao" onClick={() => setMenuOpen(false)}>{t.nav.solucoes}</a>
-            <a href="#beneficios" onClick={() => setMenuOpen(false)}>{t.nav.sobre}</a>
-            <a href="#demo" onClick={() => setMenuOpen(false)}>{t.nav.contact}</a>
-          </div>
-        </div>
-      )}
+      <main id="top">
+        <section className="section hero">
+          <div className="container hero-grid">
+            <div className="hero-copy">
+              <div className="eyebrow">{t.hero.badge}</div>
+              <h1>
+                {t.hero.title}
+                <span className="gradient-text"> {t.hero.highlight}</span>
+              </h1>
+              <p className="lede">{t.hero.subtitle}</p>
 
-      {/* Hero */}
-      <section className="hero">
-        <div className="container">
-          <div className="hero-content">
-            <div className="hero-badge">
-              <span className="pulse-dot" />
-              {t.hero.badge}
-            </div>
-            
-            <h1 className="hero-title">
-              <span className="title-line">{t.hero.title[0]}</span>
-              <span className="title-line">{t.hero.title[1]}</span>
-              <span className="title-line gradient-text">{t.hero.title[2]}</span>
-              <span className="title-line">{t.hero.title[3]}</span>
-              <span className="word-rotate">{WORDS[lang][currentWord]}</span>
-            </h1>
-
-            <p className="hero-subtitle">
-              {t.hero.subtitle}
-            </p>
-
-            <div className="hero-cta">
-              <a href="#demo" className="btn-primary large">
-                <span>{t.hero.cta1}</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path d="M5 12h14M12 5l7 7-7 7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
-              <a href="#solucao" className="btn-secondary large">{t.hero.cta2}</a>
-            </div>
-
-            <div className="hero-stats">
-              <div className="stat-card">
-                <div className="stat-value">60-90%</div>
-                <div className="stat-label">{t.stats.time}</div>
+              <div className="cta-row">
+                <a className="btn primary" href="#demo">{t.hero.primaryCta}</a>
+                <a className="btn outline" href="#dashboard">{t.hero.secondaryCta}</a>
               </div>
-              <div className="stat-card">
-                <div className="stat-value">1 {lang === 'en' ? 'Week' : lang === 'es' ? 'Semana' : 'Semana'}</div>
-                <div className="stat-label">{t.stats.result}</div>
+              <p className="note">{t.hero.note}</p>
+
+              <div className="chip-row">
+                {t.hero.chips.map((chip) => (
+                  <span key={chip} className="chip">{chip}</span>
+                ))}
               </div>
-              <div className="stat-card">
-                <div className="stat-value">IA</div>
-                <div className="stat-label">{t.stats.ai}</div>
+
+              <div className="metrics-grid">
+                {t.hero.metrics.map((metric) => (
+                  <div key={metric.label} className="metric-card">
+                    <div className="metric-value">{metric.value}</div>
+                    <div className="metric-label">{metric.label}</div>
+                    <div className="metric-desc">{metric.desc}</div>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Problema */}
-      <section id="problema" className="section">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-tag">{t.problem.tag}</span>
-            <h2>{t.problem.title}</h2>
-            <p>{t.problem.subtitle}</p>
-          </div>
+            <div className="hero-visual" id="dashboard">
+              <div className="dashboard">
+                <div className="dashboard-header">
+                  <div>
+                    <p className="dash-label">Hive dashboard</p>
+                    <p className="dash-title">ConciliaÁ„o em tempo real</p>
+                  </div>
+                  <span className="status success">Ao vivo</span>
+                </div>
 
-          <div className="cards-grid">
-            <div className="feature-card">
-              <div className="card-icon red">‚ö†Ô∏è</div>
-              <h3>{t.problem.card1.title}</h3>
-              <p>{t.problem.card1.desc}</p>
-            </div>
-            <div className="feature-card">
-              <div className="card-icon orange">‚ùå</div>
-              <h3>{t.problem.card2.title}</h3>
-              <p>{t.problem.card2.desc}</p>
-            </div>
-            <div className="feature-card">
-              <div className="card-icon yellow">‚è±Ô∏è</div>
-              <h3>{t.problem.card3.title}</h3>
-              <p>{t.problem.card3.desc}</p>
-            </div>
-            <div className="feature-card">
-              <div className="card-icon blue">üìä</div>
-              <h3>{t.problem.card4.title}</h3>
-              <p>{t.problem.card4.desc}</p>
-            </div>
-          </div>
-        </div>
-      </section>
+                <div className="status-cards">
+                  <div className="status-card">
+                    <p className="status-label">Movimentos conciliados</p>
+                    <p className="status-value">97,6%</p>
+                    <p className="status-sub">IA + regras propriet·rias</p>
+                  </div>
+                  <div className="status-card">
+                    <p className="status-label">PendÍncias crÌticas</p>
+                    <p className="status-value warn">3</p>
+                    <p className="status-sub">clientes aguardam evidÍncia</p>
+                  </div>
+                </div>
 
-      {/* Solu√ß√£o */}
-      <section id="solucao" className="section dark">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-tag yellow">{t.solution.tag}</span>
-            <h2>{t.solution.title}</h2>
-            <p>{t.solution.subtitle}</p>
-          </div>
+                <div className="table">
+                  <div className="table-head">
+                    <span>Cliente</span>
+                    <span>Match</span>
+                    <span>PendÍncias</span>
+                    <span>Volume</span>
+                  </div>
+                  {SAMPLE_ROWS.map((row) => (
+                    <div key={row.company} className="table-row">
+                      <span>{row.company}</span>
+                      <span>{row.matched}</span>
+                      <span>{row.pending}</span>
+                      <span>{row.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-          <div className="process-grid">
-            <div className="process-card">
-              <div className="process-number">01</div>
-              <h3>{t.solution.step1.title}</h3>
-              <p>{t.solution.step1.desc}</p>
-            </div>
-            <div className="process-arrow">‚Üí</div>
-            <div className="process-card">
-              <div className="process-number">02</div>
-              <h3>{t.solution.step2.title}</h3>
-              <p>{t.solution.step2.desc}</p>
-            </div>
-            <div className="process-arrow">‚Üí</div>
-            <div className="process-card">
-              <div className="process-number">03</div>
-              <h3>{t.solution.step3.title}</h3>
-              <p>{t.solution.step3.desc}</p>
+              <div className="floating-card">
+                <p className="floating-title">Alerta inteligente</p>
+                <p className="floating-text">2 divergÍncias sinalizadas hoje</p>
+              </div>
+              <div className="floating-card success">
+                <p className="floating-title">ROI previsto</p>
+                <p className="floating-text">+4.3x em 3 meses</p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Benef√≠cios */}
-      <section id="beneficios" className="section">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-tag">{t.benefits.tag}</span>
-            <h2>{t.benefits.title}</h2>
-          </div>
-
-          <div className="benefits-grid">
-            <div className="benefit-item">
-              <div className="benefit-check">‚úì</div>
-              <span>{t.benefits.item1}</span>
+        <section id="problema" className="section">
+          <div className="container">
+            <div className="section-head">
+              <div className="eyebrow">{t.problem.title}</div>
+              <h2>{t.problem.subtitle}</h2>
             </div>
-            <div className="benefit-item">
-              <div className="benefit-check">‚úì</div>
-              <span>{t.benefits.item2}</span>
-            </div>
-            <div className="benefit-item">
-              <div className="benefit-check">‚úì</div>
-              <span>{t.benefits.item3}</span>
-            </div>
-            <div className="benefit-item">
-              <div className="benefit-check">‚úì</div>
-              <span>{t.benefits.item4}</span>
-            </div>
-            <div className="benefit-item">
-              <div className="benefit-check">‚úì</div>
-              <span>{t.benefits.item5}</span>
-            </div>
-            <div className="benefit-item">
-              <div className="benefit-check">‚úì</div>
-              <span>{t.benefits.item6}</span>
+            <div className="card-grid">
+              {t.problem.cards.map((card) => (
+                <div key={card.title} className="card">
+                  <div className="card-icon" />
+                  <h3>{card.title}</h3>
+                  <p>{card.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Demo */}
-      <section id="demo" className="section demo">
-        <div className="container">
-          <div className="demo-wrapper">
-            <div className="demo-content">
-              <span className="section-tag yellow">{t.demo.tag}</span>
-              <h2>{t.demo.title}</h2>
-              <p>{t.demo.subtitle}</p>
-              <ul className="demo-features">
-                <li>‚úì {t.demo.feature1}</li>
-                <li>‚úì {t.demo.feature2}</li>
-                <li>‚úì {t.demo.feature3}</li>
+        <section id="solucao" className="section split">
+          <div className="container split-grid">
+            <div className="split-copy">
+              <div className="eyebrow">{t.solution.title}</div>
+              <h2>{t.solution.subtitle}</h2>
+              <ul className="bullet-list">
+                {t.solution.bullets.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
               </ul>
             </div>
+            <div className="split-panel">
+              <div className="pill-row">
+                {t.solution.stats.map((s) => (
+                  <span key={s} className="pill">{s}</span>
+                ))}
+              </div>
+              <div className="glow-card">
+                <p className="dash-label">Workflow Hive</p>
+                <div className="progress">
+                  <div className="progress-fill" />
+                </div>
+                <p className="glow-text">Conciliado, pendente e divergente em tempo real</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-            <form className="demo-form" onSubmit={(e) => e.preventDefault()}>
-              <input type="text" placeholder={t.demo.form.name} required />
-              <input type="email" placeholder={t.demo.form.email} required />
-              <input type="text" placeholder={t.demo.form.company} required />
-              <select required>
-                <option value="">{t.demo.form.profile}</option>
-                <option>{t.demo.form.option1}</option>
-                <option>{t.demo.form.option2}</option>
-                <option>{t.demo.form.option3}</option>
-                <option>{t.demo.form.option4}</option>
-              </select>
-              <button type="submit" className="btn-primary full">
-                {t.demo.form.submit}
-              </button>
+        <section id="fluxo" className="section">
+          <div className="container">
+            <div className="section-head">
+              <div className="eyebrow">{t.flow.title}</div>
+            </div>
+            <div className="timeline">
+              {t.flow.steps.map((step, index) => (
+                <div key={step.title} className="timeline-item">
+                  <div className="timeline-bullet">0{index + 1}</div>
+                  <div>
+                    <h3>{step.title}</h3>
+                    <p>{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="beneficios" className="section">
+          <div className="container">
+            <div className="section-head">
+              <div className="eyebrow">{t.benefits.title}</div>
+            </div>
+            <div className="benefits-grid">
+              {t.benefits.items.map((item) => (
+                <div key={item} className="benefit">
+                  <span className="tick">?</span>
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container">
+            <div className="section-head">
+              <div className="eyebrow">{t.expansion.title}</div>
+            </div>
+            <div className="card-grid two">
+              {t.expansion.bullets.map((item) => (
+                <div key={item} className="card">
+                  <div className="card-icon" />
+                  <p>{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="demo" className="section cta">
+          <div className="container cta-card">
+            <div>
+              <div className="eyebrow">{t.cta.title}</div>
+              <h2>{t.cta.subtitle}</h2>
+              <div className="cta-actions">
+                <a className="btn primary" href="#demo-form">{t.cta.primary}</a>
+                <a className="btn outline" href="#demo-form">{t.cta.secondary}</a>
+              </div>
+              <p className="note">{t.cta.note}</p>
+            </div>
+            <form id="demo-form" className="demo-form" onSubmit={(e) => e.preventDefault()}>
+              <input type="text" name="name" placeholder={lang === "pt" ? "Nome completo" : lang === "en" ? "Full name" : "Nombre completo"} required />
+              <input type="email" name="email" placeholder={lang === "pt" ? "Email profissional" : lang === "en" ? "Work email" : "Email profesional"} required />
+              <input type="text" name="company" placeholder={lang === "pt" ? "Empresa" : lang === "en" ? "Company" : "Empresa"} required />
+              <button type="submit" className="btn primary full">{t.cta.primary}</button>
             </form>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
-      {/* Footer */}
       <footer className="footer">
-        <div className="container">
-          <div className="footer-grid">
-            <div className="footer-brand">
-              <div className="footer-logo">
-                <img src="/logo_hex.svg" alt="BeeFirst" className="footer-logo-img" />
-                <span className="footer-logo-text">Bee<span className="footer-logo-highlight">First</span></span>
-              </div>
-              <p className="footer-tagline">{t.footer.brand}</p>
-            </div>
-            
-            <div className="footer-links-group">
-              <h4>{lang === 'pt' ? 'Navega√ß√£o' : lang === 'en' ? 'Navigation' : 'Navegaci√≥n'}</h4>
-              <a href="#problema">{t.footer.problem}</a>
-              <a href="#solucao">{t.footer.solution}</a>
-              <a href="#beneficios">{t.footer.benefits}</a>
-              <a href="#demo">{t.footer.demo}</a>
-            </div>
-            
-            <div className="footer-contact">
-              <h4>{lang === 'pt' ? 'Contacto' : lang === 'en' ? 'Contact' : 'Contacto'}</h4>
-              <p>info@beefirst.com</p>
-              <div className="footer-social">
-                <a href="#" aria-label="LinkedIn">üîó</a>
-                <a href="#" aria-label="Twitter">üê¶</a>
-              </div>
-            </div>
+        <div className="container footer-row">
+          <div>
+            <div className="brand-name">Bee<span>First</span> ï Hive</div>
+            <p className="footer-sub">ConciliaÁ„o autom·tica para escritÛrios cont·beis</p>
           </div>
-          
-          <div className="footer-bottom">
-            <p>¬© 2024 BeeFirst ‚Ä¢ Hive</p>
-            <p>{t.footer.rights}</p>
+          <div className="footer-links">
+            <a href="#problema">{t.nav.problem}</a>
+            <a href="#solucao">{t.nav.solution}</a>
+            <a href="#fluxo">{t.nav.flow}</a>
+            <a href="#beneficios">{t.nav.benefits}</a>
+          </div>
+          <div className="footer-contact">
+            <p>info@beefirst.com</p>
+            <p>© 2026 BeeFirst ï Hive</p>
           </div>
         </div>
       </footer>
