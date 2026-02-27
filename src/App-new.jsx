@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import {
   Activity,
@@ -6,6 +6,7 @@ import {
   ArrowUp,
   Info,
   LayoutGrid,
+  Menu,
   MessageSquare,
   Moon,
   MoreHorizontal,
@@ -13,14 +14,13 @@ import {
   Settings,
   ShieldBan,
   Sun,
-  Users
+  Users,
+  X
 } from "lucide-react";
 import { submitLeadCapture } from "./lib/leadCapture";
 import "./styles-new.css";
 import instagramIcon from "./assets/instagram.svg";
 import linkedinIcon from "./assets/linkedin.svg";
-import facebookIcon from "./assets/facebook.svg";
-import twitterIcon from "./assets/twitter.svg";
 
 const LANG_OPTIONS = [
   { key: "en", label: "EN" },
@@ -31,8 +31,8 @@ const LANG_OPTIONS = [
 const TRANSLATIONS = {
   pt: {
     nav: {
-      solutions: "Solucoes",
-      benefits: "Beneficios",
+      solutions: "Soluções",
+      benefits: "Benefícios",
       contact: "Contacto"
     },
     theme: {
@@ -41,68 +41,68 @@ const TRANSLATIONS = {
     },
     hero: {
       badge: "IA para Contabilidade",
-      title: "Conciliacao Bancaria",
+      title: "Conciliação Bancária",
       subtitle: "em Segundos",
-      description: "Automatize o cruzamento entre contabilidade e extratos bancarios. Reduza 60-90% do tempo operacional.",
+      description: "Automatize o cruzamento entre contabilidade e extratos bancários. Reduza 60-90% do tempo operacional.",
       ctaContact: "Entrar em Contacto",
       watch: "Ver Como Funciona"
     },
     stats: [
-      { value: "60-90%", label: "Reducao de Tempo" },
-      { value: "1 Semana", label: "Implementacao" },
-      { value: "99%", label: "Precisao IA" }
+      { value: "60-90%", label: "Redução de Tempo" },
+      { value: "1 Semana", label: "Implementação" },
+      { value: "99%", label: "Precisão IA" }
     ],
     problem: {
       tag: "O Desafio",
-      title: "Horas Perdidas em Conciliacao Manual",
+      title: "Horas Perdidas em Conciliação Manual",
       cards: [
         { icon: "⏱️", title: "Tempo Operacional", desc: "Horas gastas a comparar extratos linha a linha." },
-        { icon: "❌", title: "Erros Humanos", desc: "Retrabalho constante impacta o fecho contabilistico." },
-        { icon: "📊", title: "Falta de Visibilidade", desc: "Dificil acompanhar pendencias em tempo real." },
-        { icon: "📈", title: "Limite de Crescimento", desc: "Impossivel escalar sem aumentar equipa." }
+        { icon: "❌", title: "Erros Humanos", desc: "Retrabalho constante impacta o fecho contabilístico." },
+        { icon: "📊", title: "Falta de Visibilidade", desc: "Difícil acompanhar pendências em tempo real." },
+        { icon: "📈", title: "Limite de Crescimento", desc: "Impossível escalar sem aumentar equipa." }
       ]
     },
     solution: {
-      tag: "A Solucao",
-      title: "Hive - IA Aplicada a Contabilidade",
-      subtitle: "Plataforma completa de conciliacao automatica",
+      tag: "A Solução",
+      title: "Hive - IA Aplicada à Contabilidade",
+      subtitle: "Plataforma completa de conciliação automática",
       steps: [
-        { num: "01", title: "Importacao", desc: "Integracao automatica com ERP e bancos." },
-        { num: "02", title: "Matching IA", desc: "Cruzamento inteligente de lancamentos." },
-        { num: "03", title: "Validacao", desc: "Dashboard com estado em tempo real." }
+        { num: "01", title: "Importação", desc: "Integração automática com ERP e bancos." },
+        { num: "02", title: "Matching IA", desc: "Cruzamento inteligente de lançamentos." },
+        { num: "03", title: "Validação", desc: "Dashboard com estado em tempo real." }
       ]
     },
     benefits: {
-      tag: "Beneficios",
-      title: "Transforme a Sua Operacao",
+      tag: "Benefícios",
+      title: "Transforme a Sua Operação",
       items: [
-        { icon: "⚡", title: "Velocidade", desc: "Reduza 60-90% do tempo de conciliacao." },
-        { icon: "🎯", title: "Precisao", desc: "99% de acerto com IA treinada." },
+        { icon: "⚡", title: "Velocidade", desc: "Reduza 60-90% do tempo de conciliação." },
+        { icon: "🎯", title: "Precisão", desc: "99% de acerto com IA treinada." },
         { icon: "📊", title: "Visibilidade", desc: "Dashboard de controlo em tempo real." },
-        { icon: "💰", title: "ROI Rapido", desc: "Retorno em menos de 3 meses." },
-        { icon: "🔁", title: "Automacao", desc: "Matching automatico de padroes." },
-        { icon: "🚀", title: "Escalabilidade", desc: "Cresca sem aumentar equipa." }
+        { icon: "💰", title: "ROI Rápido", desc: "Retorno em menos de 3 meses." },
+        { icon: "🔁", title: "Automação", desc: "Matching automático de padrões." },
+        { icon: "🚀", title: "Escalabilidade", desc: "Cresça sem aumentar equipa." }
       ]
     },
     showcase: {
       tag: "Dashboard",
       title: "Interface Intuitiva e Poderosa",
-      subtitle: "Visualize tudo num unico local"
+      subtitle: "Visualize tudo num único local"
     },
     dashboard: {
       title: "Dashboard",
       live: "AO VIVO",
-      overview: "Visao Geral",
-      advanced: "Metricas Avancadas",
+      overview: "Visão Geral",
+      advanced: "Métricas Avançadas",
       weekly: "Atividade Semanal",
       growth: "Crescimento de Utilizadores",
-      weekDays: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+      weekDays: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
       months: ["Jan", "Mar", "Mai", "Jul", "Set", "Nov"]
     },
     contact: {
-      tag: "Proximo Passo",
+      tag: "Próximo Passo",
       title: "Fale com a BeeFirst",
-      subtitle: "Preencha o formulario e a nossa equipa entra em contacto.",
+      subtitle: "Preencha o formulário e a nossa equipa entra em contacto.",
       nameLabel: "Nome",
       namePlaceholder: "Nome completo",
       emailLabel: "Email profissional",
@@ -112,12 +112,12 @@ const TRANSLATIONS = {
       messageLabel: "Mensagem",
       messagePlaceholder: "Explique o seu contexto e objetivo.",
       button: "Enviar Contacto",
-      note: "Resposta em ate 1 dia util."
+      note: "Resposta em até 1 dia útil."
     },
     footer: {
       links: {
-        solution: "Solucao",
-        benefits: "Beneficios",
+        solution: "Solução",
+        benefits: "Benefícios",
         contact: "Contacto",
         privacy: "Privacidade"
       },
@@ -269,7 +269,7 @@ const TRANSLATIONS = {
         { icon: "⚡", title: "Velocidad", desc: "Reduce 60-90% del tiempo de conciliacion." },
         { icon: "🎯", title: "Precision", desc: "99% de exactitud con IA entrenada." },
         { icon: "📊", title: "Visibilidad", desc: "Dashboard en tiempo real." },
-        { icon: "💰", title: "ROI Rapido", desc: "Retorno en menos de 3 meses." },
+        { icon: "💰", title: "ROI Rápido", desc: "Retorno en menos de 3 meses." },
         { icon: "🔁", title: "Automatizacion", desc: "Matching automatico de patrones." },
         { icon: "🚀", title: "Escalabilidad", desc: "Crece sin aumentar plantilla." }
       ]
@@ -286,7 +286,7 @@ const TRANSLATIONS = {
       advanced: "Metricas Avanzadas",
       weekly: "Actividad Semanal",
       growth: "Crecimiento de Usuarios",
-      weekDays: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+      weekDays: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sáb"],
       months: ["Ene", "Mar", "May", "Jul", "Sep", "Nov"]
     },
     contact: {
@@ -326,8 +326,8 @@ const DASHBOARD_OVERVIEW_METRICS = [
 const DASHBOARD_ADVANCED_METRICS = [
   { label: { pt: "Escalonamentos", en: "Escalations", es: "Escalamientos" }, value: "54", change: "+2.5%", Icon: AlertCircle },
   { label: { pt: "Taxa de Escalonamento", en: "Escalation Rate", es: "Tasa de Escalamiento" }, value: "2.8%", change: "+0.3%", Icon: AlertCircle },
-  { label: { pt: "Taxa de Retencao", en: "Retention Rate", es: "Tasa de Retencion" }, value: "91.5%", change: "+4.0%", Icon: Activity },
-  { label: { pt: "Media Msg/Utilizador", en: "Avg Msg/User", es: "Media Msg/Usuario" }, value: "2.75", change: "+0.2%", Icon: MessageSquare }
+  { label: { pt: "Taxa de Retenção", en: "Retention Rate", es: "Tasa de Retención" }, value: "91.5%", change: "+4.0%", Icon: Activity },
+  { label: { pt: "Média Msg/Utilizador", en: "Avg Msg/User", es: "Media Msg/Usuario" }, value: "2.75", change: "+0.2%", Icon: MessageSquare }
 ];
 
 const DASHBOARD_SIDEBAR_ICONS = [MessageSquare, ShieldBan, RefreshCcw, Info, Settings];
@@ -337,6 +337,7 @@ const USER_GROWTH_VALUES = [18, 24, 30, 38, 44, 56, 62, 70];
 export default function App() {
   const [lang, setLang] = React.useState("pt");
   const [isDarkMode, setIsDarkMode] = React.useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [scrollY, setScrollY] = React.useState(0);
   const [contactStatus, setContactStatus] = React.useState("idle");
   const [contactMessage, setContactMessage] = React.useState("");
@@ -368,6 +369,17 @@ export default function App() {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleContactSubmit = async (event) => {
@@ -408,7 +420,7 @@ export default function App() {
             ? "We could not send your request right now."
             : lang === "es"
               ? "No fue posible enviar la solicitud ahora."
-              : "Nao foi possivel enviar o pedido agora."
+              : "Não foi possível enviar o pedido agora."
       );
     }
   };
@@ -427,9 +439,31 @@ export default function App() {
               <img src="/logo_hex.svg" alt="BeeFirst" className="logo-img-new" />
               <span className="logo-text-new">Bee<span>First</span></span>
             </div>
-            <div className="nav-links-new">
-              <a href="#solution" className="nav-anchor-new">{t.nav.solutions}</a>
-              <a href="#benefits" className="nav-anchor-new">{t.nav.benefits}</a>
+            <button
+              type="button"
+              className={`mobile-menu-toggle-new ${isMobileMenuOpen ? "open" : ""}`}
+              onClick={() => setIsMobileMenuOpen((current) => !current)}
+              aria-label={
+                isMobileMenuOpen
+                  ? lang === "en"
+                    ? "Close menu"
+                    : lang === "es"
+                      ? "Cerrar menú"
+                      : "Fechar menu"
+                  : lang === "en"
+                    ? "Open menu"
+                    : lang === "es"
+                      ? "Abrir menú"
+                      : "Abrir menu"
+              }
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="main-navigation-links"
+            >
+              {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+            <div id="main-navigation-links" className={`nav-links-new ${isMobileMenuOpen ? "open" : ""}`}>
+              <a href="#solution" className="nav-anchor-new" onClick={() => setIsMobileMenuOpen(false)}>{t.nav.solutions}</a>
+              <a href="#benefits" className="nav-anchor-new" onClick={() => setIsMobileMenuOpen(false)}>{t.nav.benefits}</a>
 
               <div className="lang-switch-new" role="group" aria-label="Language selector">
                 {LANG_OPTIONS.map((option) => (
@@ -437,7 +471,10 @@ export default function App() {
                     key={option.key}
                     type="button"
                     className={`lang-btn-new ${lang === option.key ? "active" : ""}`}
-                    onClick={() => setLang(option.key)}
+                    onClick={() => {
+                      setLang(option.key);
+                      setIsMobileMenuOpen(false);
+                    }}
                   >
                     {option.label}
                   </button>
@@ -447,14 +484,17 @@ export default function App() {
               <button
                 type="button"
                 className="theme-toggle-new"
-                onClick={() => setIsDarkMode((value) => !value)}
+                onClick={() => {
+                  setIsDarkMode((value) => !value);
+                  setIsMobileMenuOpen(false);
+                }}
                 aria-label={isDarkMode ? t.theme.light : t.theme.dark}
               >
                 {isDarkMode ? <Sun size={15} /> : <Moon size={15} />}
                 <span>{isDarkMode ? t.theme.light : t.theme.dark}</span>
               </button>
 
-              <a href="#demo" className="btn-primary-new">{t.nav.contact}</a>
+              <a href="#demo" className="btn-primary-new" onClick={() => setIsMobileMenuOpen(false)}>{t.nav.contact}</a>
             </div>
           </div>
         </div>
@@ -835,7 +875,6 @@ export default function App() {
               )}
             </form>
 
-            <p className="contact-note-new">{t.contact.note}</p>
           </motion.div>
         </div>
       </section>
@@ -853,17 +892,21 @@ export default function App() {
               <a href="#">{t.footer.links.privacy}</a>
             </nav>
             <div className="footer-social-new">
-              <a href="#" aria-label="Instagram">
+              <a
+                href="https://www.instagram.com/beefirst.ai?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                aria-label="Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img src={instagramIcon} alt="" />
               </a>
-              <a href="#" aria-label="LinkedIn">
+              <a
+                href="https://www.linkedin.com/company/beefirst-ai/posts/?feedView=all"
+                aria-label="LinkedIn"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img src={linkedinIcon} alt="" />
-              </a>
-              <a href="#" aria-label="Facebook">
-                <img src={facebookIcon} alt="" />
-              </a>
-              <a href="#" aria-label="X">
-                <img src={twitterIcon} alt="" />
               </a>
             </div>
           </div>
@@ -875,3 +918,8 @@ export default function App() {
     </div>
   );
 }
+
+
+
+
+

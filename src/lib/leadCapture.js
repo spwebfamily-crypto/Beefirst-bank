@@ -1,4 +1,4 @@
-const LOCAL_LEADS_STORAGE_KEY = "hive-landing-leads";
+﻿const LOCAL_LEADS_STORAGE_KEY = "hive-landing-leads";
 const LOCAL_LEADS_STORAGE_LIMIT = 50;
 
 const MESSAGES = {
@@ -15,7 +15,7 @@ const MESSAGES = {
       "Lead salvo localmente no navegador. Configure CRM/Calendly/WhatsApp/e-mail para envio externo.",
     genericError: "Não foi possível enviar o pedido agora.",
     spamAccepted: "Pedido recebido.",
-    title: "Novo pedido de contato - BeeFirst",
+    title: "Novo pedido de contacto - BeeFirst",
     labels: {
       name: "Nome",
       email: "Email",
@@ -253,4 +253,5 @@ export async function submitLeadCapture(entries, options = {}) {
     };
   }
 }
+
 
