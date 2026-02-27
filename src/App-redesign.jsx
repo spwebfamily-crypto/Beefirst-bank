@@ -24,8 +24,8 @@ const AppRedesign = () => {
           <CardDeal />
           <Testimonials />
           <Clients />
-          <CTA />
-          <Footer /> */}
+          <CTA /> */}
+          <Footer />
         </div>
       </div>
     </div>
