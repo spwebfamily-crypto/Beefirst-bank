@@ -1,267 +1,169 @@
-# BeeFirst Hive - Conciliação Bancária Automática
+# BeeFirst Hive Landing
 
-Landing page moderna e responsiva para a solução Hive de conciliação bancária automática, desenvolvida com React e Vite.
+Landing page da solucao Hive para conciliacao bancaria automatica, com foco em captacao de leads para escritorios de contabilidade.
 
-## 📋 Sobre o Projeto
+## Visao geral
 
-A Hive é uma plataforma de conciliação bancária automática que utiliza inteligência artificial para cruzar automaticamente lançamentos contabilísticos com movimentos de extratos bancários, reduzindo drasticamente o tempo operacional e minimizando erros manuais.
+Este projeto roda em React + Vite e atualmente usa a app em `src/App-new.jsx` como experiencia principal.
 
-Esta landing page foi desenvolvida para apresentar a solução de forma clara e objetiva, focando na conversão de visitantes em leads qualificados.
+Principais capacidades:
+- Conteudo em 3 idiomas: `pt`, `en`, `es`
+- Tema claro/escuro com toggle em runtime
+- Hero, problema, solucao, fluxo, beneficios, showcase e CTA final
+- Formulario de contacto com integracoes opcionais (CRM, Calendly, WhatsApp, email)
+- Fallback local para leads quando nao existe integracao externa
+- Layout responsivo com ajustes para desktop/tablet/mobile
 
-## ✨ Funcionalidades
+## Stack
 
-- **Multi-idioma**: Suporte completo para Português, Inglês e Espanhol
-- **Tema Claro/Escuro**: Alternância entre modos com persistência local
-- **Design Responsivo**: Experiência otimizada para desktop, tablet e mobile
-- **Acessibilidade**: Implementação de boas práticas WCAG
-- **Animações Suaves**: Efeitos de reveal e transições fluidas
-- **Formulário de Captura**: Sistema de lead generation integrado
-- **Navegação Inteligente**: Menu fixo com indicador de progresso de scroll
-- **Integrações**: Suporte para Calendly, WhatsApp e webhooks de CRM
+- React 19
+- Vite 7
+- Framer Motion
+- Lucide React
+- CSS global (`src/styles-new.css`)
+- Compressao de build com `vite-plugin-compression2` (gzip e brotli)
 
-## 🎨 Características de Design
+## Requisitos
 
-- Gradientes ambientes animados
-- Efeito de grão (grain) para textura visual
-- Cards flutuantes com métricas em tempo real
-- Sistema de grid responsivo
-- Tipografia hierárquica e legível
-- Paleta de cores adaptativa por tema
-- Animações sequenciais nos cards de processo
-- Efeitos de hover interativos e suaves
-- Números pulsantes com anéis expansivos
-- Setas com animação de fluxo contínuo
+- Node.js 20+
+- npm 10+
 
-## 🛠️ Tecnologias Utilizadas
+## Setup rapido
 
-- **React 19.2.4**: Biblioteca JavaScript para interfaces
-- **Vite 7.3.1**: Build tool e dev server ultrarrápido
-- **CSS Modules**: Estilização com escopo local
-- **LocalStorage**: Persistência de preferências do usuário
-
-## 📁 Estrutura do Projeto
-
-```
-Beefirst-bank/
-├── src/
-│   ├── assets/
-│   │   └── dashboard.svg          # Imagem do dashboard
-│   ├── App.jsx                    # Componente principal
-│   ├── main.jsx                   # Entry point
-│   ├── styles.css                 # Estilos globais
-│   └── uiCopy.js                  # Textos e traduções
-├── .env.example                   # Exemplo de variáveis de ambiente
-├── .gitignore
-├── index.html
-├── package.json
-├── vite.config.js
-└── README.md
+```bash
+npm install
+npm run dev
 ```
 
-## ⚙️ Configuração
+App em desenvolvimento: `http://localhost:5173`
 
-### Variáveis de Ambiente
+## Variaveis de ambiente
 
-Crie um arquivo `.env` na raiz do projeto baseado no `.env.example`:
+Crie/edite o ficheiro `.env` na raiz:
 
 ```env
-# URL do webhook para envio de leads ao CRM
+VITE_API_URL=http://localhost:8000
 VITE_CRM_WEBHOOK_URL=
-
-# URL do Calendly para agendamento
 VITE_CALENDLY_URL=
-
-# Número do WhatsApp (apenas dígitos)
+VITE_CONTACT_EMAIL=
 VITE_WHATSAPP_NUMBER=
 ```
 
-## 🚀 Scripts Disponíveis
+Descricao:
+- `VITE_API_URL`: endpoint base para funcionalidades de chat (`src/lib/chatService.ts`)
+- `VITE_CRM_WEBHOOK_URL`: webhook para envio de lead para CRM
+- `VITE_CALENDLY_URL`: link de agendamento (abre em novo separador)
+- `VITE_CONTACT_EMAIL`: fallback para `mailto:`
+- `VITE_WHATSAPP_NUMBER`: fallback para WhatsApp (`wa.me`)
+
+## Scripts
 
 ```bash
-# Iniciar servidor de desenvolvimento
-npm run dev
-
-# Build para produção
-npm run build
-
-# Preview do build de produção
-npm run preview
+npm run dev      # servidor local
+npm run build    # build de producao
+npm run preview  # preview local do build
 ```
 
-## 🌐 Seções da Landing Page
+## Estrutura relevante
 
-1. **Hero**: Apresentação principal com proposta de valor
-2. **Problema**: Identificação das dores do público-alvo
-3. **Solução**: Apresentação da Hive e seus diferenciais
-4. **Como Funciona**: Fluxo de trabalho em 3 etapas
-5. **Benefícios**: Vantagens para escritórios contábeis
-6. **Porque Hive**: Posicionamento da plataforma
-7. **Demo**: Formulário de captura de leads
-
-## 📱 Responsividade
-
-A landing page é totalmente responsiva com breakpoints otimizados:
-
-- **Desktop**: > 940px
-- **Tablet**: 600px - 940px
-- **Mobile**: < 600px
-
-Recursos mobile específicos:
-- Menu drawer lateral
-- Navegação rápida inferior
-- CTA fixo na parte inferior
-- Formulário otimizado para toque
-
-## ♿ Acessibilidade
-
-Implementações de acessibilidade incluem:
-
-- Navegação por teclado completa
-- Atributos ARIA apropriados
-- Skip links para conteúdo principal
-- Contraste adequado de cores
-- Foco visível em elementos interativos
-- Suporte a leitores de tela
-- Respeito a `prefers-reduced-motion`
-- Animações otimizadas para performance
-
-## 🎯 Integrações
-
-### Calendly
-Configure `VITE_CALENDLY_URL` para redirecionar leads automaticamente para agendamento.
-
-### WhatsApp
-Configure `VITE_WHATSAPP_NUMBER` para permitir contato direto via WhatsApp.
-
-### CRM Webhook
-Configure `VITE_CRM_WEBHOOK_URL` para enviar dados do formulário para seu CRM via POST request.
-
-Payload enviado:
-```json
-{
-  "source": "hive-landing",
-  "createdAt": "2024-01-01T00:00:00.000Z",
-  "name": "Nome do Lead",
-  "email": "email@exemplo.com",
-  "company": "Empresa",
-  "profile": "escritorio",
-  "volume": "medio",
-  "goal": "Objetivo principal"
-}
+```text
+.
+|-- src/
+|   |-- main.jsx                 # entrypoint (lazy-load de App-new)
+|   |-- App-new.jsx              # landing ativa
+|   |-- styles-new.css           # estilos principais da landing ativa
+|   |-- lib/
+|   |   |-- leadCapture.js       # fluxo de submissao de leads
+|   |   `-- chatService.ts       # cliente de API para chat
+|   |-- App.jsx                  # versao anterior
+|   |-- App-redesign.jsx         # variante alternativa
+|   `-- components/              # componentes e experimentos adicionais
+|-- public/
+|   |-- logo_hex.svg
+|   `-- landing page - hive contabilidade.pdf
+|-- vite.config.js               # chunks, minificacao e compressao
+`-- README.md
 ```
 
-## ✨ Animações e Interações
+## Fluxo de lead capture
 
-### Cards de Processo
-- Entrada sequencial com efeito slide-up
-- Números com animação de pulso contínua
-- Anéis expansivos nos badges numéricos
-- Hover com elevação e brilho deslizante
-- Transições suaves com cubic-bezier
+Implementado em `src/lib/leadCapture.js`.
 
-### Setas de Fluxo
-- Animação de fluxo horizontal contínuo
-- Pulsação sincronizada entre elementos
-- Delays coordenados para efeito de onda
+Passos:
+1. Normaliza os dados do formulario.
+2. Bloqueia spam com campo honeypot (`website`).
+3. Valida obrigatorios (`name`, `email`, `company`).
+4. Tenta enviar para `VITE_CRM_WEBHOOK_URL` (se configurado).
+5. Abre Calendly ou WhatsApp (se configurado).
+6. Se nao houver destino externo, tenta email (`mailto:`).
+7. Se nada estiver configurado, guarda localmente em `localStorage`.
 
-### Performance
-- Animações otimizadas com GPU acceleration
-- Uso de `transform` e `opacity` para melhor performance
-- Respeito às preferências de movimento reduzido do usuário
+Storage local:
+- Chave: `hive-landing-leads`
+- Limite: 50 registos
 
-## 🎨 Personalização
+## Build e performance
 
-### Cores e Temas
+Configuracoes importantes em `vite.config.js`:
+- `minify: "esbuild"`
+- `cssCodeSplit: true`
+- `manualChunks` para separar:
+  - `vendor-react`
+  - `vendor-motion`
+  - `vendor-icons`
+  - `vendor-3d`
+  - `vendor`
+- Compressao de assets com gzip e brotli
 
-Os temas são controlados via CSS custom properties em `styles.css`. Principais variáveis:
+Output de build:
+- Pasta `dist/`
+- Ficheiros comprimidos `.gz` e `.br`
 
-```css
---color-bg: /* Cor de fundo */
---color-text: /* Cor do texto */
---color-primary: /* Cor primária */
---color-accent: /* Cor de destaque */
-```
+## Responsividade
 
-### Textos e Traduções
+Breakpoints principais usados no CSS:
+- `max-width: 1024px`
+- `max-width: 900px`
+- `max-width: 768px`
+- breakpoints adicionais menores para refinamentos finais
 
-Todos os textos estão centralizados em `src/uiCopy.js`, facilitando:
-- Edição de conteúdo
-- Adição de novos idiomas
-- Manutenção de consistência
+## Deploy
 
-## 📊 Métricas e Analytics
+Projeto estatico, compativel com:
+- Vercel
+- Netlify
+- Cloudflare Pages
+- S3 + CloudFront
+- qualquer servidor de ficheiros estaticos
 
-A landing page está preparada para integração com ferramentas de analytics. Eventos importantes para rastrear:
-
-- Visualizações de seção
-- Cliques em CTAs
-- Submissões de formulário
-- Mudanças de idioma/tema
-- Tempo de permanência
-
-## 🔒 Segurança
-
-- Validação de formulários no frontend
-- Sanitização de dados antes do envio
-- Uso de HTTPS recomendado em produção
-- Variáveis de ambiente para dados sensíveis
-- Headers de segurança configuráveis no servidor
-
-## 🚀 Deploy
-
-O projeto pode ser deployado em qualquer plataforma que suporte sites estáticos:
-
-- **Vercel**: Deploy automático via Git
-- **Netlify**: Configuração zero
-- **AWS S3 + CloudFront**: Para maior controle
-- **GitHub Pages**: Opção gratuita
-
-Após o build (`npm run build`), os arquivos estarão na pasta `dist/`.
-
-## 📝 Licença
-
-© BeeFirst • Hive - Todos os direitos reservados.
-
-## 🤝 Contribuição
-
-Este é um projeto proprietário da BeeFirst. Para sugestões ou melhorias, entre em contato com a equipe de desenvolvimento.
-
-## 📞 Suporte
-
-Para dúvidas sobre a implementação ou uso da landing page, consulte a documentação interna ou entre em contato com o time técnico da BeeFirst.
-
----
-
-**Desenvolvido com ❤️ pela equipe BeeFirst**
-
-## Atualizacao de performance (mobile-first)
-
-As ultimas mudancas focam em reduzir custo de renderizacao no mobile, mantendo o desktop intacto.
-
-### Build e bundling
-- Code splitting manual no Vite (`vendor-react`, `vendor-motion`, `vendor-icons`, `vendor`, `vendor-3d`).
-- Minificacao com `esbuild`.
-- Compressao de assets com `vite-plugin-compression2` (gzip + brotli).
-
-### Carregamento inicial
-- `App-new.jsx` carregado com `React.lazy` + `Suspense` em `main.jsx`.
-- Remocao de `StrictMode` no bootstrap para evitar double-render em desenvolvimento.
-- Fonts Google com carregamento nao bloqueante (`media="print"` + `onload`).
-
-### Otimizacoes de runtime para mobile
-- Remocao de hooks pesados de scroll (`useScroll/useTransform/useSpring`) em favor de calculo mais leve.
-- Scroll listener com throttle via `requestAnimationFrame`.
-- `IntersectionObserver` para renderizacao tardia da secao de dashboard.
-- Modo `lite motion` para mobile e `prefers-reduced-motion`.
-
-### CSS focado em mobile
-- Reducao de efeitos caros (blur/backdrop/glow/orbs) apenas em breakpoints mobile.
-- Menos animacoes decorativas em `max-width: 768px`.
-- Placeholder leve para a secao de dashboard antes da intersecao.
-
-### Como validar
+Fluxo:
 ```bash
 npm run build
 ```
+Publicar conteudo de `dist/`.
 
-O build gera arquivos comprimidos `.gz` e `.br` no `dist/`.
+## Troubleshooting
+
+### Erro no build: `Cannot find package 'vite-plugin-compression2'`
+
+Instale dependencias novamente:
+```bash
+npm install
+```
+
+### Integracoes nao disparam
+
+Verifique valores no `.env` e reinicie o dev server apos alteracoes.
+
+### Lead nao enviado externamente
+
+Sem integracao configurada, o projeto guarda lead no navegador (fallback local).
+
+## Notas
+
+- O entrypoint atual e `src/main.jsx`, que carrega `src/App-new.jsx`.
+- Existem ficheiros de variantes antigas no repositorio para referencia, mas nao sao a app principal.
+
+## Licenca
+
+Projeto proprietario BeeFirst.

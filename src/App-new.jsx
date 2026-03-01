@@ -40,54 +40,73 @@ const TRANSLATIONS = {
       light: "Modo Claro"
     },
     hero: {
-      badge: "IA para Contabilidade",
-      title: "Conciliação Bancária",
-      subtitle: "em Segundos",
-      description: "Automatize o cruzamento entre contabilidade e extratos bancários. Reduza 60-90% do tempo operacional.",
-      ctaContact: "Entrar em Contacto",
-      watch: "Ver Como Funciona"
+      badge: "HIVE - Conciliação Automática para Contabilistas",
+      title: "Reduza horas de conciliação bancária",
+      subtitle: "a segundos.",
+      description: "Automatize o cruzamento entre contabilidade e extratos bancários com a Hive.",
+      bullets: [
+        "Identificação automática de movimentos correspondentes",
+        "Sinalização imediata de divergências",
+        "Redução de erros manuais",
+        "Mais tempo para tarefas estratégicas"
+      ],
+      ctaContact: "Agendar demonstração gratuita",
+      watch: "Ver como funciona"
     },
     stats: [
-      { value: "60-90%", label: "Redução de Tempo" },
-      { value: "1 Semana", label: "Implementação" },
-      { value: "99%", label: "Precisão IA" }
+      { value: "Segundos", label: "Tempo médio de conciliação" },
+      { value: "Automático", label: "Matching entre movimentos" },
+      { value: "Escalável", label: "Operação pronta para crescer" }
     ],
     problem: {
-      tag: "O Desafio",
-      title: "Horas Perdidas em Conciliação Manual",
+      tag: "O Problema",
+      title: "A conciliação bancária ainda consome horas da sua equipa?",
+      note: "Cada hora gasta na conciliação é margem perdida.",
       cards: [
-        { icon: "⏱️", title: "Tempo Operacional", desc: "Horas gastas a comparar extratos linha a linha." },
-        { icon: "❌", title: "Erros Humanos", desc: "Retrabalho constante impacta o fecho contabilístico." },
-        { icon: "📊", title: "Falta de Visibilidade", desc: "Difícil acompanhar pendências em tempo real." },
-        { icon: "📈", title: "Limite de Crescimento", desc: "Impossível escalar sem aumentar equipa." }
+        { icon: "📄", title: "Conferência linha a linha", desc: "Processo manual e repetitivo para cada lançamento." },
+        { icon: "⚠️", title: "Alto risco de erro", desc: "Divergências e retrabalho impactam o fecho contabilístico." },
+        { icon: "⏱️", title: "Tempo operacional elevado", desc: "A equipa fica presa em tarefas de baixo valor." },
+        { icon: "📉", title: "Dificuldade em escalar carteira de clientes", desc: "Mais clientes exigem mais esforço manual." }
       ]
     },
-    solution: {
+    reconciliation: {
       tag: "A Solução",
-      title: "Hive - IA Aplicada à Contabilidade",
-      subtitle: "Plataforma completa de conciliação automática",
+      title: "Apresentamos a Hive - Conciliação Automática",
+      subtitle: "A Hive utiliza inteligência artificial para cruzar automaticamente lançamentos contabilísticos e movimentos de extratos bancários. Em segundos, identifica:",
+      cards: [
+        { icon: "🤝", title: "Valores que coincidem", desc: "Identificação automática de movimentos correspondentes." },
+        { icon: "📌", title: "Movimentos pendentes", desc: "Visibilidade imediata do que ainda precisa de ação." },
+        { icon: "⚠️", title: "Divergências", desc: "Sinalização clara de inconsistências e diferenças." },
+        { icon: "🔎", title: "Inconsistências", desc: "Deteção rápida de anomalias no processo de conciliação." }
+      ],
+      note: "Sem necessidade de validação manual exaustiva."
+    },
+    solution: {
+      tag: "Como Funciona",
+      title: "Fluxo simples do início ao fim",
+      subtitle: "Três etapas para automatizar a conciliação com segurança.",
       steps: [
-        { num: "01", title: "Importação", desc: "Integração automática com ERP e bancos." },
-        { num: "02", title: "Matching IA", desc: "Cruzamento inteligente de lançamentos." },
-        { num: "03", title: "Validação", desc: "Dashboard com estado em tempo real." }
-      ]
+        { num: "01", title: "Importação", desc: "Integração com o sistema contabilístico e extratos bancários." },
+        { num: "02", title: "Cruzamento Inteligente", desc: "Matching automático com base em padrões e regras." },
+        { num: "03", title: "Validação e Ação", desc: "Visualização clara do que está conciliado e do que necessita de intervenção." }
+      ],
+      note: "Simples. Rápido. Seguro."
     },
     benefits: {
       tag: "Benefícios",
-      title: "Transforme a Sua Operação",
+      title: "Benefícios para o seu gabinete",
       items: [
-        { icon: "⚡", title: "Velocidade", desc: "Reduza 60-90% do tempo de conciliação." },
-        { icon: "🎯", title: "Precisão", desc: "99% de acerto com IA treinada." },
-        { icon: "📊", title: "Visibilidade", desc: "Dashboard de controlo em tempo real." },
-        { icon: "💰", title: "ROI Rápido", desc: "Retorno em menos de 3 meses." },
-        { icon: "🔁", title: "Automação", desc: "Matching automático de padrões." },
-        { icon: "🚀", title: "Escalabilidade", desc: "Cresça sem aumentar equipa." }
+        { icon: "⏳", title: "Redução de tempo operacional", desc: "Menos horas gastas na conciliação manual." },
+        { icon: "🧠", title: "Menor dependência de tarefas manuais", desc: "A equipa foca-se em trabalho estratégico." },
+        { icon: "✅", title: "Redução de erros", desc: "Maior consistência no fecho contabilístico." },
+        { icon: "📈", title: "Capacidade para novos clientes", desc: "Escale a carteira sem aumentar fricção operacional." },
+        { icon: "💼", title: "Aumento de rentabilidade", desc: "Automatize uma das tarefas mais repetitivas da contabilidade." }
       ]
     },
     showcase: {
-      tag: "Dashboard",
-      title: "Interface Intuitiva e Poderosa",
-      subtitle: "Visualize tudo num único local"
+      tag: "Porque HIVE",
+      title: "A Hive é uma plataforma de agentes inteligentes desenvolvida pela Beefirst para automatizar operações empresariais.",
+      subtitle: "A conciliação é apenas o primeiro passo. Expanda para gestão documental, relatórios inteligentes, automação de processos e comunicação com clientes. Cresce com o seu gabinete."
     },
     dashboard: {
       title: "Dashboard",
@@ -100,9 +119,9 @@ const TRANSLATIONS = {
       months: ["Jan", "Mar", "Mai", "Jul", "Set", "Nov"]
     },
     contact: {
-      tag: "Próximo Passo",
-      title: "Fale com a BeeFirst",
-      subtitle: "Preencha o formulário e a nossa equipa entra em contacto.",
+      tag: "CTA Final",
+      title: "Está pronto para automatizar a conciliação bancária?",
+      subtitle: "Agende uma demonstração gratuita e descubra quanto tempo pode poupar já no próximo mês.",
       nameLabel: "Nome",
       namePlaceholder: "Nome completo",
       emailLabel: "Email profissional",
@@ -111,7 +130,7 @@ const TRANSLATIONS = {
       companyPlaceholder: "Nome da empresa",
       messageLabel: "Mensagem",
       messagePlaceholder: "Explique o seu contexto e objetivo.",
-      button: "Enviar Contacto",
+      button: "Agendar demonstração",
       note: "Resposta em até 1 dia útil."
     },
     footer: {
@@ -136,53 +155,72 @@ const TRANSLATIONS = {
     },
     hero: {
       badge: "AI for Accounting",
-      title: "Bank Reconciliation",
-      subtitle: "in Seconds",
-      description: "Automate matching between accounting records and bank statements. Reduce 60-90% of operational time.",
-      ctaContact: "Contact Sales",
+      title: "Cut bank reconciliation hours",
+      subtitle: "to seconds",
+      description: "Automate matching between accounting records and bank statements with Hive.",
+      bullets: [
+        "Automatic matching of corresponding transactions",
+        "Instant divergence flagging",
+        "Fewer manual errors",
+        "More time for strategic tasks"
+      ],
+      ctaContact: "Book free demo",
       watch: "See How It Works"
     },
     stats: [
-      { value: "60-90%", label: "Time Reduction" },
-      { value: "1 Week", label: "Implementation" },
-      { value: "99%", label: "AI Accuracy" }
+      { value: "Seconds", label: "Average reconciliation time" },
+      { value: "Automated", label: "Transaction matching" },
+      { value: "Scalable", label: "Operation ready to grow" }
     ],
     problem: {
-      tag: "The Challenge",
-      title: "Hours Lost in Manual Reconciliation",
+      tag: "The Problem",
+      title: "Is bank reconciliation still consuming hours from your team?",
+      note: "Every hour spent reconciling is lost margin.",
       cards: [
-        { icon: "⏱️", title: "Operational Time", desc: "Hours spent comparing statements line by line." },
-        { icon: "❌", title: "Human Errors", desc: "Constant rework affects financial closing." },
-        { icon: "📊", title: "Low Visibility", desc: "Hard to track pending items in real time." },
-        { icon: "📈", title: "Growth Limit", desc: "Impossible to scale without increasing headcount." }
+        { icon: "📄", title: "Line-by-line checks", desc: "Manual review for every transaction." },
+        { icon: "⚠️", title: "High error risk", desc: "Divergences and rework hurt close cycles." },
+        { icon: "⏱️", title: "High operational time", desc: "Your team is stuck in repetitive work." },
+        { icon: "📉", title: "Limited scalability", desc: "Hard to grow client portfolio efficiently." }
       ]
     },
-    solution: {
+    reconciliation: {
       tag: "The Solution",
-      title: "Hive - AI for Accounting",
-      subtitle: "Complete automatic reconciliation platform",
+      title: "Meet Hive - Automatic Reconciliation",
+      subtitle: "Hive uses AI to automatically cross-check accounting entries and bank statement movements. In seconds, it identifies:",
+      cards: [
+        { icon: "🤝", title: "Matching values", desc: "Automatic identification of corresponding movements." },
+        { icon: "📌", title: "Pending items", desc: "Immediate visibility into what needs action." },
+        { icon: "⚠️", title: "Divergences", desc: "Clear signals for mismatches and differences." },
+        { icon: "🔎", title: "Inconsistencies", desc: "Fast anomaly detection across reconciliation flows." }
+      ],
+      note: "No exhaustive manual validation required."
+    },
+    solution: {
+      tag: "How It Works",
+      title: "Simple flow from start to finish",
+      subtitle: "Three steps to automate reconciliation with confidence.",
       steps: [
-        { num: "01", title: "Import", desc: "Automated integration with ERP and banks." },
-        { num: "02", title: "AI Matching", desc: "Intelligent matching of transactions." },
-        { num: "03", title: "Validation", desc: "Dashboard with real-time status." }
-      ]
+        { num: "01", title: "Import", desc: "Integration with accounting system and bank statements." },
+        { num: "02", title: "Smart Matching", desc: "Automatic matching based on patterns and rules." },
+        { num: "03", title: "Validate and Act", desc: "Clear view of reconciled items and what needs intervention." }
+      ],
+      note: "Simple. Fast. Secure."
     },
     benefits: {
       tag: "Benefits",
-      title: "Transform Your Operation",
+      title: "Benefits for your firm",
       items: [
-        { icon: "⚡", title: "Speed", desc: "Reduce reconciliation time by 60-90%." },
-        { icon: "🎯", title: "Accuracy", desc: "99% precision with trained AI." },
-        { icon: "📊", title: "Visibility", desc: "Live dashboard for full control." },
-        { icon: "💰", title: "Fast ROI", desc: "Payback in less than 3 months." },
-        { icon: "🔁", title: "Automation", desc: "Automatic pattern matching." },
-        { icon: "🚀", title: "Scalability", desc: "Grow without adding headcount." }
+        { icon: "⏳", title: "Operational time reduction", desc: "Less time spent on manual reconciliation." },
+        { icon: "🧠", title: "Lower manual dependency", desc: "Team can focus on strategic work." },
+        { icon: "✅", title: "Error reduction", desc: "More reliable financial closing." },
+        { icon: "📈", title: "Capacity for new clients", desc: "Scale your portfolio with less friction." },
+        { icon: "💼", title: "Higher profitability", desc: "Automate one of accounting's most repetitive tasks." }
       ]
     },
     showcase: {
-      tag: "Dashboard",
-      title: "Intuitive and Powerful Interface",
-      subtitle: "See everything in one place"
+      tag: "Why Hive",
+      title: "Hive is an intelligent-agents platform built by BeeFirst to automate business operations.",
+      subtitle: "Reconciliation is only the first step. Expand into document management, smart reporting, process automation, and client communication."
     },
     dashboard: {
       title: "Dashboard",
@@ -195,9 +233,9 @@ const TRANSLATIONS = {
       months: ["Jan", "Mar", "May", "Jul", "Sep", "Nov"]
     },
     contact: {
-      tag: "Next Step",
-      title: "Talk to BeeFirst",
-      subtitle: "Fill the form and our team will contact you.",
+      tag: "Final CTA",
+      title: "Ready to automate bank reconciliation?",
+      subtitle: "Book a free demo and discover how much time you can save as early as next month.",
       nameLabel: "Name",
       namePlaceholder: "Full name",
       emailLabel: "Work email",
@@ -206,7 +244,7 @@ const TRANSLATIONS = {
       companyPlaceholder: "Company name",
       messageLabel: "Message",
       messagePlaceholder: "Tell us your context and goals.",
-      button: "Send Contact",
+      button: "Book demo",
       note: "Reply within 1 business day."
     },
     footer: {
@@ -231,53 +269,72 @@ const TRANSLATIONS = {
     },
     hero: {
       badge: "IA para Contabilidad",
-      title: "Conciliacion Bancaria",
-      subtitle: "en Segundos",
-      description: "Automatiza el cruce entre registros contables y extractos bancarios. Reduce 60-90% del tiempo operativo.",
-      ctaContact: "Hablar con Ventas",
+      title: "Reduce horas de conciliacion bancaria",
+      subtitle: "a segundos",
+      description: "Automatiza el cruce entre contabilidad y extractos bancarios con Hive.",
+      bullets: [
+        "Identificacion automatica de movimientos correspondientes",
+        "Senalizacion inmediata de divergencias",
+        "Reduccion de errores manuales",
+        "Mas tiempo para tareas estrategicas"
+      ],
+      ctaContact: "Agendar demostracion gratuita",
       watch: "Ver Como Funciona"
     },
     stats: [
-      { value: "60-90%", label: "Reduccion de Tiempo" },
-      { value: "1 Semana", label: "Implementacion" },
-      { value: "99%", label: "Precision IA" }
+      { value: "Segundos", label: "Tiempo medio de conciliacion" },
+      { value: "Automatico", label: "Matching entre movimientos" },
+      { value: "Escalable", label: "Operacion lista para crecer" }
     ],
     problem: {
-      tag: "El Desafio",
-      title: "Horas Perdidas en Conciliacion Manual",
+      tag: "El Problema",
+      title: "La conciliacion bancaria aun consume horas de tu equipo?",
+      note: "Cada hora dedicada a conciliar es margen perdido.",
       cards: [
-        { icon: "⏱️", title: "Tiempo Operativo", desc: "Horas comparando extractos linea por linea." },
-        { icon: "❌", title: "Errores Humanos", desc: "El retrabajo impacta el cierre contable." },
-        { icon: "📊", title: "Poca Visibilidad", desc: "Dificil seguir pendientes en tiempo real." },
-        { icon: "📈", title: "Limite de Crecimiento", desc: "Escalar sin mas equipo es dificil." }
+        { icon: "📄", title: "Revision linea por linea", desc: "Proceso manual y repetitivo por movimiento." },
+        { icon: "⚠️", title: "Alto riesgo de error", desc: "Las diferencias y el retrabajo afectan el cierre." },
+        { icon: "⏱️", title: "Tiempo operativo elevado", desc: "El equipo se queda en tareas de bajo valor." },
+        { icon: "📉", title: "Dificultad para escalar", desc: "Cuesta crecer la cartera de clientes." }
       ]
     },
-    solution: {
+    reconciliation: {
       tag: "La Solucion",
-      title: "Hive - IA para Contabilidad",
-      subtitle: "Plataforma completa de conciliacion automatica",
+      title: "Presentamos Hive - Conciliacion Automatica",
+      subtitle: "Hive usa inteligencia artificial para cruzar automaticamente asientos contables y movimientos bancarios. En segundos, identifica:",
+      cards: [
+        { icon: "🤝", title: "Valores coincidentes", desc: "Identificacion automatica de movimientos correspondientes." },
+        { icon: "📌", title: "Movimientos pendientes", desc: "Visibilidad inmediata de lo que requiere accion." },
+        { icon: "⚠️", title: "Divergencias", desc: "Senales claras de diferencias e inconsistencias." },
+        { icon: "🔎", title: "Inconsistencias", desc: "Deteccion rapida de anomalias del proceso." }
+      ],
+      note: "Sin validacion manual exhaustiva."
+    },
+    solution: {
+      tag: "Como Funciona",
+      title: "Flujo simple de principio a fin",
+      subtitle: "Tres etapas para automatizar la conciliacion de forma segura.",
       steps: [
-        { num: "01", title: "Importacion", desc: "Integracion automatica con ERP y bancos." },
-        { num: "02", title: "Matching IA", desc: "Cruce inteligente de movimientos." },
-        { num: "03", title: "Validacion", desc: "Dashboard con estado en tiempo real." }
-      ]
+        { num: "01", title: "Importacion", desc: "Integracion con sistema contable y extractos bancarios." },
+        { num: "02", title: "Cruce Inteligente", desc: "Matching automatico con base en patrones y reglas." },
+        { num: "03", title: "Validacion y Accion", desc: "Vista clara de lo conciliado y de lo que requiere intervencion." }
+      ],
+      note: "Simple. Rapido. Seguro."
     },
     benefits: {
       tag: "Beneficios",
-      title: "Transforma tu Operacion",
+      title: "Beneficios para tu despacho",
       items: [
-        { icon: "⚡", title: "Velocidad", desc: "Reduce 60-90% del tiempo de conciliacion." },
-        { icon: "🎯", title: "Precision", desc: "99% de exactitud con IA entrenada." },
-        { icon: "📊", title: "Visibilidad", desc: "Dashboard en tiempo real." },
-        { icon: "💰", title: "ROI Rápido", desc: "Retorno en menos de 3 meses." },
-        { icon: "🔁", title: "Automatizacion", desc: "Matching automatico de patrones." },
-        { icon: "🚀", title: "Escalabilidad", desc: "Crece sin aumentar plantilla." }
+        { icon: "⏳", title: "Reduccion de tiempo operativo", desc: "Menos horas en conciliacion manual." },
+        { icon: "🧠", title: "Menor dependencia manual", desc: "El equipo se enfoca en tareas estrategicas." },
+        { icon: "✅", title: "Reduccion de errores", desc: "Mayor consistencia en el cierre contable." },
+        { icon: "📈", title: "Capacidad para nuevos clientes", desc: "Escala la cartera con menos friccion." },
+        { icon: "💼", title: "Mayor rentabilidad", desc: "Automatiza una de las tareas mas repetitivas." }
       ]
     },
     showcase: {
-      tag: "Dashboard",
-      title: "Interfaz Intuitiva y Potente",
-      subtitle: "Visualiza todo en un solo lugar"
+      tag: "Por Que Hive",
+      title: "Hive es una plataforma de agentes inteligentes creada por BeeFirst para automatizar operaciones empresariales.",
+      subtitle: "La conciliacion es solo el primer paso. Expande a gestion documental, reportes inteligentes, automatizacion de procesos y comunicacion con clientes."
     },
     dashboard: {
       title: "Dashboard",
@@ -290,9 +347,9 @@ const TRANSLATIONS = {
       months: ["Ene", "Mar", "May", "Jul", "Sep", "Nov"]
     },
     contact: {
-      tag: "Proximo Paso",
-      title: "Habla con BeeFirst",
-      subtitle: "Completa el formulario y nuestro equipo te contactara.",
+      tag: "CTA Final",
+      title: "Listo para automatizar la conciliacion bancaria?",
+      subtitle: "Agenda una demostracion gratuita y descubre cuanto tiempo puedes ahorrar ya el proximo mes.",
       nameLabel: "Nombre",
       namePlaceholder: "Nombre completo",
       emailLabel: "Email profesional",
@@ -301,7 +358,7 @@ const TRANSLATIONS = {
       companyPlaceholder: "Nombre de la empresa",
       messageLabel: "Mensaje",
       messagePlaceholder: "Cuéntanos tu contexto y objetivo.",
-      button: "Enviar Contacto",
+      button: "Agendar demostracion",
       note: "Respuesta en 1 dia habil."
     },
     footer: {
@@ -355,20 +412,6 @@ export default function App() {
   const showcaseRef = React.useRef(null);
 
   const shouldUseLiteMotion = isMobileViewport || prefersReducedMotion;
-  const heroHeight = Math.max(heroRef.current?.offsetHeight ?? 1, 1);
-  const heroProgress = shouldUseLiteMotion ? 0 : Math.min(scrollY / heroHeight, 1);
-
-  const y = shouldUseLiteMotion ? 0 : heroProgress * 220;
-  const opacity = shouldUseLiteMotion ? 1 : Math.max(0, 1 - heroProgress / 0.55);
-  const heroBgY = shouldUseLiteMotion ? 0 : heroProgress * 48;
-
-  const orb1Y = shouldUseLiteMotion ? 0 : heroProgress * -60;
-  const orb2Y = shouldUseLiteMotion ? 0 : heroProgress * 48;
-  const orb3Y = shouldUseLiteMotion ? 0 : heroProgress * -34;
-
-  const orb1Scale = shouldUseLiteMotion ? 1 : 1 + heroProgress * 0.05;
-  const orb2Scale = shouldUseLiteMotion ? 1 : 1 - heroProgress * 0.04;
-  const orb3Scale = shouldUseLiteMotion ? 1 : 1 + heroProgress * 0.03;
 
   React.useEffect(() => {
     let rafId = 0;
@@ -584,19 +627,29 @@ export default function App() {
       </motion.nav>
 
       <section ref={heroRef} className="hero-new">
-        <motion.div className="hero-bg" style={{ y: heroBgY }}>
+        <motion.div
+          className="hero-bg"
+          initial={shouldUseLiteMotion ? false : { opacity: 0.75, scale: 1.02 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: shouldUseLiteMotion ? 0.3 : 0.9, ease: [0.22, 1, 0.36, 1] }}
+        >
           <div className="hero-bg-grid" />
           <div className="hero-bg-vignette" />
           <div className="hero-bg-fade" />
           <div className="hero-bg-orbs">
-            <motion.div className="gradient-orb orb-1" style={{ y: orb1Y, scale: orb1Scale }} />
-            <motion.div className="gradient-orb orb-2" style={{ y: orb2Y, scale: orb2Scale }} />
-            <motion.div className="gradient-orb orb-3" style={{ y: orb3Y, scale: orb3Scale }} />
+            <motion.div className="gradient-orb orb-1" />
+            <motion.div className="gradient-orb orb-2" />
+            <motion.div className="gradient-orb orb-3" />
           </div>
         </motion.div>
 
         <div className="container-new">
-          <motion.div className="hero-content-new" style={{ y, opacity }}>
+          <motion.div
+            className="hero-content-new"
+            initial={shouldUseLiteMotion ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: shouldUseLiteMotion ? 0.3 : 0.55, ease: "easeOut" }}
+          >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -614,7 +667,7 @@ export default function App() {
               className="hero-title-new"
             >
               {t.hero.title}
-              <span className="gradient-text-new">{t.hero.subtitle}</span>
+              <span className="hero-subtitle-static-new">{t.hero.subtitle}</span>
             </motion.h1>
 
             <motion.p
@@ -625,6 +678,19 @@ export default function App() {
             >
               {t.hero.description}
             </motion.p>
+
+            {t.hero.bullets?.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45 }}
+                className="hero-bullets-new"
+              >
+                {t.hero.bullets.map((bullet) => (
+                  <span key={bullet} className="hero-bullet-new">✔ {bullet}</span>
+                ))}
+              </motion.div>
+            )}
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -638,7 +704,7 @@ export default function App() {
                   <path d="M5 12h14M12 5l7 7-7 7" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </a>
-              <a href="#solution" className="btn-secondary-large-new">{t.hero.watch}</a>
+              <a href="#how-it-works" className="btn-secondary-large-new">{t.hero.watch}</a>
             </motion.div>
 
             <motion.div
@@ -674,6 +740,7 @@ export default function App() {
           >
             <span className="section-tag-new">{t.problem.tag}</span>
             <h2>{t.problem.title}</h2>
+            {t.problem.note && <p>{t.problem.note}</p>}
           </motion.div>
 
           <div className="cards-grid-new">
@@ -696,7 +763,45 @@ export default function App() {
         </div>
       </section>
 
-      <section id="solution" className="section-new solution-section">
+      <section id="solution" className="section-new reconciliation-section">
+        <div className="container-new">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="section-header-new"
+          >
+            <span className="section-tag-new yellow">{t.reconciliation.tag}</span>
+            <h2>{t.reconciliation.title}</h2>
+            <p>{t.reconciliation.subtitle}</p>
+          </motion.div>
+
+          <div className="cards-grid-new reconciliation-grid-new">
+            {t.reconciliation.cards.map((card, i) => (
+              <motion.div
+                key={i}
+                className="feature-card-new reconciliation-card-new"
+                initial={shouldUseLiteMotion ? false : { opacity: 0, y: 36, scale: 0.92 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.12, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={shouldUseLiteMotion ? undefined : { y: -8, scale: 1.02 }}
+              >
+                <div className="reconciliation-card-head-new">
+                  <div className="card-icon-new">{card.icon}</div>
+                  <span className="reconciliation-chip-new">IA Match</span>
+                </div>
+                <h3>{card.title}</h3>
+                <p>{card.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {t.reconciliation.note && <p className="section-note-new">{t.reconciliation.note}</p>}
+        </div>
+      </section>
+
+      <section id="how-it-works" className="section-new solution-section">
         <div className="container-new">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -711,33 +816,23 @@ export default function App() {
 
           <div className="process-grid-new">
             {t.solution.steps.map((step, i) => (
-              <React.Fragment key={i}>
-                <motion.div
-                  className="process-card-new"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.2, type: "spring" }}
-                  whileHover={shouldUseLiteMotion ? undefined : { y: -10, scale: 1.05 }}
-                >
-                  <div className="process-number-new">{step.num}</div>
-                  <h3>{step.title}</h3>
-                  <p>{step.desc}</p>
-                </motion.div>
-                {i < t.solution.steps.length - 1 && (
-                  <motion.div
-                    className="process-arrow-new"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.2 + 0.3 }}
-                  >
-                    →
-                  </motion.div>
-                )}
-              </React.Fragment>
+              <motion.div
+                key={i}
+                className="process-card-new"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2, type: "spring" }}
+                whileHover={shouldUseLiteMotion ? undefined : { y: -10, scale: 1.05 }}
+              >
+                <div className="process-number-new">{step.num}</div>
+                <h3>{step.title}</h3>
+                <p>{step.desc}</p>
+              </motion.div>
             ))}
           </div>
+
+          {t.solution.note && <p className="section-note-new">{t.solution.note}</p>}
         </div>
       </section>
 
@@ -914,7 +1009,6 @@ export default function App() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="section-tag-new yellow">{t.contact.tag}</span>
             <h2>{t.contact.title}</h2>
             <p>{t.contact.subtitle}</p>
 
