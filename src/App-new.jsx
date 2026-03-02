@@ -1,5 +1,5 @@
 ﻿import React from "react";
-import { motion } from "framer-motion";
+import { MotionConfig, motion } from "framer-motion";
 import {
   Activity,
   AlertCircle,
@@ -391,6 +391,7 @@ const DASHBOARD_SIDEBAR_ICONS = [MessageSquare, ShieldBan, RefreshCcw, Info, Set
 const WEEKLY_ACTIVITY_VALUES = [15, 33, 30, 28, 39, 48, 41];
 const USER_GROWTH_VALUES = [18, 24, 30, 38, 44, 56, 62, 70];
 const MOBILE_BREAKPOINT = 768;
+const NAV_SCROLL_THRESHOLD = 50;
 
 export default function App() {
   const [lang, setLang] = React.useState("pt");
@@ -403,7 +404,7 @@ export default function App() {
     typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false
   );
   const [shouldRenderShowcase, setShouldRenderShowcase] = React.useState(false);
-  const [scrollY, setScrollY] = React.useState(0);
+  const [isNavScrolled, setIsNavScrolled] = React.useState(false);
   const [contactStatus, setContactStatus] = React.useState("idle");
   const [contactMessage, setContactMessage] = React.useState("");
   const t = TRANSLATIONS[lang];
@@ -418,7 +419,9 @@ export default function App() {
 
     const updateScroll = () => {
       rafId = 0;
-      setScrollY(window.scrollY || window.pageYOffset || 0);
+      const currentScroll = window.scrollY || window.pageYOffset || 0;
+      const nextIsScrolled = currentScroll > NAV_SCROLL_THRESHOLD;
+      setIsNavScrolled((prevIsScrolled) => (prevIsScrolled === nextIsScrolled ? prevIsScrolled : nextIsScrolled));
     };
 
     const handleScroll = () => {
@@ -552,9 +555,10 @@ export default function App() {
   };
 
   return (
+    <MotionConfig reducedMotion={shouldUseLiteMotion ? "always" : "never"}>
     <div className={`app-new${isDarkMode ? " dark-mode" : ""}`}>
       <motion.nav
-        className={`nav-new ${scrollY > 50 ? "scrolled" : ""}`}
+        className={`nav-new ${isNavScrolled ? "scrolled" : ""}`}
         initial={shouldUseLiteMotion ? false : { y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: shouldUseLiteMotion ? 0.25 : 0.6 }}
@@ -562,7 +566,7 @@ export default function App() {
         <div className="container-new">
           <div className="nav-content">
             <div className="logo-new">
-              <img src="/logo_hex.svg" alt="BeeFirst" className="logo-img-new" />
+              <img src="/logo_hex.svg" alt="BeeFirst" className="logo-img-new" width="40" height="40" />
               <span className="logo-text-new">Bee<span>First</span></span>
             </div>
             <button
@@ -850,110 +854,135 @@ export default function App() {
           </motion.div>
 
           {shouldRenderShowcase ? (
-            <motion.div
-              className="dashboard-preview"
-              initial={shouldUseLiteMotion ? false : { opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: shouldUseLiteMotion ? 0.25 : 0.8 }}
-            >
-            <aside className="dashboard-sidebar-new" aria-hidden="true">
-              <a href="#" className="dashboard-side-logo-new">
-                <img src="/logo_hex.svg" alt="BeeFirst" loading="lazy" decoding="async" />
-              </a>
-              <button type="button" className="dashboard-side-item-new active" aria-label="Overview">
-                <LayoutGrid size={13} />
-              </button>
-              {DASHBOARD_SIDEBAR_ICONS.map((Icon, i) => (
-                <button type="button" className="dashboard-side-item-new" aria-label={`Menu ${i + 1}`} key={i}>
-                  <Icon size={13} />
+            shouldUseLiteMotion ? (
+              <div className="dashboard-lite-new" aria-hidden="true">
+                <div className="dashboard-lite-header-new">
+                  <h3>{t.dashboard.title}</h3>
+                  <span>{t.dashboard.live}</span>
+                </div>
+                <div className="dashboard-lite-grid-new">
+                  {DASHBOARD_OVERVIEW_METRICS.slice(0, 2).map(({ label, value, change }) => (
+                    <article className="dashboard-lite-card-new" key={label[lang]}>
+                      <p>{label[lang]}</p>
+                      <strong>{value}</strong>
+                      <em>{change}</em>
+                    </article>
+                  ))}
+                  {DASHBOARD_ADVANCED_METRICS.slice(0, 2).map(({ label, value, change }) => (
+                    <article className="dashboard-lite-card-new" key={label[lang]}>
+                      <p>{label[lang]}</p>
+                      <strong>{value}</strong>
+                      <em>{change}</em>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <motion.div
+                className="dashboard-preview"
+                initial={shouldUseLiteMotion ? false : { opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: shouldUseLiteMotion ? 0.25 : 0.8 }}
+              >
+              <aside className="dashboard-sidebar-new" aria-hidden="true">
+                <a href="#" className="dashboard-side-logo-new">
+                  <img src="/logo_hex.svg" alt="BeeFirst" loading="lazy" decoding="async" width="24" height="24" />
+                </a>
+                <button type="button" className="dashboard-side-item-new active" aria-label="Overview">
+                  <LayoutGrid size={13} />
                 </button>
-              ))}
-            </aside>
+                {DASHBOARD_SIDEBAR_ICONS.map((Icon, i) => (
+                  <button type="button" className="dashboard-side-item-new" aria-label={`Menu ${i + 1}`} key={i}>
+                    <Icon size={13} />
+                  </button>
+                ))}
+              </aside>
 
-            <div className="dashboard-main-new">
-              <div className="dashboard-main-header-new">
-                <h3>{t.dashboard.title}</h3>
-                <div className="dashboard-live-new">
-                  <span />
-                  {t.dashboard.live}
+              <div className="dashboard-main-new">
+                <div className="dashboard-main-header-new">
+                  <h3>{t.dashboard.title}</h3>
+                  <div className="dashboard-live-new">
+                    <span />
+                    {t.dashboard.live}
+                  </div>
+                </div>
+
+                <p className="dashboard-section-title-new">{t.dashboard.overview}</p>
+                <div className="dashboard-metrics-new">
+                  {DASHBOARD_OVERVIEW_METRICS.map(({ label, value, change, Icon }) => (
+                    <article className="dashboard-stat-new" key={label[lang]}>
+                      <div className="dashboard-stat-head-new">
+                        <span>{label[lang]}</span>
+                        <Icon size={12} />
+                      </div>
+                      <div className="dashboard-stat-value-new">
+                        <strong>{value}</strong>
+                        <em>{change}</em>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+
+                <p className="dashboard-section-title-new">{t.dashboard.advanced}</p>
+                <div className="dashboard-metrics-new">
+                  {DASHBOARD_ADVANCED_METRICS.map(({ label, value, change, Icon }) => (
+                    <article className="dashboard-stat-new" key={label[lang]}>
+                      <div className="dashboard-stat-head-new">
+                        <span>{label[lang]}</span>
+                        <Icon size={12} />
+                      </div>
+                      <div className="dashboard-stat-value-new">
+                        <strong>{value}</strong>
+                        <em>{change}</em>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+
+                <div className="dashboard-charts-new">
+                  <article className="dashboard-chart-new">
+                    <h4>{t.dashboard.weekly}</h4>
+                    <div className="dashboard-line-plot-new">
+                      {WEEKLY_ACTIVITY_VALUES.map((value, i) => (
+                        <div
+                          key={i}
+                          className="dashboard-line-point-new"
+                          style={{ left: `${(i / (WEEKLY_ACTIVITY_VALUES.length - 1)) * 100}%`, bottom: `${value}%` }}
+                        />
+                      ))}
+                      <svg viewBox="0 0 100 55" preserveAspectRatio="none" aria-hidden="true">
+                        <polyline
+                          points={WEEKLY_ACTIVITY_VALUES.map((value, i) => `${(i / (WEEKLY_ACTIVITY_VALUES.length - 1)) * 100},${55 - value * 0.8}`).join(" ")}
+                        />
+                      </svg>
+                    </div>
+                    <div className="dashboard-axis-new">
+                      {t.dashboard.weekDays.map((day) => (
+                        <span key={day}>{day}</span>
+                      ))}
+                    </div>
+                  </article>
+
+                  <article className="dashboard-chart-new">
+                    <h4>{t.dashboard.growth}</h4>
+                    <div className="dashboard-bars-new">
+                      {USER_GROWTH_VALUES.map((value, i) => (
+                        <span key={i} style={{ height: `${value}%` }} />
+                      ))}
+                    </div>
+                    <div className="dashboard-axis-new">
+                      {t.dashboard.months.map((month) => (
+                        <span key={month}>{month}</span>
+                      ))}
+                    </div>
+                  </article>
                 </div>
               </div>
 
-              <p className="dashboard-section-title-new">{t.dashboard.overview}</p>
-              <div className="dashboard-metrics-new">
-                {DASHBOARD_OVERVIEW_METRICS.map(({ label, value, change, Icon }) => (
-                  <article className="dashboard-stat-new" key={label[lang]}>
-                    <div className="dashboard-stat-head-new">
-                      <span>{label[lang]}</span>
-                      <Icon size={12} />
-                    </div>
-                    <div className="dashboard-stat-value-new">
-                      <strong>{value}</strong>
-                      <em>{change}</em>
-                    </div>
-                  </article>
-                ))}
-              </div>
-
-              <p className="dashboard-section-title-new">{t.dashboard.advanced}</p>
-              <div className="dashboard-metrics-new">
-                {DASHBOARD_ADVANCED_METRICS.map(({ label, value, change, Icon }) => (
-                  <article className="dashboard-stat-new" key={label[lang]}>
-                    <div className="dashboard-stat-head-new">
-                      <span>{label[lang]}</span>
-                      <Icon size={12} />
-                    </div>
-                    <div className="dashboard-stat-value-new">
-                      <strong>{value}</strong>
-                      <em>{change}</em>
-                    </div>
-                  </article>
-                ))}
-              </div>
-
-              <div className="dashboard-charts-new">
-                <article className="dashboard-chart-new">
-                  <h4>{t.dashboard.weekly}</h4>
-                  <div className="dashboard-line-plot-new">
-                    {WEEKLY_ACTIVITY_VALUES.map((value, i) => (
-                      <div
-                        key={i}
-                        className="dashboard-line-point-new"
-                        style={{ left: `${(i / (WEEKLY_ACTIVITY_VALUES.length - 1)) * 100}%`, bottom: `${value}%` }}
-                      />
-                    ))}
-                    <svg viewBox="0 0 100 55" preserveAspectRatio="none" aria-hidden="true">
-                      <polyline
-                        points={WEEKLY_ACTIVITY_VALUES.map((value, i) => `${(i / (WEEKLY_ACTIVITY_VALUES.length - 1)) * 100},${55 - value * 0.8}`).join(" ")}
-                      />
-                    </svg>
-                  </div>
-                  <div className="dashboard-axis-new">
-                    {t.dashboard.weekDays.map((day) => (
-                      <span key={day}>{day}</span>
-                    ))}
-                  </div>
-                </article>
-
-                <article className="dashboard-chart-new">
-                  <h4>{t.dashboard.growth}</h4>
-                  <div className="dashboard-bars-new">
-                    {USER_GROWTH_VALUES.map((value, i) => (
-                      <span key={i} style={{ height: `${value}%` }} />
-                    ))}
-                  </div>
-                  <div className="dashboard-axis-new">
-                    {t.dashboard.months.map((month) => (
-                      <span key={month}>{month}</span>
-                    ))}
-                  </div>
-                </article>
-              </div>
-            </div>
-
-            <div className="dashboard-glow" />
-            </motion.div>
+              <div className="dashboard-glow" />
+              </motion.div>
+            )
           ) : (
             <div className="dashboard-placeholder-new" aria-hidden="true">
               <div className="dashboard-placeholder-bar-new" />
@@ -1072,7 +1101,7 @@ export default function App() {
         <div className="container-new">
           <div className="footer-stack-new">
             <a href="#" className="footer-brand-mark-new" aria-label="BeeFirst">
-              <img src="/logo_hex.svg" alt="BeeFirst" className="footer-brand-img-new" loading="lazy" decoding="async" />
+              <img src="/logo_hex.svg" alt="BeeFirst" className="footer-brand-img-new" loading="lazy" decoding="async" width="42" height="42" />
             </a>
             <nav className="footer-links-new" aria-label="Footer">
               <a href="#solution">{t.footer.links.solution}</a>
@@ -1087,7 +1116,7 @@ export default function App() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src={instagramIcon} alt="" loading="lazy" decoding="async" />
+                <img src={instagramIcon} alt="" loading="lazy" decoding="async" width="18" height="18" />
               </a>
               <a
                 href="https://www.linkedin.com/company/beefirst-ai/posts/?feedView=all"
@@ -1095,7 +1124,7 @@ export default function App() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src={linkedinIcon} alt="" loading="lazy" decoding="async" />
+                <img src={linkedinIcon} alt="" loading="lazy" decoding="async" width="18" height="18" />
               </a>
             </div>
           </div>
@@ -1105,6 +1134,7 @@ export default function App() {
         </div>
       </footer>
     </div>
+    </MotionConfig>
   );
 }
 

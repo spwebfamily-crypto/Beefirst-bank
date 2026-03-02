@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "IBM Plex Mono Local";
+  src: url("/IBM_Plex_Mono/IBMPlexMono-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -21,7 +29,7 @@
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
   --font-base: "Poppins", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display: "Zalando Sans Expanded", "Poppins", sans-serif;
-  --font-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  --font-mono: "IBM Plex Mono Local", "IBM Plex Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
 }
 
 html {
@@ -560,6 +568,8 @@ body {
 .section-new {
   padding: 100px 0;
   position: relative;
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
 }
 
 .problem-section {
@@ -846,6 +856,78 @@ body {
     radial-gradient(130% 80% at 100% 0%, rgba(34, 211, 238, 0.1) 0%, transparent 55%),
     linear-gradient(120deg, rgba(255, 255, 255, 0.02) 0%, transparent 40%);
   pointer-events: none;
+}
+
+.dashboard-lite-new {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  border-radius: 20px;
+  border: 1px solid #2a3a52;
+  background: linear-gradient(135deg, #0b1220 0%, #0f1b2e 55%, #14253e 100%);
+  padding: 16px;
+  box-shadow: 0 24px 42px -26px rgba(5, 10, 20, 0.7);
+}
+
+.dashboard-lite-header-new {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.dashboard-lite-header-new h3 {
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.dashboard-lite-header-new span {
+  border-radius: 999px;
+  padding: 4px 8px;
+  background: #f59e0b;
+  color: #101623;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.dashboard-lite-grid-new {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.dashboard-lite-card-new {
+  border-radius: 10px;
+  border: 1px solid #2a3b56;
+  background: linear-gradient(180deg, #132238 0%, #101b2d 100%);
+  padding: 10px;
+  display: grid;
+  gap: 4px;
+}
+
+.dashboard-lite-card-new p {
+  color: #97b0cc;
+  font-size: 10px;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.dashboard-lite-card-new strong {
+  color: #fff;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+}
+
+.dashboard-lite-card-new em {
+  color: #22d3ee;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
 }
 
 .dashboard-sidebar-new {
@@ -1805,6 +1887,25 @@ body {
   box-shadow: 0 34px 66px -28px rgba(0, 0, 0, 0.82);
 }
 
+.app-new.dark-mode .dashboard-lite-new {
+  background: linear-gradient(135deg, #212529 0%, #1f2428 100%);
+  border-color: rgba(108, 117, 125, 0.65);
+  box-shadow: 0 22px 40px -26px rgba(0, 0, 0, 0.82);
+}
+
+.app-new.dark-mode .dashboard-lite-card-new {
+  background: linear-gradient(180deg, #2d3339 0%, #262c32 100%);
+  border-color: rgba(108, 117, 125, 0.62);
+}
+
+.app-new.dark-mode .dashboard-lite-card-new p {
+  color: #9ca3ab;
+}
+
+.app-new.dark-mode .dashboard-lite-card-new em {
+  color: #facc00;
+}
+
 .app-new.dark-mode .dashboard-placeholder-new {
   border-color: rgba(108, 117, 125, 0.62);
   background: linear-gradient(135deg, #2d3339 0%, #262c32 100%);
@@ -2559,6 +2660,14 @@ body {
 
   .dashboard-metrics-new {
     grid-template-columns: 1fr;
+  }
+
+  .dashboard-lite-grid-new {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-lite-card-new strong {
+    font-size: 15px;
   }
 
   .dashboard-stat-head-new svg {
