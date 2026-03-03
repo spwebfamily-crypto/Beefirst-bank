@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./fonts.css";
 
 const App = React.lazy(() => import("./App-new.jsx"));
 

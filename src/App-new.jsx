@@ -1,7 +1,7 @@
 ﻿import React from "react";
 import { MotionConfig, motion } from "framer-motion";
 import {
-  Activity,
+Activity,
   AlertCircle,
   ArrowUp,
   Info,
@@ -63,10 +63,10 @@ const TRANSLATIONS = {
       title: "A conciliação bancária ainda consome horas da sua equipa?",
       note: "Cada hora gasta na conciliação é margem perdida.",
       cards: [
-        { icon: "📄", title: "Conferência linha a linha", desc: "Processo manual e repetitivo para cada lançamento." },
-        { icon: "⚠️", title: "Alto risco de erro", desc: "Divergências e retrabalho impactam o fecho contabilístico." },
-        { icon: "⏱️", title: "Tempo operacional elevado", desc: "A equipa fica presa em tarefas de baixo valor." },
-        { icon: "📉", title: "Dificuldade em escalar carteira de clientes", desc: "Mais clientes exigem mais esforço manual." }
+        { icon: "", title: "Conferência linha a linha", desc: "Processo manual e repetitivo para cada lançamento." },
+        { icon: "", title: "Alto risco de erro", desc: "Divergências e retrabalho impactam o fecho contabilístico." },
+        { icon: "", title: "Tempo operacional elevado", desc: "A equipa fica presa em tarefas de baixo valor." },
+        { icon: "", title: "Dificuldade em escalar carteira de clientes", desc: "Mais clientes exigem mais esforço manual." }
       ]
     },
     reconciliation: {
@@ -74,10 +74,10 @@ const TRANSLATIONS = {
       title: "Apresentamos a Hive - Conciliação Automática",
       subtitle: "A Hive utiliza inteligência artificial para cruzar automaticamente lançamentos contabilísticos e movimentos de extratos bancários. Em segundos, identifica:",
       cards: [
-        { icon: "🤝", title: "Valores que coincidem", desc: "Identificação automática de movimentos correspondentes." },
-        { icon: "📌", title: "Movimentos pendentes", desc: "Visibilidade imediata do que ainda precisa de ação." },
-        { icon: "⚠️", title: "Divergências", desc: "Sinalização clara de inconsistências e diferenças." },
-        { icon: "🔎", title: "Inconsistências", desc: "Deteção rápida de anomalias no processo de conciliação." }
+        { icon: "", title: "Valores que coincidem", desc: "Identificação automática de movimentos correspondentes." },
+        { icon: "", title: "Movimentos pendentes", desc: "Visibilidade imediata do que ainda precisa de ação." },
+        { icon: "", title: "Divergências", desc: "Sinalização clara de inconsistências e diferenças." },
+        { icon: "", title: "Inconsistências", desc: "Deteção rápida de anomalias no processo de conciliação." }
       ],
       note: "Sem necessidade de validação manual exaustiva."
     },
@@ -96,11 +96,11 @@ const TRANSLATIONS = {
       tag: "Benefícios",
       title: "Benefícios para o seu gabinete",
       items: [
-        { icon: "⏳", title: "Redução de tempo operacional", desc: "Menos horas gastas na conciliação manual." },
-        { icon: "🧠", title: "Menor dependência de tarefas manuais", desc: "A equipa foca-se em trabalho estratégico." },
-        { icon: "✅", title: "Redução de erros", desc: "Maior consistência no fecho contabilístico." },
-        { icon: "📈", title: "Capacidade para novos clientes", desc: "Escale a carteira sem aumentar fricção operacional." },
-        { icon: "💼", title: "Aumento de rentabilidade", desc: "Automatize uma das tarefas mais repetitivas da contabilidade." }
+        { icon: "", title: "Redução de tempo operacional", desc: "Menos horas gastas na conciliação manual." },
+        { icon: "", title: "Menor dependência de tarefas manuais", desc: "A equipa foca-se em trabalho estratégico." },
+        { icon: "", title: "Redução de erros", desc: "Maior consistência no fecho contabilístico." },
+        { icon: "", title: "Capacidade para novos clientes", desc: "Escale a carteira sem aumentar fricção operacional." },
+        { icon: "", title: "Aumento de rentabilidade", desc: "Automatize uma das tarefas mais repetitivas da contabilidade." }
       ]
     },
     showcase: {
@@ -177,10 +177,10 @@ const TRANSLATIONS = {
       title: "Is bank reconciliation still consuming hours from your team?",
       note: "Every hour spent reconciling is lost margin.",
       cards: [
-        { icon: "📄", title: "Line-by-line checks", desc: "Manual review for every transaction." },
-        { icon: "⚠️", title: "High error risk", desc: "Divergences and rework hurt close cycles." },
-        { icon: "⏱️", title: "High operational time", desc: "Your team is stuck in repetitive work." },
-        { icon: "📉", title: "Limited scalability", desc: "Hard to grow client portfolio efficiently." }
+        { icon: "", title: "Line-by-line checks", desc: "Manual review for every transaction." },
+        { icon: "", title: "High error risk", desc: "Divergences and rework hurt close cycles." },
+        { icon: "", title: "High operational time", desc: "Your team is stuck in repetitive work." },
+        { icon: "", title: "Limited scalability", desc: "Hard to grow client portfolio efficiently." }
       ]
     },
     reconciliation: {
@@ -188,10 +188,10 @@ const TRANSLATIONS = {
       title: "Meet Hive - Automatic Reconciliation",
       subtitle: "Hive uses AI to automatically cross-check accounting entries and bank statement movements. In seconds, it identifies:",
       cards: [
-        { icon: "🤝", title: "Matching values", desc: "Automatic identification of corresponding movements." },
-        { icon: "📌", title: "Pending items", desc: "Immediate visibility into what needs action." },
-        { icon: "⚠️", title: "Divergences", desc: "Clear signals for mismatches and differences." },
-        { icon: "🔎", title: "Inconsistencies", desc: "Fast anomaly detection across reconciliation flows." }
+        { icon: "", title: "Matching values", desc: "Automatic identification of corresponding movements." },
+        { icon: "", title: "Pending items", desc: "Immediate visibility into what needs action." },
+        { icon: "", title: "Divergences", desc: "Clear signals for mismatches and differences." },
+        { icon: "", title: "Inconsistencies", desc: "Fast anomaly detection across reconciliation flows." }
       ],
       note: "No exhaustive manual validation required."
     },
@@ -210,11 +210,11 @@ const TRANSLATIONS = {
       tag: "Benefits",
       title: "Benefits for your firm",
       items: [
-        { icon: "⏳", title: "Operational time reduction", desc: "Less time spent on manual reconciliation." },
-        { icon: "🧠", title: "Lower manual dependency", desc: "Team can focus on strategic work." },
-        { icon: "✅", title: "Error reduction", desc: "More reliable financial closing." },
-        { icon: "📈", title: "Capacity for new clients", desc: "Scale your portfolio with less friction." },
-        { icon: "💼", title: "Higher profitability", desc: "Automate one of accounting's most repetitive tasks." }
+        { icon: "", title: "Operational time reduction", desc: "Less time spent on manual reconciliation." },
+        { icon: "", title: "Lower manual dependency", desc: "Team can focus on strategic work." },
+        { icon: "", title: "Error reduction", desc: "More reliable financial closing." },
+        { icon: "", title: "Capacity for new clients", desc: "Scale your portfolio with less friction." },
+        { icon: "", title: "Higher profitability", desc: "Automate one of accounting's most repetitive tasks." }
       ]
     },
     showcase: {
@@ -291,10 +291,10 @@ const TRANSLATIONS = {
       title: "La conciliacion bancaria aun consume horas de tu equipo?",
       note: "Cada hora dedicada a conciliar es margen perdido.",
       cards: [
-        { icon: "📄", title: "Revision linea por linea", desc: "Proceso manual y repetitivo por movimiento." },
-        { icon: "⚠️", title: "Alto riesgo de error", desc: "Las diferencias y el retrabajo afectan el cierre." },
-        { icon: "⏱️", title: "Tiempo operativo elevado", desc: "El equipo se queda en tareas de bajo valor." },
-        { icon: "📉", title: "Dificultad para escalar", desc: "Cuesta crecer la cartera de clientes." }
+        { icon: "", title: "Revision linea por linea", desc: "Proceso manual y repetitivo por movimiento." },
+        { icon: "", title: "Alto riesgo de error", desc: "Las diferencias y el retrabajo afectan el cierre." },
+        { icon: "", title: "Tiempo operativo elevado", desc: "El equipo se queda en tareas de bajo valor." },
+        { icon: "", title: "Dificultad para escalar", desc: "Cuesta crecer la cartera de clientes." }
       ]
     },
     reconciliation: {
@@ -302,10 +302,10 @@ const TRANSLATIONS = {
       title: "Presentamos Hive - Conciliacion Automatica",
       subtitle: "Hive usa inteligencia artificial para cruzar automaticamente asientos contables y movimientos bancarios. En segundos, identifica:",
       cards: [
-        { icon: "🤝", title: "Valores coincidentes", desc: "Identificacion automatica de movimientos correspondientes." },
-        { icon: "📌", title: "Movimientos pendientes", desc: "Visibilidad inmediata de lo que requiere accion." },
-        { icon: "⚠️", title: "Divergencias", desc: "Senales claras de diferencias e inconsistencias." },
-        { icon: "🔎", title: "Inconsistencias", desc: "Deteccion rapida de anomalias del proceso." }
+        { icon: "", title: "Valores coincidentes", desc: "Identificacion automatica de movimientos correspondientes." },
+        { icon: "", title: "Movimientos pendientes", desc: "Visibilidad inmediata de lo que requiere accion." },
+        { icon: "", title: "Divergencias", desc: "Senales claras de diferencias e inconsistencias." },
+        { icon: "", title: "Inconsistencias", desc: "Deteccion rapida de anomalias del proceso." }
       ],
       note: "Sin validacion manual exhaustiva."
     },
@@ -324,11 +324,11 @@ const TRANSLATIONS = {
       tag: "Beneficios",
       title: "Beneficios para tu despacho",
       items: [
-        { icon: "⏳", title: "Reduccion de tiempo operativo", desc: "Menos horas en conciliacion manual." },
-        { icon: "🧠", title: "Menor dependencia manual", desc: "El equipo se enfoca en tareas estrategicas." },
-        { icon: "✅", title: "Reduccion de errores", desc: "Mayor consistencia en el cierre contable." },
-        { icon: "📈", title: "Capacidad para nuevos clientes", desc: "Escala la cartera con menos friccion." },
-        { icon: "💼", title: "Mayor rentabilidad", desc: "Automatiza una de las tareas mas repetitivas." }
+        { icon: "", title: "Reduccion de tiempo operativo", desc: "Menos horas en conciliacion manual." },
+        { icon: "", title: "Menor dependencia manual", desc: "El equipo se enfoca en tareas estrategicas." },
+        { icon: "", title: "Reduccion de errores", desc: "Mayor consistencia en el cierre contable." },
+        { icon: "", title: "Capacidad para nuevos clientes", desc: "Escala la cartera con menos friccion." },
+        { icon: "", title: "Mayor rentabilidad", desc: "Automatiza una de las tareas mas repetitivas." }
       ]
     },
     showcase: {
@@ -742,7 +742,6 @@ export default function App() {
             transition={{ duration: 0.6 }}
             className="section-header-new"
           >
-            <span className="section-tag-new">{t.problem.tag}</span>
             <h2>{t.problem.title}</h2>
             {t.problem.note && <p>{t.problem.note}</p>}
           </motion.div>
@@ -775,7 +774,6 @@ export default function App() {
             viewport={{ once: true }}
             className="section-header-new"
           >
-            <span className="section-tag-new yellow">{t.reconciliation.tag}</span>
             <h2>{t.reconciliation.title}</h2>
             <p>{t.reconciliation.subtitle}</p>
           </motion.div>
@@ -791,10 +789,6 @@ export default function App() {
                 transition={{ delay: i * 0.12, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={shouldUseLiteMotion ? undefined : { y: -8, scale: 1.02 }}
               >
-                <div className="reconciliation-card-head-new">
-                  <div className="card-icon-new">{card.icon}</div>
-                  <span className="reconciliation-chip-new">IA Match</span>
-                </div>
                 <h3>{card.title}</h3>
                 <p>{card.desc}</p>
               </motion.div>
@@ -813,7 +807,6 @@ export default function App() {
             viewport={{ once: true }}
             className="section-header-new"
           >
-            <span className="section-tag-new yellow">{t.solution.tag}</span>
             <h2>{t.solution.title}</h2>
             <p>{t.solution.subtitle}</p>
           </motion.div>
@@ -848,7 +841,6 @@ export default function App() {
             viewport={{ once: true }}
             className="section-header-new"
           >
-            <span className="section-tag-new">{t.showcase.tag}</span>
             <h2>{t.showcase.title}</h2>
             <p>{t.showcase.subtitle}</p>
           </motion.div>
@@ -1005,7 +997,6 @@ export default function App() {
             viewport={{ once: true }}
             className="section-header-new"
           >
-            <span className="section-tag-new">{t.benefits.tag}</span>
             <h2>{t.benefits.title}</h2>
           </motion.div>
 

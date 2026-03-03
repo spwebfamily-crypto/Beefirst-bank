@@ -1,10 +1,4 @@
-@font-face {
-  font-family: "IBM Plex Mono Local";
-  src: url("/IBM_Plex_Mono/IBMPlexMono-Bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+@import "./fonts.css";
 
 * {
   margin: 0;
@@ -27,9 +21,9 @@
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-  --font-base: "Poppins", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: "Zalando Sans Expanded", "Poppins", sans-serif;
-  --font-mono: "IBM Plex Mono Local", "IBM Plex Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  --font-base: "IBM Plex Mono", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: "IBM Plex Mono", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
 }
 
 html {
@@ -2799,4 +2793,10 @@ body {
     transition-duration: 0.01ms !important;
     transition-delay: 0ms !important;
   }
+}
+
+
+.showcase-section .section-header-new h2 {
+  font-size: clamp(24px, 3.2vw, 36px);
+  line-height: 1.2;
 }
