@@ -772,9 +772,9 @@ export default function App() {
             transition={{ duration: shouldUseLiteMotion ? 0.3 : 0.55, ease: "easeOut" }}
           >
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={shouldUseLiteMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={shouldUseLiteMotion ? { duration: 0.2 } : { delay: 0.3 }}
               className="hero-title-new"
             >
               {t.hero.title}
@@ -782,9 +782,9 @@ export default function App() {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={shouldUseLiteMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
+              transition={shouldUseLiteMotion ? { duration: 0.2 } : { delay: 0.4 }}
               className="hero-description-new"
             >
               {t.hero.description}
@@ -792,9 +792,9 @@ export default function App() {
 
             {t.hero.bullets?.length > 0 && (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={shouldUseLiteMotion ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.45 }}
+                transition={shouldUseLiteMotion ? { duration: 0.2 } : { delay: 0.45 }}
                 className="hero-bullets-new"
               >
                 {t.hero.bullets.map((bullet) => (
@@ -804,9 +804,9 @@ export default function App() {
             )}
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={shouldUseLiteMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={shouldUseLiteMotion ? { duration: 0.2 } : { delay: 0.5 }}
               className="hero-cta-new"
             >
               <a href="#demo" className="btn-primary-large-new">
