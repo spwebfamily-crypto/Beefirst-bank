@@ -1614,7 +1614,7 @@ body {
 }
 
 .contact-field-new.full {
-  grid-column: 1 / -1;
+  grid-column: auto;
 }
 
 .contact-field-new label {
@@ -1638,7 +1638,7 @@ body {
 
 .contact-field-new textarea {
   resize: vertical;
-  min-height: 120px;
+  min-height: 102px;
 }
 
 .contact-field-new input::placeholder,

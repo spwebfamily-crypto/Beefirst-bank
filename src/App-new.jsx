@@ -410,25 +410,25 @@ const TRANSLATIONS = {
 
 const DASHBOARD_RECENT_RECONCILIATIONS = {
   pt: [
-    { id: "mariana", title: "Mariana: Fecho Fevereiro", date: "24/02/2026, 17:14" },
-    { id: "ricardo-teste", title: "Ricardo", date: "18/02/2026, 13:31" },
-    { id: "lusitania-a", title: "Lusitânia Lda: 13/02/2026", date: "13/02/2026, 15:50" },
-    { id: "pedro-1302", title: "Pedro: 13/02/2026", date: "13/02/2026, 14:49", reconciled: true },
-    { id: "atlantico-b", title: "Atlântico SA: 13/02/2026", date: "13/02/2026, 13:20" }
+    { id: "empresa-1-a", title: "Empresa 1: 05/03/2026", date: "05/03/2026, 17:14" },
+    { id: "empresa-2-a", title: "Empresa 2: 05/03/2026", date: "05/03/2026, 16:02" },
+    { id: "empresa-1-b", title: "Empresa 1: 04/03/2026", date: "04/03/2026, 15:50" },
+    { id: "empresa-2-b", title: "Empresa 2: 04/03/2026", date: "04/03/2026, 14:49", reconciled: true },
+    { id: "empresa-3-a", title: "Empresa 3: 04/03/2026", date: "04/03/2026, 13:20" }
   ],
   en: [
-    { id: "mariana", title: "Mariana: February Close", date: "02/24/2026, 17:14" },
-    { id: "ricardo-test", title: "Ricardo", date: "02/18/2026, 13:31" },
-    { id: "lusitania-a", title: "Lusitania LLC: 02/13/2026", date: "02/13/2026, 15:50" },
-    { id: "pedro-1302", title: "Pedro: 02/13/2026", date: "02/13/2026, 14:49", reconciled: true },
-    { id: "atlantico-b", title: "Atlantico Inc.: 02/13/2026", date: "02/13/2026, 13:20" }
+    { id: "company-1-a", title: "Company 1: 03/05/2026", date: "03/05/2026, 17:14" },
+    { id: "company-2-a", title: "Company 2: 03/05/2026", date: "03/05/2026, 16:02" },
+    { id: "company-1-b", title: "Company 1: 03/04/2026", date: "03/04/2026, 15:50" },
+    { id: "company-2-b", title: "Company 2: 03/04/2026", date: "03/04/2026, 14:49", reconciled: true },
+    { id: "company-3-a", title: "Company 3: 03/04/2026", date: "03/04/2026, 13:20" }
   ],
   es: [
-    { id: "mariana", title: "Mariana: Cierre de febrero", date: "24/02/2026, 17:14" },
-    { id: "ricardo-test", title: "Ricardo", date: "18/02/2026, 13:31" },
-    { id: "lusitania-a", title: "Lusitania SL: 13/02/2026", date: "13/02/2026, 15:50" },
-    { id: "pedro-1302", title: "Pedro: 13/02/2026", date: "13/02/2026, 14:49", reconciled: true },
-    { id: "atlantico-b", title: "Atlántico SA: 13/02/2026", date: "13/02/2026, 13:20" }
+    { id: "empresa-1-a", title: "Empresa 1: 05/03/2026", date: "05/03/2026, 17:14" },
+    { id: "empresa-2-a", title: "Empresa 2: 05/03/2026", date: "05/03/2026, 16:02" },
+    { id: "empresa-1-b", title: "Empresa 1: 04/03/2026", date: "04/03/2026, 15:50" },
+    { id: "empresa-2-b", title: "Empresa 2: 04/03/2026", date: "04/03/2026, 14:49", reconciled: true },
+    { id: "empresa-3-a", title: "Empresa 3: 04/03/2026", date: "04/03/2026, 13:20" }
   ]
 };
 
@@ -1037,7 +1037,7 @@ export default function App() {
 
                 <div className="contact-field-new full">
                   <label htmlFor="contact-message">{t.contact.messageLabel}</label>
-                  <textarea id="contact-message" name="message" rows="4" placeholder={t.contact.messagePlaceholder} required />
+                  <textarea id="contact-message" name="message" rows="3" placeholder={t.contact.messagePlaceholder} required />
                 </div>
               </div>
 
