@@ -1,5 +1,4 @@
 ﻿import React from "react";
-import { MotionConfig, motion } from "framer-motion";
 import {
   Building2,
   CheckCircle2,
@@ -104,7 +103,7 @@ const TRANSLATIONS = {
       subtitle: "A conciliação é apenas o primeiro passo. Expanda para gestão documental, relatórios inteligentes, automação de processos e comunicação com clientes. Cresce com o seu gabinete."
     },
     dashboard: {
-      greeting: "Olá, Admin! 👋",
+      greeting: "Olá, Admin!",
       summary: "Aqui está um resumo da sua contabilidade",
       sidebar: {
         dashboard: "Dashboard",
@@ -232,7 +231,7 @@ const TRANSLATIONS = {
       subtitle: "Reconciliation is only the first step. Expand into document management, smart reporting, process automation, and client communication."
     },
     dashboard: {
-      greeting: "Hello, Admin! 👋",
+      greeting: "Hello, Admin!",
       summary: "Here is an overview of your accounting",
       sidebar: {
         dashboard: "Dashboard",
@@ -360,7 +359,7 @@ const TRANSLATIONS = {
       subtitle: "La conciliacion es solo el primer paso. Expande a gestion documental, reportes inteligentes, automatizacion de procesos y comunicacion con clientes."
     },
     dashboard: {
-      greeting: "Hola, Admin! 👋",
+      greeting: "Hola, Admin!",
       summary: "Aquí tienes un resumen de tu contabilidad",
       sidebar: {
         dashboard: "Panel",
@@ -451,12 +450,6 @@ const NAV_SCROLL_THRESHOLD = 50;
 export default function App() {
   const [lang, setLang] = React.useState("pt");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const [isMobileViewport, setIsMobileViewport] = React.useState(
-    typeof window !== "undefined" ? window.innerWidth <= MOBILE_BREAKPOINT : false
-  );
-  const [prefersReducedMotion, setPrefersReducedMotion] = React.useState(
-    typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false
-  );
   const [shouldRenderShowcase, setShouldRenderShowcase] = React.useState(false);
   const [isNavScrolled, setIsNavScrolled] = React.useState(false);
   const [contactStatus, setContactStatus] = React.useState("idle");
@@ -467,10 +460,7 @@ export default function App() {
   const dashboardMetricCards = DASHBOARD_METRIC_CARDS;
   const dashboardSideItems = DASHBOARD_SIDE_ITEMS;
 
-  const heroRef = React.useRef(null);
   const showcaseRef = React.useRef(null);
-
-  const shouldUseLiteMotion = isMobileViewport || prefersReducedMotion;
 
   React.useEffect(() => {
     let rafId = 0;
@@ -502,40 +492,17 @@ export default function App() {
   }, []);
 
   React.useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-
     const handleResize = () => {
-      const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
-      setIsMobileViewport(isMobile);
-
-      if (!isMobile) {
+      if (window.innerWidth > MOBILE_BREAKPOINT) {
         setIsMobileMenuOpen(false);
       }
     };
 
-    const handleMotionChange = (event) => {
-      setPrefersReducedMotion(event.matches);
-    };
-
     handleResize();
-    setPrefersReducedMotion(mediaQuery.matches);
-
     window.addEventListener("resize", handleResize);
-
-    if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener("change", handleMotionChange);
-    } else {
-      mediaQuery.addListener(handleMotionChange);
-    }
 
     return () => {
       window.removeEventListener("resize", handleResize);
-
-      if (mediaQuery.removeEventListener) {
-        mediaQuery.removeEventListener("change", handleMotionChange);
-      } else {
-        mediaQuery.removeListener(handleMotionChange);
-      }
     };
   }, []);
 
@@ -701,13 +668,9 @@ export default function App() {
   );
 
   return (
-    <MotionConfig reducedMotion={shouldUseLiteMotion ? "always" : "never"}>
-    <div className="app-new dark-mode">
-      <motion.nav
+        <div className="app-new dark-mode">
+      <nav
         className={`nav-new ${isNavScrolled ? "scrolled" : ""}`}
-        initial={shouldUseLiteMotion ? false : { y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: shouldUseLiteMotion ? 0.25 : 0.6 }}
       >
         <div className="container-new">
           <div className="nav-content">
@@ -761,52 +724,37 @@ export default function App() {
             </div>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
-      <section ref={heroRef} className="hero-new">
+      <section className="hero-new">
         <div className="container-new">
-          <motion.div
+          <div
             className="hero-content-new"
-            initial={shouldUseLiteMotion ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: shouldUseLiteMotion ? 0.3 : 0.55, ease: "easeOut" }}
           >
-            <motion.h1
-              initial={shouldUseLiteMotion ? false : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={shouldUseLiteMotion ? { duration: 0.2 } : { delay: 0.3 }}
+            <h1
               className="hero-title-new"
             >
               {t.hero.title}
               <span className="hero-subtitle-static-new">{t.hero.subtitle}</span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={shouldUseLiteMotion ? false : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={shouldUseLiteMotion ? { duration: 0.2 } : { delay: 0.4 }}
+            <p
               className="hero-description-new"
             >
               {t.hero.description}
-            </motion.p>
+            </p>
 
             {t.hero.bullets?.length > 0 && (
-              <motion.div
-                initial={shouldUseLiteMotion ? false : { opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={shouldUseLiteMotion ? { duration: 0.2 } : { delay: 0.45 }}
+              <div
                 className="hero-bullets-new"
               >
                 {t.hero.bullets.map((bullet) => (
                   <span key={bullet} className="hero-bullet-new">✔ {bullet}</span>
                 ))}
-              </motion.div>
+              </div>
             )}
 
-            <motion.div
-              initial={shouldUseLiteMotion ? false : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={shouldUseLiteMotion ? { duration: 0.2 } : { delay: 0.5 }}
+            <div
               className="hero-cta-new"
             >
               <a href="#demo" className="btn-primary-large-new">
@@ -816,40 +764,31 @@ export default function App() {
                 </svg>
               </a>
               <a href="#how-it-works" className="btn-secondary-large-new">{t.hero.watch}</a>
-            </motion.div>
+            </div>
 
-          </motion.div>
+          </div>
         </div>
       </section>
 
       <section className="section-new problem-section">
         <div className="container-new">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+          <div
             className="section-header-new"
           >
             <h2>{t.problem.title}</h2>
             {t.problem.note && <p>{t.problem.note}</p>}
-          </motion.div>
+          </div>
 
           <div className="cards-grid-new">
             {t.problem.cards.map((card, i) => (
-              <motion.div
+              <div
                 key={i}
                 className="feature-card-new"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                whileHover={shouldUseLiteMotion ? undefined : { y: -8, scale: 1.02 }}
               >
                 <div className="card-icon-new">{card.icon}</div>
                 <h3>{card.title}</h3>
                 <p>{card.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -857,10 +796,7 @@ export default function App() {
 
       <section id="solution" className="section-new reconciliation-section">
         <div className="container-new">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <div
             className="section-header-new"
           >
             <h2>
@@ -870,22 +806,17 @@ export default function App() {
               ) : null}
             </h2>
             <p>{t.reconciliation.subtitle}</p>
-          </motion.div>
+          </div>
 
           <div className="cards-grid-new reconciliation-grid-new">
             {t.reconciliation.cards.map((card, i) => (
-              <motion.div
+              <div
                 key={i}
                 className="feature-card-new reconciliation-card-new"
-                initial={shouldUseLiteMotion ? false : { opacity: 0, y: 36, scale: 0.92 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.12, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={shouldUseLiteMotion ? undefined : { y: -8, scale: 1.02 }}
               >
                 <h3>{card.title}</h3>
                 <p>{card.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
 
@@ -895,31 +826,23 @@ export default function App() {
 
       <section id="how-it-works" className="section-new solution-section">
         <div className="container-new">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <div
             className="section-header-new"
           >
             <h2>{t.solution.title}</h2>
             <p>{t.solution.subtitle}</p>
-          </motion.div>
+          </div>
 
           <div className="process-grid-new">
             {t.solution.steps.map((step, i) => (
-              <motion.div
+              <div
                 key={i}
                 className="process-card-new"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.2, type: "spring" }}
-                whileHover={shouldUseLiteMotion ? undefined : { y: -10, scale: 1.05 }}
               >
                 <div className="process-number-new">{step.num}</div>
                 <h3>{step.title}</h3>
                 <p>{step.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
 
@@ -929,33 +852,20 @@ export default function App() {
 
       <section className="section-new showcase-section" ref={showcaseRef}>
         <div className="container-new">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <div
             className="section-header-new"
           >
             <h2>{t.showcase.title}</h2>
             <p>{t.showcase.subtitle}</p>
-          </motion.div>
+          </div>
 
           {shouldRenderShowcase ? (
-            shouldUseLiteMotion ? (
-              <div className="dashboard-preview dashboard-preview-recent-new" aria-hidden="true">
-                {dashboardPreviewContent}
-              </div>
-            ) : (
-              <motion.div
-                className="dashboard-preview dashboard-preview-recent-new"
-                initial={shouldUseLiteMotion ? false : { opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: shouldUseLiteMotion ? 0.25 : 0.8 }}
-                aria-hidden="true"
-              >
-                {dashboardPreviewContent}
-              </motion.div>
-            )
+            <div
+              className="dashboard-preview dashboard-preview-recent-new"
+              aria-hidden="true"
+            >
+              {dashboardPreviewContent}
+            </div>
           ) : (
             <div className="dashboard-placeholder-new" aria-hidden="true">
               <div className="dashboard-placeholder-bar-new" />
@@ -972,30 +882,22 @@ export default function App() {
 
       <section id="benefits" className="section-new benefits-section">
         <div className="container-new">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <div
             className="section-header-new"
           >
             <h2>{t.benefits.title}</h2>
-          </motion.div>
+          </div>
 
           <div className="benefits-grid-new">
             {t.benefits.items.map((item, i) => (
-              <motion.div
+              <div
                 key={i}
                 className="benefit-card-new"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                whileHover={shouldUseLiteMotion ? undefined : { y: -5, scale: 1.02 }}
               >
                 <div className="benefit-icon-new">{item.icon}</div>
                 <h3>{item.title}</h3>
                 <p>{item.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -1003,12 +905,8 @@ export default function App() {
 
       <section id="demo" className="section-new cta-section">
         <div className="container-new">
-          <motion.div
+          <div
             className="cta-card"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
           >
             <h2>{t.contact.title}</h2>
             <p>{t.contact.subtitle}</p>
@@ -1065,7 +963,7 @@ export default function App() {
               )}
             </form>
 
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -1106,11 +1004,8 @@ export default function App() {
         </div>
       </footer>
     </div>
-    </MotionConfig>
   );
 }
-
-
 
 
 
