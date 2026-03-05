@@ -1,15 +1,8 @@
 ﻿import React from "react";
 import { MotionConfig, motion } from "framer-motion";
 import {
-  AlertCircle,
-  Building2,
   CheckCircle2,
-  ClipboardList,
-  LayoutGrid,
   Menu,
-  Moon,
-  Plus,
-  Sun,
   X
 } from "lucide-react";
 import { submitLeadCapture } from "./lib/leadCapture";
@@ -104,15 +97,9 @@ const TRANSLATIONS = {
       subtitle: "A conciliação é apenas o primeiro passo. Expanda para gestão documental, relatórios inteligentes, automação de processos e comunicação com clientes. Cresce com o seu gabinete."
     },
     dashboard: {
-      title: "Dashboard",
-      live: "AO VIVO",
-      summary: "Exemplo visual do dashboard (dados fictícios)",
-      newReconciliation: "Nova Conciliação",
-      manageCompanies: "Gerenciar Empresas",
-      activity: "Atividade Semanal",
-      trend: "Evolução Mensal",
-      weekDays: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
-      months: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"]
+      recentTitle: "Conciliações Recentes",
+      viewAll: "Ver todas",
+      reconciled: "Conciliada"
     },
     contact: {
       tag: "CTA Final",
@@ -219,15 +206,9 @@ const TRANSLATIONS = {
       subtitle: "Reconciliation is only the first step. Expand into document management, smart reporting, process automation, and client communication."
     },
     dashboard: {
-      title: "Dashboard",
-      live: "LIVE",
-      summary: "Visual dashboard example (sample data)",
-      newReconciliation: "New Reconciliation",
-      manageCompanies: "Manage Companies",
-      activity: "Weekly Activity",
-      trend: "Monthly Trend",
-      weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-      months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+      recentTitle: "Recent Reconciliations",
+      viewAll: "View all",
+      reconciled: "Reconciled"
     },
     contact: {
       tag: "Final CTA",
@@ -334,15 +315,9 @@ const TRANSLATIONS = {
       subtitle: "La conciliacion es solo el primer paso. Expande a gestion documental, reportes inteligentes, automatizacion de procesos y comunicacion con clientes."
     },
     dashboard: {
-      title: "Dashboard",
-      live: "EN VIVO",
-      summary: "Ejemplo visual del dashboard (datos ficticios)",
-      newReconciliation: "Nueva Conciliación",
-      manageCompanies: "Gestionar Empresas",
-      activity: "Actividad Semanal",
-      trend: "Evolución Mensual",
-      weekDays: ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
-      months: ["Ene", "Feb", "Mar", "Abr", "May", "Jun"]
+      recentTitle: "Conciliaciones Recientes",
+      viewAll: "Ver todas",
+      reconciled: "Conciliada"
     },
     contact: {
       tag: "CTA Final",
@@ -371,28 +346,34 @@ const TRANSLATIONS = {
   }
 };
 
-const DASHBOARD_SUMMARY_METRICS = [
-  { label: { pt: "Empresas", en: "Companies", es: "Empresas" }, value: "12", Icon: Building2, tone: "neutral" },
-  { label: { pt: "Conciliações", en: "Reconciliations", es: "Conciliaciones" }, value: "248", Icon: ClipboardList, tone: "warning" },
-  { label: { pt: "Conciliadas", en: "Reconciled", es: "Conciliadas" }, value: "231", Icon: CheckCircle2, tone: "success" },
-  { label: { pt: "Pendentes", en: "Pending", es: "Pendientes" }, value: "17", Icon: AlertCircle, tone: "danger" }
-];
-const DASHBOARD_ACTIVITY_VALUES = [38, 44, 41, 52, 49, 58, 55];
-const DASHBOARD_ACTIVITY_MIN = Math.min(...DASHBOARD_ACTIVITY_VALUES);
-const DASHBOARD_ACTIVITY_RANGE = Math.max(...DASHBOARD_ACTIVITY_VALUES) - DASHBOARD_ACTIVITY_MIN || 1;
-const DASHBOARD_MONTHLY_VALUES = [35, 39, 44, 48, 57, 62];
-
-const DASHBOARD_SIDEBAR_ITEMS = [
-  { key: "dashboard", label: { pt: "Dashboard", en: "Dashboard", es: "Dashboard" }, Icon: LayoutGrid, active: true },
-  { key: "companies", label: { pt: "Empresas", en: "Companies", es: "Empresas" }, Icon: Building2, active: false },
-  { key: "reconciliations", label: { pt: "Conciliações", en: "Reconciliations", es: "Conciliaciones" }, Icon: ClipboardList, active: false }
-];
+const DASHBOARD_RECENT_RECONCILIATIONS = {
+  pt: [
+    { id: "sample", title: "Sample: Sample 24-2", date: "24/02/2026, 17:14" },
+    { id: "fabio-teste", title: "Fabio: Teste", date: "18/02/2026, 13:31" },
+    { id: "empresa-1-a", title: "Empresa 1: 13/02/2026", date: "13/02/2026, 15:50" },
+    { id: "fabio-1302", title: "Fabio: 13/02/2026", date: "13/02/2026, 14:49", reconciled: true },
+    { id: "empresa-1-b", title: "Empresa 1: 13/02/2026", date: "13/02/2026, 13:20" }
+  ],
+  en: [
+    { id: "sample", title: "Sample: Sample 24-2", date: "02/24/2026, 17:14" },
+    { id: "fabio-teste", title: "Fabio: Test", date: "02/18/2026, 13:31" },
+    { id: "company-1-a", title: "Company 1: 02/13/2026", date: "02/13/2026, 15:50" },
+    { id: "fabio-1302", title: "Fabio: 02/13/2026", date: "02/13/2026, 14:49", reconciled: true },
+    { id: "company-1-b", title: "Company 1: 02/13/2026", date: "02/13/2026, 13:20" }
+  ],
+  es: [
+    { id: "sample", title: "Sample: Sample 24-2", date: "24/02/2026, 17:14" },
+    { id: "fabio-teste", title: "Fabio: Teste", date: "18/02/2026, 13:31" },
+    { id: "empresa-1-a", title: "Empresa 1: 13/02/2026", date: "13/02/2026, 15:50" },
+    { id: "fabio-1302", title: "Fabio: 13/02/2026", date: "13/02/2026, 14:49", reconciled: true },
+    { id: "empresa-1-b", title: "Empresa 1: 13/02/2026", date: "13/02/2026, 13:20" }
+  ]
+};
 const MOBILE_BREAKPOINT = 768;
 const NAV_SCROLL_THRESHOLD = 50;
 
 export default function App() {
   const [lang, setLang] = React.useState("pt");
-  const [isDarkMode, setIsDarkMode] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [isMobileViewport, setIsMobileViewport] = React.useState(
     typeof window !== "undefined" ? window.innerWidth <= MOBILE_BREAKPOINT : false
@@ -405,6 +386,7 @@ export default function App() {
   const [contactStatus, setContactStatus] = React.useState("idle");
   const [contactMessage, setContactMessage] = React.useState("");
   const t = TRANSLATIONS[lang];
+  const dashboardRecentItems = DASHBOARD_RECENT_RECONCILIATIONS[lang] ?? DASHBOARD_RECENT_RECONCILIATIONS.pt;
 
   const heroRef = React.useRef(null);
   const showcaseRef = React.useRef(null);
@@ -553,7 +535,7 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion={shouldUseLiteMotion ? "always" : "never"}>
-    <div className={`app-new${isDarkMode ? " dark-mode" : ""}`}>
+    <div className="app-new dark-mode">
       <motion.nav
         className={`nav-new ${isNavScrolled ? "scrolled" : ""}`}
         initial={shouldUseLiteMotion ? false : { y: -100 }}
@@ -608,19 +590,6 @@ export default function App() {
                 ))}
               </div>
 
-              <button
-                type="button"
-                className="theme-toggle-new"
-                onClick={() => {
-                  setIsDarkMode((value) => !value);
-                  setIsMobileMenuOpen(false);
-                }}
-                aria-label={isDarkMode ? t.theme.light : t.theme.dark}
-              >
-                {isDarkMode ? <Sun size={15} /> : <Moon size={15} />}
-                <span>{isDarkMode ? t.theme.light : t.theme.dark}</span>
-              </button>
-
               <a href="#demo" className="btn-primary-new" onClick={() => setIsMobileMenuOpen(false)}>{t.nav.contact}</a>
             </div>
           </div>
@@ -628,22 +597,6 @@ export default function App() {
       </motion.nav>
 
       <section ref={heroRef} className="hero-new">
-        <motion.div
-          className="hero-bg"
-          initial={shouldUseLiteMotion ? false : { opacity: 0.75, scale: 1.02 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: shouldUseLiteMotion ? 0.3 : 0.9, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <div className="hero-bg-grid" />
-          <div className="hero-bg-vignette" />
-          <div className="hero-bg-fade" />
-          <div className="hero-bg-orbs">
-            <motion.div className="gradient-orb orb-1" />
-            <motion.div className="gradient-orb orb-2" />
-            <motion.div className="gradient-orb orb-3" />
-          </div>
-        </motion.div>
-
         <div className="container-new">
           <motion.div
             className="hero-content-new"
@@ -651,16 +604,6 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: shouldUseLiteMotion ? 0.3 : 0.55, ease: "easeOut" }}
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="hero-badge-new"
-            >
-              <span className="pulse-dot-new" />
-              {t.hero.badge}
-            </motion.div>
-
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -708,24 +651,6 @@ export default function App() {
               <a href="#how-it-works" className="btn-secondary-large-new">{t.hero.watch}</a>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="hero-stats-new"
-            >
-              {t.stats.map((stat, i) => (
-                <motion.div
-                  key={i}
-                  className="stat-card-new"
-                  whileHover={shouldUseLiteMotion ? undefined : { y: -5, scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <div className="stat-value-new">{stat.value}</div>
-                  <div className="stat-label-new">{stat.label}</div>
-                </motion.div>
-              ))}
-            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -844,24 +769,29 @@ export default function App() {
 
           {shouldRenderShowcase ? (
             shouldUseLiteMotion ? (
-              <div className="dashboard-lite-new" aria-hidden="true">
-                <div className="dashboard-lite-header-new">
-                  <h3>{t.dashboard.title}</h3>
-                  <span>{t.dashboard.live}</span>
-                </div>
-                <div className="dashboard-lite-grid-new">
-                  {DASHBOARD_SUMMARY_METRICS.map(({ label, value }) => (
-                    <article className="dashboard-lite-card-new" key={label[lang]}>
-                      <p>{label[lang]}</p>
-                      <strong>{value}</strong>
-                      <em>Exemplo</em>
-                    </article>
-                  ))}
-                </div>
-                <div className="dashboard-lite-trend-new" aria-hidden="true">
-                  {DASHBOARD_MONTHLY_VALUES.map((value, i) => (
-                    <span key={i} style={{ height: `${value}%` }} />
-                  ))}
+              <div className="dashboard-preview" aria-hidden="true">
+                <div className="dashboard-main-new dashboard-main-recent-new">
+                  <div className="dashboard-main-header-new">
+                    <h3>{t.dashboard.recentTitle}</h3>
+                    <button type="button" className="dashboard-view-all-new">{t.dashboard.viewAll}</button>
+                  </div>
+
+                  <div className="dashboard-recent-list-new">
+                    {dashboardRecentItems.map((item) => (
+                      <article className="dashboard-recent-item-new" key={item.id}>
+                        <div className="dashboard-recent-content-new">
+                          <h4>{item.title}</h4>
+                          <p>{item.date}</p>
+                        </div>
+                        {item.reconciled ? (
+                          <span className="dashboard-status-new">
+                            <CheckCircle2 size={16} />
+                            {t.dashboard.reconciled}
+                          </span>
+                        ) : null}
+                      </article>
+                    ))}
+                  </div>
                 </div>
               </div>
             ) : (
@@ -871,109 +801,31 @@ export default function App() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: shouldUseLiteMotion ? 0.25 : 0.8 }}
+                aria-hidden="true"
               >
-              <aside className="dashboard-sidebar-new" aria-hidden="true">
-                <a href="#" className="dashboard-side-logo-new">
-                  <img src="/logo_hex.svg" alt="BeeFirst" loading="lazy" decoding="async" width="24" height="24" />
-                  <span>BeeFirst</span>
-                </a>
-                <div className="dashboard-side-nav-new">
-                  {DASHBOARD_SIDEBAR_ITEMS.map(({ key, label, Icon, active }) => (
-                    <button type="button" className={`dashboard-side-item-new${active ? " active" : ""}`} aria-label={label[lang]} key={key}>
-                      <Icon size={16} />
-                      <span>{label[lang]}</span>
-                    </button>
-                  ))}
-                </div>
-              </aside>
+                <div className="dashboard-main-new dashboard-main-recent-new">
+                  <div className="dashboard-main-header-new">
+                    <h3>{t.dashboard.recentTitle}</h3>
+                    <button type="button" className="dashboard-view-all-new">{t.dashboard.viewAll}</button>
+                  </div>
 
-              <div className="dashboard-main-new">
-                <div className="dashboard-main-header-new">
-                  <h3>{t.dashboard.title}</h3>
-                  <div className="dashboard-live-new">
-                    <span />
-                    {t.dashboard.live}
+                  <div className="dashboard-recent-list-new">
+                    {dashboardRecentItems.map((item) => (
+                      <article className="dashboard-recent-item-new" key={item.id}>
+                        <div className="dashboard-recent-content-new">
+                          <h4>{item.title}</h4>
+                          <p>{item.date}</p>
+                        </div>
+                        {item.reconciled ? (
+                          <span className="dashboard-status-new">
+                            <CheckCircle2 size={16} />
+                            {t.dashboard.reconciled}
+                          </span>
+                        ) : null}
+                      </article>
+                    ))}
                   </div>
                 </div>
-
-                <p className="dashboard-summary-new">{t.dashboard.summary}</p>
-                <div className="dashboard-metrics-new">
-                  {DASHBOARD_SUMMARY_METRICS.map(({ label, value, Icon, tone }) => (
-                    <article className="dashboard-stat-new" key={label[lang]}>
-                      <div className="dashboard-stat-content-new">
-                        <span>{label[lang]}</span>
-                        <strong>{value}</strong>
-                      </div>
-                      <div className={`dashboard-stat-icon-new tone-${tone}`}>
-                        <Icon size={18} />
-                      </div>
-                    </article>
-                  ))}
-                </div>
-
-                <div className="dashboard-actions-new">
-                  <button type="button" className="dashboard-action-new primary">
-                    <Plus size={16} />
-                    {t.dashboard.newReconciliation}
-                  </button>
-                  <button type="button" className="dashboard-action-new secondary">
-                    <Building2 size={16} />
-                    {t.dashboard.manageCompanies}
-                  </button>
-                </div>
-
-                <div className="dashboard-mini-charts-new">
-                  <article className="dashboard-mini-chart-new">
-                    <div className="dashboard-mini-chart-head-new">
-                      <h4>{t.dashboard.activity}</h4>
-                    </div>
-                    <div className="dashboard-mini-line-new">
-                      {DASHBOARD_ACTIVITY_VALUES.map((value, i) => (
-                        <span
-                          key={i}
-                          className="dashboard-mini-point-new"
-                          style={{
-                            left: `${(i / (DASHBOARD_ACTIVITY_VALUES.length - 1)) * 100}%`,
-                            bottom: `${18 + ((value - DASHBOARD_ACTIVITY_MIN) / DASHBOARD_ACTIVITY_RANGE) * 52}%`
-                          }}
-                        />
-                      ))}
-                      <svg viewBox="0 0 100 56" preserveAspectRatio="none" aria-hidden="true">
-                        <polyline
-                          points={DASHBOARD_ACTIVITY_VALUES.map((value, i) => {
-                            const x = (i / (DASHBOARD_ACTIVITY_VALUES.length - 1)) * 100;
-                            const y = 52 - ((value - DASHBOARD_ACTIVITY_MIN) / DASHBOARD_ACTIVITY_RANGE) * 36;
-                            return `${x},${y}`;
-                          }).join(" ")}
-                        />
-                      </svg>
-                    </div>
-                    <div className="dashboard-mini-axis-new">
-                      {t.dashboard.weekDays.map((day) => (
-                        <span key={day}>{day}</span>
-                      ))}
-                    </div>
-                  </article>
-
-                  <article className="dashboard-mini-chart-new">
-                    <div className="dashboard-mini-chart-head-new">
-                      <h4>{t.dashboard.trend}</h4>
-                    </div>
-                    <div className="dashboard-mini-bars-new">
-                      {DASHBOARD_MONTHLY_VALUES.map((value, i) => (
-                        <span key={i} style={{ height: `${value}%` }} />
-                      ))}
-                    </div>
-                    <div className="dashboard-mini-axis-new">
-                      {t.dashboard.months.map((month) => (
-                        <span key={month}>{month}</span>
-                      ))}
-                    </div>
-                  </article>
-                </div>
-              </div>
-
-              <div className="dashboard-glow" />
               </motion.div>
             )
           ) : (
