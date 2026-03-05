@@ -1,20 +1,15 @@
 ﻿import React from "react";
 import { MotionConfig, motion } from "framer-motion";
 import {
-Activity,
   AlertCircle,
-  ArrowUp,
-  Info,
+  Building2,
+  CheckCircle2,
+  ClipboardList,
   LayoutGrid,
   Menu,
-  MessageSquare,
   Moon,
-  MoreHorizontal,
-  RefreshCcw,
-  Settings,
-  ShieldBan,
+  Plus,
   Sun,
-  Users,
   X
 } from "lucide-react";
 import { submitLeadCapture } from "./lib/leadCapture";
@@ -111,12 +106,13 @@ const TRANSLATIONS = {
     dashboard: {
       title: "Dashboard",
       live: "AO VIVO",
-      overview: "Visão Geral",
-      advanced: "Métricas Avançadas",
-      weekly: "Atividade Semanal",
-      growth: "Crescimento de Utilizadores",
-      weekDays: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
-      months: ["Jan", "Mar", "Mai", "Jul", "Set", "Nov"]
+      summary: "Exemplo visual do dashboard (dados fictícios)",
+      newReconciliation: "Nova Conciliação",
+      manageCompanies: "Gerenciar Empresas",
+      activity: "Atividade Semanal",
+      trend: "Evolução Mensal",
+      weekDays: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
+      months: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"]
     },
     contact: {
       tag: "CTA Final",
@@ -225,12 +221,13 @@ const TRANSLATIONS = {
     dashboard: {
       title: "Dashboard",
       live: "LIVE",
-      overview: "Overview",
-      advanced: "Advanced Metrics",
-      weekly: "Weekly Activity",
-      growth: "User Growth",
-      weekDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-      months: ["Jan", "Mar", "May", "Jul", "Sep", "Nov"]
+      summary: "Visual dashboard example (sample data)",
+      newReconciliation: "New Reconciliation",
+      manageCompanies: "Manage Companies",
+      activity: "Weekly Activity",
+      trend: "Monthly Trend",
+      weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
     },
     contact: {
       tag: "Final CTA",
@@ -339,12 +336,13 @@ const TRANSLATIONS = {
     dashboard: {
       title: "Dashboard",
       live: "EN VIVO",
-      overview: "Vision General",
-      advanced: "Metricas Avanzadas",
-      weekly: "Actividad Semanal",
-      growth: "Crecimiento de Usuarios",
-      weekDays: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sáb"],
-      months: ["Ene", "Mar", "May", "Jul", "Sep", "Nov"]
+      summary: "Ejemplo visual del dashboard (datos ficticios)",
+      newReconciliation: "Nueva Conciliación",
+      manageCompanies: "Gestionar Empresas",
+      activity: "Actividad Semanal",
+      trend: "Evolución Mensual",
+      weekDays: ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
+      months: ["Ene", "Feb", "Mar", "Abr", "May", "Jun"]
     },
     contact: {
       tag: "CTA Final",
@@ -373,23 +371,22 @@ const TRANSLATIONS = {
   }
 };
 
-const DASHBOARD_OVERVIEW_METRICS = [
-  { label: { pt: "Total de Mensagens", en: "Total Messages", es: "Mensajes Totales" }, value: "12,543", change: "+15.2%", Icon: Activity },
-  { label: { pt: "Utilizadores Ativos", en: "Active Users", es: "Usuarios Activos" }, value: "4,567", change: "+8.4%", Icon: Users },
-  { label: { pt: "Leads Gerados", en: "Leads Generated", es: "Leads Generados" }, value: "890", change: "+22.1%", Icon: MoreHorizontal },
-  { label: { pt: "Total de Utilizadores", en: "Total Users", es: "Total de Usuarios" }, value: "10,000", change: "+12.0%", Icon: ArrowUp }
+const DASHBOARD_SUMMARY_METRICS = [
+  { label: { pt: "Empresas", en: "Companies", es: "Empresas" }, value: "12", Icon: Building2, tone: "neutral" },
+  { label: { pt: "Conciliações", en: "Reconciliations", es: "Conciliaciones" }, value: "248", Icon: ClipboardList, tone: "warning" },
+  { label: { pt: "Conciliadas", en: "Reconciled", es: "Conciliadas" }, value: "231", Icon: CheckCircle2, tone: "success" },
+  { label: { pt: "Pendentes", en: "Pending", es: "Pendientes" }, value: "17", Icon: AlertCircle, tone: "danger" }
 ];
+const DASHBOARD_ACTIVITY_VALUES = [38, 44, 41, 52, 49, 58, 55];
+const DASHBOARD_ACTIVITY_MIN = Math.min(...DASHBOARD_ACTIVITY_VALUES);
+const DASHBOARD_ACTIVITY_RANGE = Math.max(...DASHBOARD_ACTIVITY_VALUES) - DASHBOARD_ACTIVITY_MIN || 1;
+const DASHBOARD_MONTHLY_VALUES = [35, 39, 44, 48, 57, 62];
 
-const DASHBOARD_ADVANCED_METRICS = [
-  { label: { pt: "Escalonamentos", en: "Escalations", es: "Escalamientos" }, value: "54", change: "+2.5%", Icon: AlertCircle },
-  { label: { pt: "Taxa de Escalonamento", en: "Escalation Rate", es: "Tasa de Escalamiento" }, value: "2.8%", change: "+0.3%", Icon: AlertCircle },
-  { label: { pt: "Taxa de Retenção", en: "Retention Rate", es: "Tasa de Retención" }, value: "91.5%", change: "+4.0%", Icon: Activity },
-  { label: { pt: "Média Msg/Utilizador", en: "Avg Msg/User", es: "Media Msg/Usuario" }, value: "2.75", change: "+0.2%", Icon: MessageSquare }
+const DASHBOARD_SIDEBAR_ITEMS = [
+  { key: "dashboard", label: { pt: "Dashboard", en: "Dashboard", es: "Dashboard" }, Icon: LayoutGrid, active: true },
+  { key: "companies", label: { pt: "Empresas", en: "Companies", es: "Empresas" }, Icon: Building2, active: false },
+  { key: "reconciliations", label: { pt: "Conciliações", en: "Reconciliations", es: "Conciliaciones" }, Icon: ClipboardList, active: false }
 ];
-
-const DASHBOARD_SIDEBAR_ICONS = [MessageSquare, ShieldBan, RefreshCcw, Info, Settings];
-const WEEKLY_ACTIVITY_VALUES = [15, 33, 30, 28, 39, 48, 41];
-const USER_GROWTH_VALUES = [18, 24, 30, 38, 44, 56, 62, 70];
 const MOBILE_BREAKPOINT = 768;
 const NAV_SCROLL_THRESHOLD = 50;
 
@@ -853,19 +850,17 @@ export default function App() {
                   <span>{t.dashboard.live}</span>
                 </div>
                 <div className="dashboard-lite-grid-new">
-                  {DASHBOARD_OVERVIEW_METRICS.slice(0, 2).map(({ label, value, change }) => (
+                  {DASHBOARD_SUMMARY_METRICS.map(({ label, value }) => (
                     <article className="dashboard-lite-card-new" key={label[lang]}>
                       <p>{label[lang]}</p>
                       <strong>{value}</strong>
-                      <em>{change}</em>
+                      <em>Exemplo</em>
                     </article>
                   ))}
-                  {DASHBOARD_ADVANCED_METRICS.slice(0, 2).map(({ label, value, change }) => (
-                    <article className="dashboard-lite-card-new" key={label[lang]}>
-                      <p>{label[lang]}</p>
-                      <strong>{value}</strong>
-                      <em>{change}</em>
-                    </article>
+                </div>
+                <div className="dashboard-lite-trend-new" aria-hidden="true">
+                  {DASHBOARD_MONTHLY_VALUES.map((value, i) => (
+                    <span key={i} style={{ height: `${value}%` }} />
                   ))}
                 </div>
               </div>
@@ -880,15 +875,16 @@ export default function App() {
               <aside className="dashboard-sidebar-new" aria-hidden="true">
                 <a href="#" className="dashboard-side-logo-new">
                   <img src="/logo_hex.svg" alt="BeeFirst" loading="lazy" decoding="async" width="24" height="24" />
+                  <span>BeeFirst</span>
                 </a>
-                <button type="button" className="dashboard-side-item-new active" aria-label="Overview">
-                  <LayoutGrid size={13} />
-                </button>
-                {DASHBOARD_SIDEBAR_ICONS.map((Icon, i) => (
-                  <button type="button" className="dashboard-side-item-new" aria-label={`Menu ${i + 1}`} key={i}>
-                    <Icon size={13} />
-                  </button>
-                ))}
+                <div className="dashboard-side-nav-new">
+                  {DASHBOARD_SIDEBAR_ITEMS.map(({ key, label, Icon, active }) => (
+                    <button type="button" className={`dashboard-side-item-new${active ? " active" : ""}`} aria-label={label[lang]} key={key}>
+                      <Icon size={16} />
+                      <span>{label[lang]}</span>
+                    </button>
+                  ))}
+                </div>
               </aside>
 
               <div className="dashboard-main-new">
@@ -900,70 +896,75 @@ export default function App() {
                   </div>
                 </div>
 
-                <p className="dashboard-section-title-new">{t.dashboard.overview}</p>
+                <p className="dashboard-summary-new">{t.dashboard.summary}</p>
                 <div className="dashboard-metrics-new">
-                  {DASHBOARD_OVERVIEW_METRICS.map(({ label, value, change, Icon }) => (
+                  {DASHBOARD_SUMMARY_METRICS.map(({ label, value, Icon, tone }) => (
                     <article className="dashboard-stat-new" key={label[lang]}>
-                      <div className="dashboard-stat-head-new">
+                      <div className="dashboard-stat-content-new">
                         <span>{label[lang]}</span>
-                        <Icon size={12} />
-                      </div>
-                      <div className="dashboard-stat-value-new">
                         <strong>{value}</strong>
-                        <em>{change}</em>
+                      </div>
+                      <div className={`dashboard-stat-icon-new tone-${tone}`}>
+                        <Icon size={18} />
                       </div>
                     </article>
                   ))}
                 </div>
 
-                <p className="dashboard-section-title-new">{t.dashboard.advanced}</p>
-                <div className="dashboard-metrics-new">
-                  {DASHBOARD_ADVANCED_METRICS.map(({ label, value, change, Icon }) => (
-                    <article className="dashboard-stat-new" key={label[lang]}>
-                      <div className="dashboard-stat-head-new">
-                        <span>{label[lang]}</span>
-                        <Icon size={12} />
-                      </div>
-                      <div className="dashboard-stat-value-new">
-                        <strong>{value}</strong>
-                        <em>{change}</em>
-                      </div>
-                    </article>
-                  ))}
+                <div className="dashboard-actions-new">
+                  <button type="button" className="dashboard-action-new primary">
+                    <Plus size={16} />
+                    {t.dashboard.newReconciliation}
+                  </button>
+                  <button type="button" className="dashboard-action-new secondary">
+                    <Building2 size={16} />
+                    {t.dashboard.manageCompanies}
+                  </button>
                 </div>
 
-                <div className="dashboard-charts-new">
-                  <article className="dashboard-chart-new">
-                    <h4>{t.dashboard.weekly}</h4>
-                    <div className="dashboard-line-plot-new">
-                      {WEEKLY_ACTIVITY_VALUES.map((value, i) => (
-                        <div
+                <div className="dashboard-mini-charts-new">
+                  <article className="dashboard-mini-chart-new">
+                    <div className="dashboard-mini-chart-head-new">
+                      <h4>{t.dashboard.activity}</h4>
+                    </div>
+                    <div className="dashboard-mini-line-new">
+                      {DASHBOARD_ACTIVITY_VALUES.map((value, i) => (
+                        <span
                           key={i}
-                          className="dashboard-line-point-new"
-                          style={{ left: `${(i / (WEEKLY_ACTIVITY_VALUES.length - 1)) * 100}%`, bottom: `${value}%` }}
+                          className="dashboard-mini-point-new"
+                          style={{
+                            left: `${(i / (DASHBOARD_ACTIVITY_VALUES.length - 1)) * 100}%`,
+                            bottom: `${18 + ((value - DASHBOARD_ACTIVITY_MIN) / DASHBOARD_ACTIVITY_RANGE) * 52}%`
+                          }}
                         />
                       ))}
-                      <svg viewBox="0 0 100 55" preserveAspectRatio="none" aria-hidden="true">
+                      <svg viewBox="0 0 100 56" preserveAspectRatio="none" aria-hidden="true">
                         <polyline
-                          points={WEEKLY_ACTIVITY_VALUES.map((value, i) => `${(i / (WEEKLY_ACTIVITY_VALUES.length - 1)) * 100},${55 - value * 0.8}`).join(" ")}
+                          points={DASHBOARD_ACTIVITY_VALUES.map((value, i) => {
+                            const x = (i / (DASHBOARD_ACTIVITY_VALUES.length - 1)) * 100;
+                            const y = 52 - ((value - DASHBOARD_ACTIVITY_MIN) / DASHBOARD_ACTIVITY_RANGE) * 36;
+                            return `${x},${y}`;
+                          }).join(" ")}
                         />
                       </svg>
                     </div>
-                    <div className="dashboard-axis-new">
+                    <div className="dashboard-mini-axis-new">
                       {t.dashboard.weekDays.map((day) => (
                         <span key={day}>{day}</span>
                       ))}
                     </div>
                   </article>
 
-                  <article className="dashboard-chart-new">
-                    <h4>{t.dashboard.growth}</h4>
-                    <div className="dashboard-bars-new">
-                      {USER_GROWTH_VALUES.map((value, i) => (
+                  <article className="dashboard-mini-chart-new">
+                    <div className="dashboard-mini-chart-head-new">
+                      <h4>{t.dashboard.trend}</h4>
+                    </div>
+                    <div className="dashboard-mini-bars-new">
+                      {DASHBOARD_MONTHLY_VALUES.map((value, i) => (
                         <span key={i} style={{ height: `${value}%` }} />
                       ))}
                     </div>
-                    <div className="dashboard-axis-new">
+                    <div className="dashboard-mini-axis-new">
                       {t.dashboard.months.map((month) => (
                         <span key={month}>{month}</span>
                       ))}
