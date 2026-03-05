@@ -831,7 +831,7 @@ export const content = {
       subtitle: "Escolha a melhor forma de se conectar conosco.",
       whatsapp: {
         title: "Falar com nossa agente de IA",
-        desc: "Fale com a Beea, nossa assistente virtual que vai te ajudar a encontrar a solucao ideal da beefirst para sua empresa e enteder nossos servicos.",
+        desc: "Fale com a Beea, nossa assistente virtual que vai te ajudar a encontrar a solucao ideal da BeeFirst para sua empresa e enteder nossos servicos.",
         button: "Iniciar Chat no WhatsApp"
       },
       form: {

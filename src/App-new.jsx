@@ -1,8 +1,13 @@
 ﻿import React from "react";
 import { MotionConfig, motion } from "framer-motion";
 import {
+  Building2,
   CheckCircle2,
+  CircleAlert,
+  FileText,
+  LayoutGrid,
   Menu,
+  Plus,
   X
 } from "lucide-react";
 import { submitLeadCapture } from "./lib/leadCapture";
@@ -30,7 +35,7 @@ const TRANSLATIONS = {
     hero: {
       badge: "HIVE - Conciliação Automática para Contabilistas",
       title: "Reduza horas de conciliação bancária",
-      subtitle: "a segundos.",
+      subtitle: "a segundos",
       description: "Automatize o cruzamento entre contabilidade e extratos bancários com a Hive.",
       bullets: [
         "Identificação automática de movimentos correspondentes",
@@ -59,7 +64,8 @@ const TRANSLATIONS = {
     },
     reconciliation: {
       tag: "A Solução",
-      title: "Apresentamos a Hive - Conciliação Automática",
+      title: "Apresentamos a Hive",
+      titleLine2: "Conciliação Automática",
       subtitle: "A Hive utiliza inteligência artificial para cruzar automaticamente lançamentos contabilísticos e movimentos de extratos bancários. Em segundos, identifica:",
       cards: [
         { icon: "", title: "Valores que coincidem", desc: "Identificação automática de movimentos correspondentes." },
@@ -88,15 +94,33 @@ const TRANSLATIONS = {
         { icon: "", title: "Menor dependência de tarefas manuais", desc: "A equipa foca-se em trabalho estratégico." },
         { icon: "", title: "Redução de erros", desc: "Maior consistência no fecho contabilístico." },
         { icon: "", title: "Capacidade para novos clientes", desc: "Escale a carteira sem aumentar fricção operacional." },
-        { icon: "", title: "Aumento de rentabilidade", desc: "Automatize uma das tarefas mais repetitivas da contabilidade." }
+        { icon: "", title: "Aumento de rentabilidade", desc: "Automatize uma das tarefas mais repetitivas da contabilidade." },
+        { icon: "", title: "Maior controlo financeiro", desc: "Tenha visão clara do estado das conciliações em tempo real." }
       ]
     },
     showcase: {
       tag: "Porque HIVE",
-      title: "A Hive é uma plataforma de agentes inteligentes desenvolvida pela Beefirst para automatizar operações empresariais.",
+      title: "A Hive é uma plataforma de agentes inteligentes desenvolvida pela BeeFirst para automatizar operações empresariais.",
       subtitle: "A conciliação é apenas o primeiro passo. Expanda para gestão documental, relatórios inteligentes, automação de processos e comunicação com clientes. Cresce com o seu gabinete."
     },
     dashboard: {
+      greeting: "Olá, Admin! 👋",
+      summary: "Aqui está um resumo da sua contabilidade",
+      sidebar: {
+        dashboard: "Dashboard",
+        companies: "Empresas",
+        reconciliations: "Conciliações"
+      },
+      metrics: {
+        companies: "Empresas",
+        reconciliations: "Conciliações",
+        reconciled: "Conciliadas",
+        pending: "Pendentes"
+      },
+      actions: {
+        newReconciliation: "Nova Conciliação",
+        manageCompanies: "Gerenciar Empresas"
+      },
       recentTitle: "Conciliações Recentes",
       viewAll: "Ver todas",
       reconciled: "Conciliada"
@@ -168,7 +192,8 @@ const TRANSLATIONS = {
     },
     reconciliation: {
       tag: "The Solution",
-      title: "Meet Hive - Automatic Reconciliation",
+      title: "Meet Hive",
+      titleLine2: "Automatic Reconciliation",
       subtitle: "Hive uses AI to automatically cross-check accounting entries and bank statement movements. In seconds, it identifies:",
       cards: [
         { icon: "", title: "Matching values", desc: "Automatic identification of corresponding movements." },
@@ -197,7 +222,8 @@ const TRANSLATIONS = {
         { icon: "", title: "Lower manual dependency", desc: "Team can focus on strategic work." },
         { icon: "", title: "Error reduction", desc: "More reliable financial closing." },
         { icon: "", title: "Capacity for new clients", desc: "Scale your portfolio with less friction." },
-        { icon: "", title: "Higher profitability", desc: "Automate one of accounting's most repetitive tasks." }
+        { icon: "", title: "Higher profitability", desc: "Automate one of accounting's most repetitive tasks." },
+        { icon: "", title: "Greater financial control", desc: "Track reconciliation status with clear real-time visibility." }
       ]
     },
     showcase: {
@@ -206,6 +232,23 @@ const TRANSLATIONS = {
       subtitle: "Reconciliation is only the first step. Expand into document management, smart reporting, process automation, and client communication."
     },
     dashboard: {
+      greeting: "Hello, Admin! 👋",
+      summary: "Here is an overview of your accounting",
+      sidebar: {
+        dashboard: "Dashboard",
+        companies: "Companies",
+        reconciliations: "Reconciliations"
+      },
+      metrics: {
+        companies: "Companies",
+        reconciliations: "Reconciliations",
+        reconciled: "Reconciled",
+        pending: "Pending"
+      },
+      actions: {
+        newReconciliation: "New Reconciliation",
+        manageCompanies: "Manage Companies"
+      },
       recentTitle: "Recent Reconciliations",
       viewAll: "View all",
       reconciled: "Reconciled"
@@ -277,7 +320,8 @@ const TRANSLATIONS = {
     },
     reconciliation: {
       tag: "La Solucion",
-      title: "Presentamos Hive - Conciliacion Automatica",
+      title: "Presentamos Hive",
+      titleLine2: "Conciliacion Automatica",
       subtitle: "Hive usa inteligencia artificial para cruzar automaticamente asientos contables y movimientos bancarios. En segundos, identifica:",
       cards: [
         { icon: "", title: "Valores coincidentes", desc: "Identificacion automatica de movimientos correspondientes." },
@@ -306,7 +350,8 @@ const TRANSLATIONS = {
         { icon: "", title: "Menor dependencia manual", desc: "El equipo se enfoca en tareas estrategicas." },
         { icon: "", title: "Reduccion de errores", desc: "Mayor consistencia en el cierre contable." },
         { icon: "", title: "Capacidad para nuevos clientes", desc: "Escala la cartera con menos friccion." },
-        { icon: "", title: "Mayor rentabilidad", desc: "Automatiza una de las tareas mas repetitivas." }
+        { icon: "", title: "Mayor rentabilidad", desc: "Automatiza una de las tareas mas repetitivas." },
+        { icon: "", title: "Mayor control financiero", desc: "Sigue el estado de conciliacion con visibilidad en tiempo real." }
       ]
     },
     showcase: {
@@ -315,6 +360,23 @@ const TRANSLATIONS = {
       subtitle: "La conciliacion es solo el primer paso. Expande a gestion documental, reportes inteligentes, automatizacion de procesos y comunicacion con clientes."
     },
     dashboard: {
+      greeting: "Hola, Admin! 👋",
+      summary: "Aquí tienes un resumen de tu contabilidad",
+      sidebar: {
+        dashboard: "Panel",
+        companies: "Empresas",
+        reconciliations: "Conciliaciones"
+      },
+      metrics: {
+        companies: "Empresas",
+        reconciliations: "Conciliaciones",
+        reconciled: "Conciliadas",
+        pending: "Pendientes"
+      },
+      actions: {
+        newReconciliation: "Nueva Conciliación",
+        manageCompanies: "Gestionar Empresas"
+      },
       recentTitle: "Conciliaciones Recientes",
       viewAll: "Ver todas",
       reconciled: "Conciliada"
@@ -348,27 +410,41 @@ const TRANSLATIONS = {
 
 const DASHBOARD_RECENT_RECONCILIATIONS = {
   pt: [
-    { id: "sample", title: "Sample: Sample 24-2", date: "24/02/2026, 17:14" },
-    { id: "fabio-teste", title: "Fabio: Teste", date: "18/02/2026, 13:31" },
-    { id: "empresa-1-a", title: "Empresa 1: 13/02/2026", date: "13/02/2026, 15:50" },
-    { id: "fabio-1302", title: "Fabio: 13/02/2026", date: "13/02/2026, 14:49", reconciled: true },
-    { id: "empresa-1-b", title: "Empresa 1: 13/02/2026", date: "13/02/2026, 13:20" }
+    { id: "mariana", title: "Mariana: Fecho Fevereiro", date: "24/02/2026, 17:14" },
+    { id: "ricardo-teste", title: "Ricardo", date: "18/02/2026, 13:31" },
+    { id: "lusitania-a", title: "Lusitânia Lda: 13/02/2026", date: "13/02/2026, 15:50" },
+    { id: "pedro-1302", title: "Pedro: 13/02/2026", date: "13/02/2026, 14:49", reconciled: true },
+    { id: "atlantico-b", title: "Atlântico SA: 13/02/2026", date: "13/02/2026, 13:20" }
   ],
   en: [
-    { id: "sample", title: "Sample: Sample 24-2", date: "02/24/2026, 17:14" },
-    { id: "fabio-teste", title: "Fabio: Test", date: "02/18/2026, 13:31" },
-    { id: "company-1-a", title: "Company 1: 02/13/2026", date: "02/13/2026, 15:50" },
-    { id: "fabio-1302", title: "Fabio: 02/13/2026", date: "02/13/2026, 14:49", reconciled: true },
-    { id: "company-1-b", title: "Company 1: 02/13/2026", date: "02/13/2026, 13:20" }
+    { id: "mariana", title: "Mariana: February Close", date: "02/24/2026, 17:14" },
+    { id: "ricardo-test", title: "Ricardo", date: "02/18/2026, 13:31" },
+    { id: "lusitania-a", title: "Lusitania LLC: 02/13/2026", date: "02/13/2026, 15:50" },
+    { id: "pedro-1302", title: "Pedro: 02/13/2026", date: "02/13/2026, 14:49", reconciled: true },
+    { id: "atlantico-b", title: "Atlantico Inc.: 02/13/2026", date: "02/13/2026, 13:20" }
   ],
   es: [
-    { id: "sample", title: "Sample: Sample 24-2", date: "24/02/2026, 17:14" },
-    { id: "fabio-teste", title: "Fabio: Teste", date: "18/02/2026, 13:31" },
-    { id: "empresa-1-a", title: "Empresa 1: 13/02/2026", date: "13/02/2026, 15:50" },
-    { id: "fabio-1302", title: "Fabio: 13/02/2026", date: "13/02/2026, 14:49", reconciled: true },
-    { id: "empresa-1-b", title: "Empresa 1: 13/02/2026", date: "13/02/2026, 13:20" }
+    { id: "mariana", title: "Mariana: Cierre de febrero", date: "24/02/2026, 17:14" },
+    { id: "ricardo-test", title: "Ricardo", date: "18/02/2026, 13:31" },
+    { id: "lusitania-a", title: "Lusitania SL: 13/02/2026", date: "13/02/2026, 15:50" },
+    { id: "pedro-1302", title: "Pedro: 13/02/2026", date: "13/02/2026, 14:49", reconciled: true },
+    { id: "atlantico-b", title: "Atlántico SA: 13/02/2026", date: "13/02/2026, 13:20" }
   ]
 };
+
+const DASHBOARD_METRIC_CARDS = [
+  { id: "companies", value: 3, tone: "neutral", icon: Building2 },
+  { id: "reconciliations", value: 46, tone: "warning", icon: FileText },
+  { id: "reconciled", value: 6, tone: "success", icon: CheckCircle2 },
+  { id: "pending", value: 4, tone: "danger", icon: CircleAlert }
+];
+
+const DASHBOARD_SIDE_ITEMS = [
+  { id: "dashboard", icon: LayoutGrid, active: true },
+  { id: "companies", icon: Building2, active: false },
+  { id: "reconciliations", icon: FileText, active: false }
+];
+
 const MOBILE_BREAKPOINT = 768;
 const NAV_SCROLL_THRESHOLD = 50;
 
@@ -386,7 +462,10 @@ export default function App() {
   const [contactStatus, setContactStatus] = React.useState("idle");
   const [contactMessage, setContactMessage] = React.useState("");
   const t = TRANSLATIONS[lang];
-  const dashboardRecentItems = DASHBOARD_RECENT_RECONCILIATIONS[lang] ?? DASHBOARD_RECENT_RECONCILIATIONS.pt;
+  const dashboardText = TRANSLATIONS.pt.dashboard;
+  const dashboardRecentItems = DASHBOARD_RECENT_RECONCILIATIONS.pt;
+  const dashboardMetricCards = DASHBOARD_METRIC_CARDS;
+  const dashboardSideItems = DASHBOARD_SIDE_ITEMS;
 
   const heroRef = React.useRef(null);
   const showcaseRef = React.useRef(null);
@@ -532,6 +611,94 @@ export default function App() {
       );
     }
   };
+
+  const dashboardPreviewContent = (
+    <>
+      <aside className="dashboard-sidebar-new">
+        <div className="dashboard-side-logo-new">
+          <img src="/logo_hex.svg" alt="" width="28" height="28" />
+          <span>BeeFirst</span>
+        </div>
+
+        <nav className="dashboard-side-nav-new">
+          {dashboardSideItems.map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <button
+                key={item.id}
+                type="button"
+                className={`dashboard-side-item-new ${item.active ? "active" : ""}`}
+              >
+                <Icon size={14} />
+                <span>{dashboardText.sidebar[item.id]}</span>
+              </button>
+            );
+          })}
+        </nav>
+      </aside>
+
+      <div className="dashboard-main-new">
+        <div className="dashboard-main-header-new">
+          <h3 className="dashboard-greeting-new">{dashboardText.greeting}</h3>
+        </div>
+        <p className="dashboard-summary-new">{dashboardText.summary}</p>
+
+        <div className="dashboard-metrics-new">
+          {dashboardMetricCards.map((metric) => {
+            const Icon = metric.icon;
+
+            return (
+              <article key={metric.id} className="dashboard-stat-new">
+                <div className="dashboard-stat-content-new">
+                  <span>{dashboardText.metrics[metric.id]}</span>
+                  <strong>{metric.value}</strong>
+                </div>
+                <span className={`dashboard-stat-icon-new tone-${metric.tone}`}>
+                  <Icon size={18} />
+                </span>
+              </article>
+            );
+          })}
+        </div>
+
+        <div className="dashboard-actions-new">
+          <button type="button" className="dashboard-action-new primary">
+            <Plus size={16} />
+            {dashboardText.actions.newReconciliation}
+          </button>
+          <button type="button" className="dashboard-action-new secondary">
+            <Building2 size={16} />
+            {dashboardText.actions.manageCompanies}
+          </button>
+        </div>
+
+        <div className="dashboard-main-new dashboard-main-recent-new">
+          <div className="dashboard-main-header-new">
+            <h3 className="dashboard-recent-title-new">{dashboardText.recentTitle}</h3>
+            <button type="button" className="dashboard-view-all-new">{dashboardText.viewAll}</button>
+          </div>
+
+          <div className="dashboard-recent-list-new">
+            {dashboardRecentItems.map((item) => (
+              <article className="dashboard-recent-item-new" key={item.id}>
+                <div className="dashboard-recent-content-new">
+                  <h4>{item.title}</h4>
+                  <p>{item.date}</p>
+                </div>
+                {item.reconciled ? (
+                  <span className="dashboard-status-new">
+                    <CheckCircle2 size={16} />
+                    {dashboardText.reconciled}
+                  </span>
+                ) : null}
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
 
   return (
     <MotionConfig reducedMotion={shouldUseLiteMotion ? "always" : "never"}>
@@ -696,7 +863,12 @@ export default function App() {
             viewport={{ once: true }}
             className="section-header-new"
           >
-            <h2>{t.reconciliation.title}</h2>
+            <h2>
+              {t.reconciliation.title}
+              {t.reconciliation.titleLine2 ? (
+                <span className="section-title-break-new">{t.reconciliation.titleLine2}</span>
+              ) : null}
+            </h2>
             <p>{t.reconciliation.subtitle}</p>
           </motion.div>
 
@@ -769,63 +941,19 @@ export default function App() {
 
           {shouldRenderShowcase ? (
             shouldUseLiteMotion ? (
-              <div className="dashboard-preview" aria-hidden="true">
-                <div className="dashboard-main-new dashboard-main-recent-new">
-                  <div className="dashboard-main-header-new">
-                    <h3>{t.dashboard.recentTitle}</h3>
-                    <button type="button" className="dashboard-view-all-new">{t.dashboard.viewAll}</button>
-                  </div>
-
-                  <div className="dashboard-recent-list-new">
-                    {dashboardRecentItems.map((item) => (
-                      <article className="dashboard-recent-item-new" key={item.id}>
-                        <div className="dashboard-recent-content-new">
-                          <h4>{item.title}</h4>
-                          <p>{item.date}</p>
-                        </div>
-                        {item.reconciled ? (
-                          <span className="dashboard-status-new">
-                            <CheckCircle2 size={16} />
-                            {t.dashboard.reconciled}
-                          </span>
-                        ) : null}
-                      </article>
-                    ))}
-                  </div>
-                </div>
+              <div className="dashboard-preview dashboard-preview-recent-new" aria-hidden="true">
+                {dashboardPreviewContent}
               </div>
             ) : (
               <motion.div
-                className="dashboard-preview"
+                className="dashboard-preview dashboard-preview-recent-new"
                 initial={shouldUseLiteMotion ? false : { opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: shouldUseLiteMotion ? 0.25 : 0.8 }}
                 aria-hidden="true"
               >
-                <div className="dashboard-main-new dashboard-main-recent-new">
-                  <div className="dashboard-main-header-new">
-                    <h3>{t.dashboard.recentTitle}</h3>
-                    <button type="button" className="dashboard-view-all-new">{t.dashboard.viewAll}</button>
-                  </div>
-
-                  <div className="dashboard-recent-list-new">
-                    {dashboardRecentItems.map((item) => (
-                      <article className="dashboard-recent-item-new" key={item.id}>
-                        <div className="dashboard-recent-content-new">
-                          <h4>{item.title}</h4>
-                          <p>{item.date}</p>
-                        </div>
-                        {item.reconciled ? (
-                          <span className="dashboard-status-new">
-                            <CheckCircle2 size={16} />
-                            {t.dashboard.reconciled}
-                          </span>
-                        ) : null}
-                      </article>
-                    ))}
-                  </div>
-                </div>
+                {dashboardPreviewContent}
               </motion.div>
             )
           ) : (
