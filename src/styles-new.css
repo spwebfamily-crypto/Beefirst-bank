@@ -633,7 +633,7 @@ body {
 .section-header-new h2 {
   font-family: var(--font-display);
   font-size: clamp(36px, 5vw, 56px);
-  font-weight: 900;
+  font-weight: 600;
   margin-bottom: 16px;
   letter-spacing: -0.02em;
 }
@@ -689,7 +689,7 @@ body {
 
 .feature-card-new h3 {
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 12px;
 }
 
@@ -831,7 +831,7 @@ body {
 
 .process-card-new h3 {
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 12px;
 }
 
@@ -891,6 +891,7 @@ body {
   color: #111827;
   font-family: var(--font-display);
   font-size: 14px;
+  font-weight: 600;
   letter-spacing: -0.01em;
 }
 
@@ -1058,7 +1059,7 @@ body {
 .dashboard-main-header-new h3 {
   color: #111827;
   font-size: 24px;
-  font-weight: 800;
+  font-weight: 600;
   font-family: var(--font-display);
   letter-spacing: -0.02em;
 }
@@ -1366,7 +1367,7 @@ body {
 .dashboard-mini-chart-head-new h4 {
   color: #334155;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.02em;
 }
 
@@ -1545,7 +1546,7 @@ body {
 
 .benefit-card-new h3 {
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 8px;
 }
 
@@ -1570,7 +1571,7 @@ body {
 .cta-card h2 {
   font-family: var(--font-display);
   font-size: 48px;
-  font-weight: 900;
+  font-weight: 600;
   margin-bottom: 16px;
   color: white;
 }
